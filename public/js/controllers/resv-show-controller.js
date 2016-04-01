@@ -1,8 +1,5 @@
 angular.module('airline')
-.controller("ResvShowController", function($http,$routeParams){
+.controller("ResvShowController", function(resvSrvc){
 	var controller = this;
-	$http.get('/resv/'+ $routeParams.id)
-	.success(function(data){
-		controller.resv = data;
-	})
+	
 })
