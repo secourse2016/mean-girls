@@ -1,7 +1,8 @@
-var app = angular.module('Airline',['ngRoute']);
+var app = angular.module('airline',['ngRoute']);
 
-app.config(function($routeProvider){
+app.config(function($routeProvider, $locationProvider){
 	$routeProvider.when('/resv',{
-		templateUrl: './views/resv-info.html'
-	})
-});
+
+		templateUrl: 'views/resv-info.html'
+	}
+	)});

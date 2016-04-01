@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" ng-app='Airline'>
+<html  lang="en" >
 
 <head>
-
+	
 	<title>Alaska Airlines</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/resv-info.css" rel="stylesheet">
 	<script src="js/jquery-1.12.2.min.js"> </script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/angular.min.js"> </script>
-	<script src="js/angular-route.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"> </script>
 	<script src="js/core.js"></script>
-	<script src="js/jquery.snow.min.1.0.js"></script>
-	<script>
-	$(document).ready( function(){
-		$.fn.snow({ minSize: 12, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
-	});
-	</script>
-
 
 </head>
 
-<body >
+<body ng-app='airline'>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 
@@ -47,5 +40,7 @@
 		</div>
 	</nav>
 	<div ng-view></div>
+
 </body>
+
 </html>
