@@ -1,66 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="header">
 
-<head>
+    <head>
 
-    <title>Alaska Airlines</title>
+        <title>Alaska Airlines</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="./css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="css/main.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="./css/main.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+        <!-- Custom Fonts -->
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-</head>
+        <!-- JS scripts -->
+        <script src="./core.js"></script>
+        <script src="./js/jquery.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
-<body>
+    </head>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+    <body>
 
-            <div class="navbar-header page-scroll">
-                <a class="navbar-brand" id="logo" href="">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
 
-                    <img class="img-responsive"  src="img/logo.png" alt="">
-                </a>
+                <div class="navbar-header page-scroll">
+                    <a class="navbar-brand" id="logo" href="">
+
+                        <img class="img-responsive"  src="img/logo.png" alt="">
+                    </a>
+                </div>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="page-scroll">
+                        <a href="">Book</a>
+                    </li>
+                    <li class="page-scroll">
+                            <a href="">View Booking</a>
+                    </li>
+                    <li class="page-scroll">
+                            <a href="">Check Flight</a> 
+                    </li>
+                </ul>
             </div>
-
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="page-scroll">
-                    <a href="">Book</a>
-                </li>
-                <li class="page-scroll">
-                        <a href="">View Booking</a>
-                </li>
-                <li class="page-scroll">
-                        <a href="">Check Flight</a> 
-                </li>
-            </ul>
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+            <!-- /.container-fluid -->
+        </nav>
 
 
 
+        <!-- ANGULAR DYNAMIC TEMPLATING -->
+        <div ng-view></div>
+        <!-- ANGULAR DYNAMIC TEMPLATING -->
 
 
-    <script src="js/jquery.js"></script>
-
-    <script src="js/bootstrap.min.js"></script>
-
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
-
-
-
-</body>
+    </body>
 
 </html>
