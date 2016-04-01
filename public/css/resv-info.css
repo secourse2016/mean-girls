@@ -1,0 +1,101 @@
+body {
+    background: #158fbf;
+    padding-top: 120px;
+}
+
+p {
+    font-size: 20px;
+}
+
+p.small {
+    font-size: 16px;
+}
+
+
+h1
+{
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 800;
+}
+
+
+.img-centered {
+    margin: 0 auto;
+}
+
+
+.navbar-fixed-top {
+    padding: 25px 0;
+    -webkit-transition: padding .3s;
+    -moz-transition: padding .3s;
+    transition: padding .3s;
+}
+
+.navbar-fixed-top .navbar-brand {
+    font-size: 2em;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+}
+
+.navbar-fixed-top.navbar-shrink {
+    padding: 10px 0;
+}
+
+.navbar-fixed-top.navbar-shrink .navbar-brand {
+    font-size: 1.5em;
+}
+
+
+.navbar {
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    background: #fff;
+}
+
+
+.navbar .navbar-nav {
+    letter-spacing: 1px;
+}
+
+.navbar .navbar-nav li a{
+    color: #496F8C;
+    font-size: 1.5em;
+
+}
+.navbar .navbar-nav li a:hover{
+
+    color: #F2E394;
+
+}
+
+#logo{
+    padding-top: 0px;
+    max-height: 100px;
+    max-width: 200px;
+
+
+}
+
+#passenger{
+    padding-bottom:  0px;
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+
+.flight{
+    padding-top: 10px;
+    padding-bottom:  0px;
+    margin-bottom: 0px;
+}
+#flights{
+    padding-top:0px;
+    padding-bottom:  0px;
+    margin-bottom: 0px;
+}
+
+.miniinfo p{
+    font-size: 1.25em;
+}
