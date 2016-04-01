@@ -2,25 +2,25 @@
 <script src="js/jquery.snow.min.1.0.js"></script>
 <script>
 $(document).ready( function(){
-$.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
+	$.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
 });
 </script>
 <div class="container">
 	<div class="jumbotron" id="resv">
-		<h3>Thank you for choosing Alaska Airlines.</h3> 
-		<p>Booking ref. 1737</p>
-
+		<h3>Thank you for choosing Alaska Airlines.</h3>
+		<p>Booking ref. {{resv.bookingRefNo}}</p>
+		<p>Receipt no. {{resv.receiptNo}}</p>
 		<div class="jumbotron" id="passenger">
 			<h4>Passenger Info</h4>
 			<div class="row">
 				<div class="col-sm-3">
-					<p>Hagar</p>
+					<p>{{resv.passenger.firstName}}</p>
 				</div>
 				<div class="col-sm-3">
-					<p>Yasser</p>
+					<p>{{resv.passenger.lastName}}</p>
 				</div>
 				<div class="col-sm-3">
-					<p>A1030764</p>
+					<p>{{resv.passenger.passportNo}}</p>
 				</div>
 			</div>
 		</div>
@@ -28,25 +28,21 @@ $.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
 		<div class="jumbotron" id="flights">
 			<h4>Flight(s)</h4>
 			<div class="jumbotron flight">
-				
 
-				<h4> Cairo - Berlin </h4>
+				<h4> {{outFlight.originAirport.name}} ({{outFlight.originAirport.iata}}) - {{outFlight.destAirport.name}} ({{outFlight.destAirport.iata}}) </h4>
 				<div class="row">
 					<div class="col-sm-2">
-						<p>CIA - THF</p>
+						<p> {{resv.outgoingFlight}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> 27381 </p>
+						<p> {{outFlight.seatNumber}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> 25A </p>
-					</div>
-					<div class="col-sm-2">
-						<p> Economy </p>
+						<p> {{outFlight.cabin}} </p>
 					</div>
 
 					<div class="col-sm-2">
-						<p> $150 </p>
+						<p> {{outFlight.cost}} </p>
 					</div>
 				</div>
 				<div class="row miniinfo">
@@ -54,39 +50,37 @@ $.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
 						<p>Departure</p>
 					</div>
 					<div class="col-sm-2">
-						<p>8:00 AM</p>
+						<p>{{outFlight.departureDate}}</p>
 					</div>
 					<div class="col-sm-2">
 						<p>Arrival</p>
 					</div>
 					<div class="col-sm-2">
-						<p>12:00 PM</p>
+						<p>{{outFlight.arrivalDate}}</p>
 					</div>
 				</div>
 				<div class="row miniinfo">
 					<div class="col-sm-2">
-						<p>4 hrs</p>
+						<p>{{outFlight.duration}}</p>
 					</div>
 				</div>
 			</div>
 			<div class="jumbotron flight">
-				<h4> Berlin - Cairo </h4>
+
+				<h4> {{retFlight.originAirport.name}} ({{retFlight.originAirport.iata}}) - {{retFlight.destAirport.name}} ({{retFlight.destAirport.iata}}) </h4>
 				<div class="row">
 					<div class="col-sm-2">
-						<p>CIA - THF</p>
+						<p> {{resv.returnFlight}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> 27381 </p>
+						<p> {{retFlight.seatNumber}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> 30A </p>
-					</div>
-					<div class="col-sm-2">
-						<p> Economy </p>
+						<p> {{retFlight.cabin}} </p>
 					</div>
 
 					<div class="col-sm-2">
-						<p> $250 </p>
+						<p> {{retFlight.cost}} </p>
 					</div>
 				</div>
 				<div class="row miniinfo">
@@ -94,21 +88,20 @@ $.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
 						<p>Departure</p>
 					</div>
 					<div class="col-sm-2">
-						<p>8:00 AM</p>
+						<p>{{retFlight.departureDate}}</p>
 					</div>
 					<div class="col-sm-2">
 						<p>Arrival</p>
 					</div>
 					<div class="col-sm-2">
-						<p>12:00 PM</p>
+						<p>{{retFlight.arrivalDate}}</p>
 					</div>
 				</div>
 				<div class="row miniinfo">
 					<div class="col-sm-2">
-						<p>4 hrs</p>
+						<p>{{retFlight.duration}}</p>
 					</div>
 				</div>
-
 			</div>
 		</div>
 
@@ -116,33 +109,22 @@ $.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
 			<h4>Payment</h4>
 			<div class="row">
 				<div class="col-sm-2">
-					<p>Credit Card</p>
+					<p>{{resv.payment.cardType}}</p>
 				</div>
 				<div class="col-sm-2">
-					<p>837362930902</p>
+					<p>{{resv.payment.cardNo}}</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-2">
-					<p>Hagar</p>
+					<p>Total Amount</p>
 				</div>
 				<div class="col-sm-2">
-					<p>Yasser</p>
-				</div>	
-			</div>	
-			<div class="row">
-				<div class="col-sm-2">
-					<p>Total</p>
+					<p>${{resv.payment.amount | currency}}</p>
 				</div>
-				<div class="col-sm-2">
-					<p>$400</p>
-				</div>				
 			</div>
 
 
 		</div>
 	</div>
 </div>
-
-
-
