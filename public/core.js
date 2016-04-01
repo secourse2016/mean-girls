@@ -1,5 +1,5 @@
 /* Create Angular App Instance */
-App = angular.module('Alaska', []);
+App = angular.module('Alaska', ['bootstrap', 'ngRoute']);
 
 /**
  * Angular Routes
@@ -11,7 +11,7 @@ App.config(function($routeProvider) {
         .when('/', {
             templateUrl : '/views/landing.html',
             controller  : 'landingCtrl'
-        })
+        });
 
         // route for the booking info page
         .when('/booking-info', {
