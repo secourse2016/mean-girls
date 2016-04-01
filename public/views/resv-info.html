@@ -1,189 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-	<title>Alaska Airlines</title>
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link href="../css/resv-info.css" rel="stylesheet">
-	<script src="../js/jquery-1.12.2.min.js"> </script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/angular.min.js"> </script>
-	<script src="../js/core.js"></script>
-	<script src="../js/jquery.snow.min.1.0.js"></script>
-	<script>
-	$(document).ready( function(){
-		$.fn.snow({ minSize: 8, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
-	});
-	</script>
 
 
-</head>
+<div class="container">
+	<div class="jumbotron" id="resv">
+		<h3>Thank you for choosing Alaska Airlines.</h3> 
+		<p>Booking ref. 1737</p>
 
-<body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-
-			<div class="navbar-header page-scroll">
-				<a class="navbar-brand" id="logo" href="">
-
-					<img class="img-responsive"  src="../img/logo.png" alt="">
-				</a>
+		<div class="jumbotron" id="passenger">
+			<h4>Passenger Info</h4>
+			<div class="row">
+				<div class="col-sm-3">
+					<p>Hagar</p>
+				</div>
+				<div class="col-sm-3">
+					<p>Yasser</p>
+				</div>
+				<div class="col-sm-3">
+					<p>A1030764</p>
+				</div>
 			</div>
-
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="page-scroll">
-					<a href="">Book</a>
-				</li>
-				<li class="page-scroll">
-					<a href="">View Booking</a>
-				</li>
-				<li class="page-scroll">
-					<a href="">Check Flight</a>
-				</li>
-			</ul>
 		</div>
-	</nav>
 
-	<div class="container">
-		<div class="jumbotron" id="resv">
-			<h3>Thank you for choosing Alaska Airlines.</h3> 
-			<p>Booking ref. 1737</p>
+		<div class="jumbotron" id="flights">
+			<h4>Flight(s)</h4>
+			<div class="jumbotron flight">
+				
 
-			<div class="jumbotron" id="passenger">
-				<h4>Passenger Info</h4>
+				<h4> Cairo - Berlin </h4>
 				<div class="row">
-					<div class="col-sm-3">
-						<p>Hagar</p>
+					<div class="col-sm-2">
+						<p>CIA - THF</p>
 					</div>
-					<div class="col-sm-3">
-						<p>Yasser</p>
+					<div class="col-sm-2">
+						<p> 27381 </p>
 					</div>
-					<div class="col-sm-3">
-						<p>A1030764</p>
+					<div class="col-sm-2">
+						<p> 25A </p>
+					</div>
+					<div class="col-sm-2">
+						<p> Economy </p>
+					</div>
+
+					<div class="col-sm-2">
+						<p> $150 </p>
+					</div>
+				</div>
+				<div class="row miniinfo">
+					<div class="col-sm-2">
+						<p>Departure</p>
+					</div>
+					<div class="col-sm-2">
+						<p>8:00 AM</p>
+					</div>
+					<div class="col-sm-2">
+						<p>Arrival</p>
+					</div>
+					<div class="col-sm-2">
+						<p>12:00 PM</p>
+					</div>
+				</div>
+				<div class="row miniinfo">
+					<div class="col-sm-2">
+						<p>4 hrs</p>
 					</div>
 				</div>
 			</div>
-
-			<div class="jumbotron" id="flights">
-				<h4>Flight(s)</h4>
-				<div class="jumbotron flight">
-					
-
-					<h4> Cairo - Berlin </h4>
-					<div class="row">
-						<div class="col-sm-2">
-							<p>CIA - THF</p>
-						</div>
-						<div class="col-sm-2">
-							<p> 27381 </p>
-						</div>
-						<div class="col-sm-2">
-							<p> 25A </p>
-						</div>
-						<div class="col-sm-2">
-							<p> Economy </p>
-						</div>
-
-						<div class="col-sm-2">
-							<p> $150 </p>
-						</div>
+			<div class="jumbotron flight">
+				<h4> Berlin - Cairo </h4>
+				<div class="row">
+					<div class="col-sm-2">
+						<p>CIA - THF</p>
 					</div>
-					<div class="row miniinfo">
-						<div class="col-sm-2">
-							<p>Departure</p>
-						</div>
-						<div class="col-sm-2">
-							<p>8:00 AM</p>
-						</div>
-						<div class="col-sm-2">
-							<p>Arrival</p>
-						</div>
-						<div class="col-sm-2">
-							<p>12:00 PM</p>
-						</div>
+					<div class="col-sm-2">
+						<p> 27381 </p>
 					</div>
-					<div class="row miniinfo">
-						<div class="col-sm-2">
-							<p>4 hrs</p>
-						</div>
+					<div class="col-sm-2">
+						<p> 30A </p>
+					</div>
+					<div class="col-sm-2">
+						<p> Economy </p>
+					</div>
+
+					<div class="col-sm-2">
+						<p> $250 </p>
 					</div>
 				</div>
-				<div class="jumbotron flight">
-					<h4> Berlin - Cairo </h4>
-					<div class="row">
-						<div class="col-sm-2">
-							<p>CIA - THF</p>
-						</div>
-						<div class="col-sm-2">
-							<p> 27381 </p>
-						</div>
-						<div class="col-sm-2">
-							<p> 30A </p>
-						</div>
-						<div class="col-sm-2">
-							<p> Economy </p>
-						</div>
-
-						<div class="col-sm-2">
-							<p> $250 </p>
-						</div>
+				<div class="row miniinfo">
+					<div class="col-sm-2">
+						<p>Departure</p>
 					</div>
-					<div class="row miniinfo">
-						<div class="col-sm-2">
-							<p>Departure</p>
-						</div>
-						<div class="col-sm-2">
-							<p>8:00 AM</p>
-						</div>
-						<div class="col-sm-2">
-							<p>Arrival</p>
-						</div>
-						<div class="col-sm-2">
-							<p>12:00 PM</p>
-						</div>
+					<div class="col-sm-2">
+						<p>8:00 AM</p>
 					</div>
-					<div class="row miniinfo">
-						<div class="col-sm-2">
-							<p>4 hrs</p>
-						</div>
+					<div class="col-sm-2">
+						<p>Arrival</p>
 					</div>
-
+					<div class="col-sm-2">
+						<p>12:00 PM</p>
+					</div>
 				</div>
+				<div class="row miniinfo">
+					<div class="col-sm-2">
+						<p>4 hrs</p>
+					</div>
+				</div>
+
 			</div>
+		</div>
 
-			<div class="jumbotron">
-				<h4>Payment</h4>
-				<div class="row">
-					<div class="col-sm-2">
-						<p>Credit Card</p>
-					</div>
-					<div class="col-sm-2">
-						<p>837362930902</p>
-					</div>
-				</div>
-				<div class="row">
+		<div class="jumbotron">
+			<h4>Payment</h4>
+			<div class="row">
 				<div class="col-sm-2">
-						<p>Hagar</p>
-					</div>
-					<div class="col-sm-2">
-						<p>Yasser</p>
-					</div>	
-				</div>	
-				<div class="row">
-					<div class="col-sm-2">
-						<p>Total</p>
-					</div>
-					<div class="col-sm-2">
-						<p>$400</p>
-					</div>				
+					<p>Credit Card</p>
 				</div>
-
-
+				<div class="col-sm-2">
+					<p>837362930902</p>
+				</div>
 			</div>
+			<div class="row">
+				<div class="col-sm-2">
+					<p>Hagar</p>
+				</div>
+				<div class="col-sm-2">
+					<p>Yasser</p>
+				</div>	
+			</div>	
+			<div class="row">
+				<div class="col-sm-2">
+					<p>Total</p>
+				</div>
+				<div class="col-sm-2">
+					<p>$400</p>
+				</div>				
+			</div>
+
+
 		</div>
+	</div>
+</div>
 
 
-	</body>
 
