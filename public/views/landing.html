@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Alaska Airlines</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-header page-scroll">
+                <a class="navbar-brand" id="logo" href="">
+
+                    <img class="img-responsive"  src="img/logo.png" alt="">
+                </a>
+            </div>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="page-scroll">
+                    <a href="">Book</a>
+                </li>
+                <li class="page-scroll">
+                        <a href="">View Booking</a>
+                </li>
+                <li class="page-scroll">
+                        <a href="">Check Flight</a> 
+                </li>
+            </ul>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="img-responsive" id="pen" src="img/p1.png">
+                    <div class="intro-text">
+                        <h1>Welcome!</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Find Flights Form-->
+    <div class="find-flight-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" >
+                    <h1>Find Flights</h1>
+
+                    <form class="form-inline" role="form">
+                        <label class="checkbox-inline"><input type="checkbox" value="">One-way</label>
+                     
+                        <div>
+                            <div class="form-group">
+                                <input  class="form-control" id="fromCountry" placeholder="From">
+                            </div>
+                            <div class="form-group">
+                                   <input class="form-control"  type="date" id="fromDate"></input>
+                            </div>
+                             <div class="form-group">
+                                <select class="form-control" id="selectAdultNo">
+                                    <option value="1">1 Adult</option>
+                                    <option value="2">2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                    <option value="5">5 Adults</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <input class="form-control" id="toCountry" placeholder="To">
+                            </div>
+
+                             <div class="form-group">
+                                <input class="form-control" type="date" id="ToDate"></input>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" id="selectClass">
+                                    <option value="Economy">Economy</option>
+                                    <option value="Business">Business</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button" class="btn btn-info">Find Flights</button>
+                         
+                            </div>
+
+                        </div>
+                    
+
+                     
+                    </form>
+
+
+
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+
+    <script src="js/jquery.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+
+
+</body>
+
+</html>
