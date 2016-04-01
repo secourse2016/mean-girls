@@ -1,4 +1,4 @@
-angular.module('airline')
+angular.module('alaska')
 .factory("resvSrvc", function ($http){
 	return {
 		getResv : function(resvNo){
