@@ -1,5 +1,7 @@
 
 <script src="js/jquery.snow.min.1.0.js"></script>
+<script src="js/controllers/resv-show-controller.js"></script>
+<script src="js/services/resv-show-service.js"></script>
 <script>
 $(document).ready( function(){
 	$.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
@@ -29,20 +31,20 @@ $(document).ready( function(){
 			<h4>Flight(s)</h4>
 			<div class="jumbotron flight">
 
-				<h4> {{outFlight.originAirport.name}} ({{outFlight.originAirport.iata}}) - {{outFlight.destAirport.name}} ({{outFlight.destAirport.iata}}) </h4>
+				<h4> {{outOrigin.name}} ({{outOrigin.iata}}) - {{outDest.name}} ({{outDest.iata}}) </h4>
 				<div class="row">
 					<div class="col-sm-2">
 						<p> {{resv.outgoingFlight}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> {{outFlight.seatNumber}} </p>
+						<p> {{outSeat.seatNumber}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> {{outFlight.cabin}} </p>
+						<p> {{outSeat.cabin}} </p>
 					</div>
 
 					<div class="col-sm-2">
-						<p> {{outFlight.cost}} </p>
+						<p> {{outSeat.cost}} </p>
 					</div>
 				</div>
 				<div class="row miniinfo">
@@ -67,20 +69,20 @@ $(document).ready( function(){
 			</div>
 			<div class="jumbotron flight">
 
-				<h4> {{retFlight.originAirport.name}} ({{retFlight.originAirport.iata}}) - {{retFlight.destAirport.name}} ({{retFlight.destAirport.iata}}) </h4>
+				<h4> {{retOrigin.name}} ({{retOrigin.iata}}) - {{retDest.name}} ({{retDest.iata}}) </h4>
 				<div class="row">
 					<div class="col-sm-2">
 						<p> {{resv.returnFlight}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> {{retFlight.seatNumber}} </p>
+						<p> {{retSeat.seatNumber}} </p>
 					</div>
 					<div class="col-sm-2">
-						<p> {{retFlight.cabin}} </p>
+						<p> {{retSeat.cabin}} </p>
 					</div>
 
 					<div class="col-sm-2">
-						<p> {{retFlight.cost}} </p>
+						<p> {{retSeat.cost}} </p>
 					</div>
 				</div>
 				<div class="row miniinfo">
