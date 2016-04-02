@@ -1,0 +1,52 @@
+[
+  {
+    "flightNumber": "AB123",
+        "aircraft": "Airbus a318",
+        "capacity": 100,
+        "departureDate": "1/1/2016 8:00 PM",
+        "arrivalDate": "1/1/2016 10:00 PM",
+        "duration" : "2 hours",
+        "origin": "IAD",
+        "destination": "JFK",
+	"seatmap" 		: [
+
+	{
+		"seatNumber"	: "12A" ,
+		"type"			: "window" , // window/aisle
+		"cabin"			: "Economy" , //business or economy
+		"cost"			: "120" , //number and currency
+		"reservationID"	: "hy123"	//if null then it's not reserved
+	}
+
+	],
+
+	"availableSeats"	: 50,
+	"status"			: "scheduled" //arrived, departed,delayed
+
+},
+{
+  "flightNumber": "CD123",
+      "aircraft": "Airbus a318",
+      "capacity": 100,
+      "departureDate": "1/1/2016 8:00 PM",
+      "arrivalDate": "1/1/2016 10:00 PM",
+      "duration" : "2 hours",
+      "origin": "JFK",
+      "destination": "IAD",
+"seatmap" 		: [
+
+{
+  "seatNumber"	: "30C" ,
+  "type"			: "window" , // window/aisle
+  "cabin"			: "Business" , //business or economy
+  "cost"			: "120" , //number and currency
+  "reservationID"	: "hy123"	//if null then it's not reserved
+}
+
+],
+
+"availableSeats"	: 50,
+"status"			: "scheduled" //arrived, departed,delayed
+
+}
+]
