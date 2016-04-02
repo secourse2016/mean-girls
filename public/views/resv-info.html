@@ -1,10 +1,3 @@
-
-<script src="js/jquery.snow.min.1.0.js"></script>
-<script>
-$(document).ready( function(){
-	$.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
-});
-</script>
 <div class="container">
 	<div class="jumbotron" id="resv">
 		<h3>Thank you for choosing Alaska Airlines.</h3>
@@ -65,7 +58,7 @@ $(document).ready( function(){
 					</div>
 				</div>
 			</div>
-			<div class="jumbotron flight">
+			<div class="jumbotron flight" ng-hide="oneWay">
 
 				<h4> {{retOrigin.name}} ({{retOrigin.iata}}) - {{retDest.name}} ({{retDest.iata}}) </h4>
 				<div class="row">
@@ -108,19 +101,19 @@ $(document).ready( function(){
 		<div class="jumbotron">
 			<h4>Payment</h4>
 			<div class="row">
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					<p>{{resv.payment.cardType}}</p>
 				</div>
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					<p>{{resv.payment.cardNo}}</p>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					<p>Total Amount</p>
 				</div>
-				<div class="col-sm-2">
-					<p>${{resv.payment.amount | currency}}</p>
+				<div class="col-sm-3">
+					<p>{{resv.payment.amount | currency}}</p>
 				</div>
 			</div>
 
@@ -128,3 +121,9 @@ $(document).ready( function(){
 		</div>
 	</div>
 </div>
+<script src="js/jquery.snow.min.1.0.js"></script>
+<script>
+	$(document).ready( function(){
+ 		$.fn.snow({ minSize: 15, maxSize: 50, newOn: 1000, flakeColor: '#0099FF' });
+	});
+</script>
