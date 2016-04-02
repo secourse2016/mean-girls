@@ -37,7 +37,6 @@ h1
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
-    max-width: 20px;
 }
 
 .navbar-fixed-top.navbar-shrink {
@@ -71,4 +70,10 @@ h1
     color: #F2E394;
 
 }
+#logo{
+    padding-top: 0px;
+    max-height: 100px;
+    max-width: 200px;
 
+
+}
