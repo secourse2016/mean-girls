@@ -81,4 +81,5 @@ angular.module('alaska')
 			}
 			cb(seat);
 		}
+	}
 });
