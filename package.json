@@ -1,7 +1,7 @@
 {
-  "name": "alaska-airlines",
+  "name": "alaska-alaskas",
   "version": "1.0.0",
-  "description": "Airlines reservation system.",
+  "description": "alaskas reservation system.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

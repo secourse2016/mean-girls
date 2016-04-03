@@ -14,70 +14,72 @@
 </header>
 
 <!-- Find Flights Form-->
-<div class="find-flight-form">
+
+   
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12" >
-                <h1>Find Flights</h1>
-
-                <form class="form-inline" role="form">
-                    <label class="checkbox-inline"><input type="checkbox" value="">One-way</label>
-                 
-                    <div>
-                        <div class="form-group">
-                            <input  class="form-control" id="fromCountry" placeholder="From">
-                        </div>
-                        <div class="form-group">
-                               <input class="form-control"  type="date" id="fromDate"></input>
-                        </div>
-                         <div class="form-group">
-                            <select class="form-control" id="selectAdultNo">
-                                <option value="1">1 Adult</option>
-                                <option value="2">2 Adults</option>
-                                <option value="3">3 Adults</option>
-                                <option value="4">4 Adults</option>
-                                <option value="5">5 Adults</option>
-                            </select>
-                        </div>
-
-
-                    </div>
-                    
-                    <div>
-                        <div class="form-group">
-                            <input class="form-control" id="toCountry" placeholder="To">
-                        </div>
-
-                         <div class="form-group">
-                            <input class="form-control" type="date" id="ToDate"></input>
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-control" id="selectClass">
-                                <option value="Economy">Economy</option>
-                                <option value="Business">Business</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="button" class="btn btn-info">Find Flights</button>
-                     
-                        </div>
-
-                    </div>
+         <div class="find-flight-form">
+            <div class="row jumbotron">
+                <div class="col-lg-12" >
                 
+                    <h1 id="form-title">Where can we take you?</h1>
 
-                 
-                </form>
+                    <form class="form-inline" role="form">
+                        <label class="checkbox-inline"><input type="checkbox" value="" ng-model="form.oneway">One-way</label>
+                     
+                        <div class="row">
+                            <div class="form-group">
+                                <input  class="form-control" id="fromCountry" placeholder="From" ng-model="form.fromCountry">
+                            </div>
 
+                            <div class="form-group">
+                                   <input class="form-control"  type="date" id="fromDate" ng-model="form.fromDate"></input>
+                            </div>
 
+                             <div class="form-group">
+                                <select class="form-control" id="selectAdultNo" ng-model="form.adultNo">
+                                    <option value="1">1 Adult</option>
+                                    <option value="2">2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                    <option value="5">5 Adults</option>
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="row">
+                            <div class="form-group">
+                                <input class="form-control" id="toCountry" placeholder="To" ng-model="form.toCountry">
+                            </div>
+
+                             <div class="form-group">
+                                <input class="form-control" type="date" id="ToDate" ng-model="form.toDate"></input>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" id="selectClass" ng-model="form.class">
+                                    <option value="Economy">Economy</option>
+                                    <option value="Business">Business</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <!--<button type="button" class="btn btn-info">Find Flights</button>-->
+                                <button type="submit" class="btn btn-info" ng-click="findFlightsButtonClick">Find Flights</button>
+                         
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
 
             </div>
-            
+                
         </div>
-        
+            
     </div>
-</div>
+
 
 
 
