@@ -1,5 +1,5 @@
 
-App.factory('landingSrv', function ($http) {
+angular.module('alaska').factory('landingSrv', function ($http) {
      return {
 
         setFindFlightInfo: function(value){

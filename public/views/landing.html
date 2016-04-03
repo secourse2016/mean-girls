@@ -16,69 +16,76 @@
 <!-- Find Flights Form-->
 
    
-    <div class="container">
-         <div class="find-flight-form">
-            <div class="row jumbotron">
-                <div class="col-lg-12" >
+<div class="container" ng-controller="landingCtrl">
+     <div class="find-flight-form">
+        <div class="row jumbotron">
+            <div class="col-lg-12">
+            
+                <h1 id="form-title">Where can we take you?</h1>
+
+                <form class="form-inline" role="form" >
+                    <label class="checkbox-inline"><input type="checkbox" value="" ng-model="form.oneway">One-way</label>
+                 
+                    <div class="row">
+                        <div class="form-group">
+                            <input  class="form-control" id="fromCountry" placeholder="Select dept airport" ng-model="form.fromCountry">
+
+                            <select class="form-control" id="fromCountry" ng-model="form.fromCountry" ng-options="airport.iata as airport.name for airport in airports">
+                            </select>
+
+
+                        </div>
+
+                        <div class="form-group">
+                               <input class="form-control"  type="date" id="fromDate" ng-model="form.fromDate"></input>
+                        </div>
+
+                         <div class="form-group">
+                            <select class="form-control" id="selectAdultNo" ng-model="form.adultNo">
+                                <option value="1" selected>1 Adult</option>
+                                <option value="2">2 Adults</option>
+                                <option value="3">3 Adults</option>
+                                <option value="4">4 Adults</option>
+                                <option value="5">5 Adults</option>
+                            </select>
+                        </div>
+                    </div>
                 
-                    <h1 id="form-title">Where can we take you?</h1>
+                    <div class="row">
+                        <div class="form-group">
+                            <input class="form-control" id="toCountry" placeholder="Select dest airport" ng-model="form.toCountry">
+                             <select class="form-control" id="toCountry" ng-model="form.toCountry" ng-options="airport.iata as airport.name for airport in airports">
+                            </select>
+                        </div>
 
-                    <form class="form-inline" role="form">
-                        <label class="checkbox-inline"><input type="checkbox" value="" ng-model="form.oneway">One-way</label>
+                         <div class="form-group">
+                            <input class="form-control" type="date" id="ToDate" ng-model="form.toDate"></input>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" id="selectClass" ng-model="form.class">
+                                <option value="Economy" selected>Economy</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <!--<button type="button" class="btn btn-info">Find Flights</button>-->
+                            <button type="submit" class="btn btn-info" ng-click="findFlightsButtonClick">Find Flights</button>
                      
-                        <div class="row">
-                            <div class="form-group">
-                                <input  class="form-control" id="fromCountry" placeholder="From" ng-model="form.fromCountry">
-                            </div>
-
-                            <div class="form-group">
-                                   <input class="form-control"  type="date" id="fromDate" ng-model="form.fromDate"></input>
-                            </div>
-
-                             <div class="form-group">
-                                <select class="form-control" id="selectAdultNo" ng-model="form.adultNo">
-                                    <option value="1">1 Adult</option>
-                                    <option value="2">2 Adults</option>
-                                    <option value="3">3 Adults</option>
-                                    <option value="4">4 Adults</option>
-                                    <option value="5">5 Adults</option>
-                                </select>
-                            </div>
-                        </div>
-                    
-                        <div class="row">
-                            <div class="form-group">
-                                <input class="form-control" id="toCountry" placeholder="To" ng-model="form.toCountry">
-                            </div>
-
-                             <div class="form-group">
-                                <input class="form-control" type="date" id="ToDate" ng-model="form.toDate"></input>
-                            </div>
-
-                            <div class="form-group">
-                                <select class="form-control" id="selectClass" ng-model="form.class">
-                                    <option value="Economy">Economy</option>
-                                    <option value="Business">Business</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <!--<button type="button" class="btn btn-info">Find Flights</button>-->
-                                <button type="submit" class="btn btn-info" ng-click="findFlightsButtonClick">Find Flights</button>
-                         
-                            </div>
-
                         </div>
 
-                    </form>
+                    </div>
 
-                </div>
+                </form>
 
             </div>
-                
+
         </div>
             
     </div>
+        
+</div>
 
 
 
