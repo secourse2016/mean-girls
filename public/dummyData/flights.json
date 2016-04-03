@@ -14,13 +14,13 @@
 		          "seatNumber"	: "12A" ,
 		          "type"			: "window" ,
 		          "cabin"			: "Economy" ,
-              	  "cost"			: "120" ,
+              "cost"			: "120" ,
 		          "reservationID"	: "hy123"
 	     }
 
 	     ],
 
-	    "availableSeats"	: 50,
+	    "availableSeats"	: 0,
 	    "status"			: "scheduled"
 
 },
@@ -45,8 +45,33 @@
 
 ],
 
-"availableSeats"	: 50,
+"availableSeats"	: 20,
 "status"			: "scheduled"
+
+},
+{
+      "flightNumber": "FD123",
+      "aircraft": "Airbus a318",
+      "capacity": 100,
+      "departureDate": "1/1/2016 8:00 PM",
+      "arrivalDate": "1/1/2016 10:00 PM",
+      "duration" : "2 hours",
+      "origin": "JFK",
+      "destination": "IAD",
+      "seatmap"     : [
+
+        {
+  "seatNumber"  : "30C" ,
+  "type"      : "window" ,
+  "cabin"     : "Business" ,
+  "cost"      : "120" ,
+  "reservationID" : "hy123"
+  }
+
+],
+
+"availableSeats"  : 60,
+"status"      : "scheduled"
 
 }
 ]
