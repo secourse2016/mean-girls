@@ -1,7 +1,27 @@
 <<<<<<< HEAD
+// var App = angular.module('alaska', ['ngRoute']);
+
+/**
+ * Angular Routes
+ */
+
+ var app = angular.module('alaska','ngRoute']);
+
+
+	app.config(function($routeProvider) {
+    $routeProvider
+
+        // route for the sherine page
+        .when('/flights', {
+            templateUrl : '/public/views/flights.html',
+            controller  : 'FlightController'
+        });
+});
+=======
+<<<<<<< HEAD
 =======
 
-var app = angular.module('alaska',['ngRoute']);
+// var app = angular.module('alaska',['ngRoute']);
 
 app.config(function($routeProvider){
 	$routeProvider.when('/passengerInfo',{
@@ -28,3 +48,4 @@ app.config(function($routeProvider) {
         });
 });
 
+>>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f

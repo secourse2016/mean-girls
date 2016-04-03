@@ -20,7 +20,7 @@
 
 	     ],
 
-	    "availableSeats"	: 50,
+	    "availableSeats"	: 0,
 	    "status"			: "scheduled"
 
 },
