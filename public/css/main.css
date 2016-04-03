@@ -1,6 +1,11 @@
 body {
+<<<<<<< HEAD
+    overflow-x: hidden;
+    background: #00BFFF;
+=======
     background: #158fbf;
     padding-top: 120px;
+>>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 }
 
 p {
@@ -12,6 +17,14 @@ p.small {
 }
 
 
+<<<<<<< HEAD
+#pen{
+    max-width: 200px;
+    max-height: 300px;
+}
+
+=======
+>>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 h1
 {
     text-transform: uppercase;
@@ -24,6 +37,51 @@ h1
     margin: 0 auto;
 }
 
+<<<<<<< HEAD
+header {
+    text-align: center;
+    color: #fff;
+    
+}
+
+header .container {
+    padding-bottom: 50px;
+}
+
+header img {
+    display: block;
+    margin: 0 auto 20px;
+}
+
+header .intro-text .name {
+    display: block;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+header .intro-text .skills {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+
+header .container {
+    padding-top: 130px;
+    padding-bottom: 100px;
+}
+
+header .intro-text .name {
+    font-size: 4.75em;
+}
+
+header .intro-text .skills {
+    font-size: 1.75em;
+}
+
+=======
+>>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 
 .navbar-fixed-top {
     padding: 25px 0;
@@ -70,10 +128,19 @@ h1
     color: #F2E394;
 
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 #logo{
     padding-top: 0px;
     max-height: 100px;
     max-width: 200px;
 
+<<<<<<< HEAD
+}
+
+=======
 
 }
+>>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
