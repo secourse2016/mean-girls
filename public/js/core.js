@@ -1,4 +1,4 @@
-  var app = angular.module('airline',['ngRoute']);
+  var app = angular.module('alaska',['ngRoute']);
  
 
 
