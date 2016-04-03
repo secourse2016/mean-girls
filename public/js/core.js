@@ -1,4 +1,16 @@
-  var app = angular.module('airline',['ngRoute']);
+
+var app = angular.module('alaska',['ngRoute']);
+
+app.config(function($routeProvider){
+	$routeProvider.when('/passengerInfo',{
+
+		templateUrl: '/views/passengerInfo.html',
+		controller: 'SubmitCtr'
+	}
+)});
+
+
+  var app = angular.module('alaska',['ngRoute']);
  
 
 
@@ -12,3 +24,4 @@ app.config(function($routeProvider) {
             controller  : 'paymentCtrl'
         });
 });
+
