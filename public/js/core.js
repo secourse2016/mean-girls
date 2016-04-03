@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 
 var app = angular.module('alaska',['ngRoute']);
 
@@ -10,7 +12,8 @@ app.config(function($routeProvider){
 )});
 
 
-  var app = angular.module('alaska',['ngRoute']);
+>>>>>>> dd688c3609d279244bf2b607dc9230e09ded676d
+  // var app = angular.module('alaska',['ngRoute']);
  
 
 
