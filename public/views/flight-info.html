@@ -1,0 +1,38 @@
+  <div ng-controller="FlightInfoCtrl">
+        
+        <div  class="page-header" >
+
+               <h1>Flight Status</h1>
+            </div>
+             <table class = " table table-bordered">
+             
+             <thead>
+                <tr>
+                 <th style="font-size:25px; ">Flight Info</th>
+                 <th style="font-size:25px; ">Flight no.</th>
+                 <th style="font-size:25px; ">Scheduled Time</th>
+                 <th style="font-size:25px; ">Status</th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr ng-repeat = "x in infos">
+
+                <td>
+                    <p>{{x.origin+" - "+x.destination}}</p>
+                    <p>{{x.departureDate+" - "+x.arrivalDate}}</p>
+                 </td>
+
+                <td>{{x.flightNumber}}</td>
+                <td> {{x.departureDate}} </td>
+                <td>{{x.status}}</td>
+
+
+
+                 
+                  
+               </tr>
+
+            </tbody>
+          </table>
+
+    </div>

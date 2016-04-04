@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html  lang="en" >
+
+<html lang="en" ng-app="alaska">
 
 <head>
 
@@ -7,20 +8,29 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 
-
 	<!-- ADD LINKS TO CSS OF YOUR VIEWS HERE -->
-
-
+	<link href="css/oneWayFlight.css" rel="stylesheet">
 	<link href="css/resv-info.css" rel="stylesheet">
 
+	<!-- js files -->
 	<script src="js/jquery-1.12.2.min.js"> </script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/angular.min.js"></script>
 	<script src="js/angular-route.min.js"> </script>
+
+	<!-- main angular routing file -->
 	<script src="js/core.js"></script>
-	<script src="js/services/resv-show-service.js"></script>
+
+	<!-- controllers -->
 	<script src="js/controllers/resv-show-controller.js"></script>
 	<script src="js/controllers/mainCtrl.js"></script>
+	<script src="js/controllers/FlightInfoCtrl.js"></script>
+	<script src="js/controllers/flightsCtrl.js"></script>
+	<script src="js/controllers/paymentCtrl.js"></script>
+	<script src="js/controllers/SubmitCtr.js"></script>
+
+	<!--services-->
+	<script src="js/services/resv-show-service.js"></script>
 
 </head>
 
@@ -50,7 +60,6 @@
 		</div>
 	</nav>
 	<div ng-view id="main"></div>
-
 </body>
 
 </html>
