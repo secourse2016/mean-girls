@@ -1,5 +1,5 @@
 angular.module('alaska')
-.controller("mainController", function($scope){
+.controller("mainCtrl", function($scope){
   $scope.scrollTo = function(id) {
     var old = $location.hash();
      $location.hash(id);

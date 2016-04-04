@@ -9,18 +9,18 @@ app.config(function($routeProvider) {
 	$routeProvider
 	.when('/flight-info', {
 		templateUrl : '../views/flight-info.html',
-		controller  : 'FlightInfoCtrl'
+		controller  : 'flightInfoCtrl'
 
 	})
 
 	.when('/flights', {
 		templateUrl : '../views/flights.html',
-		controller  : 'FlightController'
+		controller  : 'flightsCtrl'
 	})
 
 	.when('/passengerInfo', {
 		templateUrl: '../views/passengerInfo.html',
-		controller: 'SubmitCtr'
+		controller: 'submitCtrl'
 	})
 
 	.when('/payment', {
@@ -30,7 +30,7 @@ app.config(function($routeProvider) {
 	.when('/resv/:id',{
 
 		templateUrl: 'views/resv-info.html',
-		controller: 'ResvShowController'
+		controller: 'resvConfirmCtrl'
 	})
 
 

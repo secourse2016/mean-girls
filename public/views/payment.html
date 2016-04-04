@@ -1,4 +1,4 @@
-<header ng-app="alaska" ng-controller="paymentCtrl">
+<header ng-app="alaska">
         <div class="container"  ng-init="tab = 0">
             <div class="page-header">
                <h1>Payment Details</h1>
@@ -24,13 +24,13 @@
                    <label for="zipcode">Zip Code</label>
                    <input type="text" id="zipcode" ng-model="zipcode" class="form-control" placeholder="Zip Code" required>
                 </div>
-                <div class="col-xs-4">    
+                <div class="col-xs-4">
                    <label for="country">Country</label>
-                   <select ng-model="selectedCountry" class="form-control"  ng-options="x for x in countries">      
+                   <select ng-model="selectedCountry" class="form-control"  ng-options="x for x in countries">
                    </select>
                 </div>
                 <div class="col-xs-4">
-                   <label for="cardtype">Card Type</label> 
+                   <label for="cardtype">Card Type</label>
                    <select ng-model="selectedCard" class="form-control" ng-options="y for y in card">
                    </select>
                 </div>
@@ -55,8 +55,8 @@
                           <input type="submit" name="Submit " class="btn btn-success" ng-click='SubmitPayment()' ng-disabled="ng-invalid">&#10004;
                           <!-- <a href="#/submit" class="btn btn-info" role="button" ng-disabled="ng-invalid">Submit</a> -->
 
-                        </div> 
-                   
+                        </div>
+
                 </form>
 
                <form role="form">
@@ -64,15 +64,15 @@
                          <label><input type="checkbox">I have read and  accept the terms and conditions.
                          </label>
                       </div> -->
-                       
+
                </form>
                <!-- <div class="checkbox">
                       <label>
                       <input type="checkbox">I have read and  accept the terms and conditions.
                       </label>
-                </div>    -->     
-                
+                </div>    -->
+
           </div>
-        
+
 
     </header>

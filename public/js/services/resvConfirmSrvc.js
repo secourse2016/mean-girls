@@ -1,5 +1,5 @@
 angular.module('alaska')
-.factory("resvSrvc", function ($http){
+.factory("resvConfirmSrvc", function ($http){
 	return {
 		getResv : function(resvNo,cb){
 			var resv;
