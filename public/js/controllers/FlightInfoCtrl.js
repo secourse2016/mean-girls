@@ -1,10 +1,8 @@
-(function(){
-    // var app = angular.module('alaska',[]);
 
-    app.controller('FlightInfoCtrl',['$scope','$http',function($scope, $http){
+angular.module('alaska').
+controller('flightInfoCtrl',function($scope, $http){
 
-      $http.get('dummyData/flights.json').success(function(data){
-        $scope.infos = data;
-      });
-    }]);
-})();
+  $http.get('dummyData/flights.json').success(function(data){
+    $scope.infos = data;
+  });
+});

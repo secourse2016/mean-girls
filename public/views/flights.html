@@ -1,60 +1,71 @@
-<header style="color: #2c3e50;">
-        <div class="container">
-            <h2>Modify Search</h2>
-            <form class="form-inline" role="form">
-                <div class="form-group">
-                    <input class="form-control" id="From" placeholder="From">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" id="To" placeholder="To">
-                </div>
-                <div class="form-group">
-                    <input type="date" class="form-control" id="Date" >
-                </div>
-                <button type="submit" class="btn btn-default">Modify</button>
-            </form>
-        </div>
-        <div ng-controller="FlightController">
-            <div id="flightInfo"  style="float: left;">
-                <table class="table table-bordered">
-                    <tr ng-repeat="x in infos" >
-                        <td>
-                            <p>{{x.origin+" - "+x.destination}}</p>
-                            <p>{{x.departureDate+" - "+x.arrivalDate}}</p>
-                            <!-- <p >{{x.departureDate|date:"'Year:' yyyy, 'Month:' MMM, 'Day:' EEEE"}}</p> -->
-                            <p>{{departureDate | date:'MM-dd-yyyy HH:MM:ss' }}</p>
-                        </td>
-                        <td>{{x.flightNumber}}</td>
-                        <td>{{x.availableSeats}}</td>
-                        <td>
-                            <p ><input type="radio" name="choseAFlight" ng-model="infoFlightNo.index" ng-value="{{$index}}" ng-disabled="x.availableSeats==0" <br></p>
-                            <p ng-repeat="y in x.seatmap" >{{y.cost}}</p>
-                        </td>
+<div id="modify" class="container text-center">
+  <button class="btn btn-lg btn-primary  btn-default hvr-pulse">Modify Search</button>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="jumbotron col-sm-8">
+      <h3> Outgoing Flights </h3>
+      <div class="row">
+        <table class="table">
+          <tr ng-repeat="outFlight in outFlights" >
+            <td>
+              <p>{{outFlight.origin+" - "+outFlight.destination}}</p>
+              <p>{{outFlight.departureDate+" - "+outFlight.arrivalDate}}</p>
+            </td>
+            <td>{{outFlight.flightNumber}}</td>
+            <td>{{outFlight.availableSeats}}</td>
+            <td>
+              <p ><input type="radio" name="outFlight" ng-model="infoFlightNo.index" ng-value="{{$index}}" ng-disabled="outFlight.availableSeats==0" <br></p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <h3 ng-hide="oneway"> Return Flights </h3>
+      <div class="row" ng-hide="oneway">
+        <table class="table">
+          <tr ng-repeat="retFlight in retFlights" >
+            <td>
+              <p>{{retFlight.origin+" - "+retFlight.destination}}</p>
+              <p>{{retFlight.departureDate+" - "+retFlight.arrivalDate}}</p>
+            </td>
+            <td>{{retFlight.flightNumber}}</td>
+            <td>{{retFlight.availableSeats}}</td>
+            <td>
+              <p ><input type="radio" name="retFlight" ng-model="infoFlightNo1.index" ng-value="{{$index}}" ng-disabled="retFlights.availableSeats==0" <br></p>
+            </td>
+          </tr>
+        </table>
+      </div>
 
-                    </tr>
+    </div>
 
-                </table>
-            </div>
-            <div style="float: right;">
-                <table class="table table-bordered" >
-                    <head>
-                        <h3>Shopping Cart</h3>
-                    </head>
-                    <body>
-                        <tr>
-                            <td>
-                                <p>{{infos[infoFlightNo.index].flightNumber}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Total:{{infos[infoFlightNo.index].seatmap[0].cost}}</p>
-                            </td>
-                        </tr>
-                    </body>
-                </table>
-                <button ng-show="infoFlightNo.index!=null" type="button" class="btn btn-primary btn-lg" ng-click='Continue()'>Continue</button>
-            </div>
-        </div>
-    
- </header>
+
+    <div class="jumbotron col-sm-3 pull-right " id="cart">
+      <table class="table" >
+        <h3>Shopping Cart</h3>
+        <tr>
+          <td>
+            <p>{{outFlights[infoFlightNo.index].flightNumber}}</p>
+          </td>
+        </tr>
+        <tr ng-hide="oneway">
+          <td>
+            <p>{{retFlights[infoFlightNo1.index].flightNumber}}</p>
+          </td>
+        </tr>
+        <tr ng-hide="oneway">
+          <td >
+            <p>Total: {{outFlights[infoFlightNo.index].seatmap[0].cost + outFlights[infoFlightNo1.index].seatmap[0].cost | currency}}</p>
+          </td>
+        </tr>
+        <tr ng-show="oneway">
+          <td >
+            <p>Total: {{outFlights[infoFlightNo.index].seatmap[0].cost | currency}}</p>
+          </td>
+        </tr>
+      </table>
+      <button ng-disabled="infoFlightNo.index==null" type="button" class="btn btn-primary btn-lg" ng-click='Continue()'>Continue</button>
+    </div>
+  </div>
+
+</div>

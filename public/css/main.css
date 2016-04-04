@@ -1,11 +1,6 @@
 body {
-<<<<<<< HEAD
-    overflow-x: hidden;
-    background: #00BFFF;
-=======
     background: #158fbf;
     padding-top: 120px;
->>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 }
 
 p {
@@ -17,14 +12,6 @@ p.small {
 }
 
 
-<<<<<<< HEAD
-#pen{
-    max-width: 200px;
-    max-height: 300px;
-}
-
-=======
->>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 h1
 {
     text-transform: uppercase;
@@ -37,51 +24,6 @@ h1
     margin: 0 auto;
 }
 
-<<<<<<< HEAD
-header {
-    text-align: center;
-    color: #fff;
-    
-}
-
-header .container {
-    padding-bottom: 50px;
-}
-
-header img {
-    display: block;
-    margin: 0 auto 20px;
-}
-
-header .intro-text .name {
-    display: block;
-    text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 2em;
-    font-weight: 700;
-}
-
-header .intro-text .skills {
-    font-size: 1.25em;
-    font-weight: 300;
-}
-
-
-header .container {
-    padding-top: 130px;
-    padding-bottom: 100px;
-}
-
-header .intro-text .name {
-    font-size: 4.75em;
-}
-
-header .intro-text .skills {
-    font-size: 1.75em;
-}
-
-=======
->>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 
 .navbar-fixed-top {
     padding: 25px 0;
@@ -128,19 +70,61 @@ header .intro-text .skills {
     color: #F2E394;
 
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
 #logo{
     padding-top: 0px;
     max-height: 100px;
     max-width: 200px;
-
-<<<<<<< HEAD
 }
 
-=======
+@-webkit-keyframes hvr-pulse {
+  25% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
 
+  75% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
 }
->>>>>>> fcfecf015215a11d4c01d63283236ea061d8d65f
+
+@keyframes hvr-pulse {
+  25% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  75% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+.hvr-pulse {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hvr-pulse:hover, .hvr-pulse:focus, .hvr-pulse:active {
+  -webkit-animation-name: hvr-pulse;
+  animation-name: hvr-pulse;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+#modify{
+  padding-bottom: 10px;
+}
+
+#cart{
+  background-color: #b1c1c5;
+}

@@ -1,0 +1,95 @@
+
+<div class="container header">
+  <div class="row">
+    <div class="col-lg-12">
+      <img class="img-responsive" id="pen" src="img/p1.png">
+      <div class="intro-text">
+        <h1>Welcome!</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Find Flights Form-->
+
+
+<div class="container find-flight-form" >
+  <div class="jumbotron">
+
+
+    <h2 id="form-title">Where can we take you?</h1>
+
+      <form name="flightForm" class="form-inline" novalidate>
+        <label> <input type="checkbox" ng-model="form.oneway"> One-way </label>
+
+
+        <div class="row">
+
+          <div class="form-group col-sm-6">
+            <select class="form-control" ng-model="form.fromCountry" ng-options="airport.iata as airport.name + ' (' + airport.iata + ')' for airport in airports | filter:notNull" required>
+            </select>
+          </div>
+
+          <div class="form-group col-sm-6">
+            <select class="form-control" ng-model="form.toCountry" ng-options="airport.iata as airport.name + ' (' + airport.iata + ')' for airport in airports | filter:notNull" required>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h3>Outgoing Date</h3>
+          </div>
+          <div class="form-group col-sm-3">
+            <input class="form-control" type="date" value="2016-05-04" ng-model="form.outgoingDate" required ></input>
+          </div>
+
+          <div class="col-sm-3" ng-hide="form.oneway">
+            <h3>Return Date</h3>
+          </div>
+          <div class="form-group col-sm-3">
+            <input class="form-control"  type="date" value="2016-05-05" ng-model="form.returnDate" ng-hide="form.oneway" ></input>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm-4">
+            <select class="form-control" ng-model="form.class">
+              <option value="Economy"  selected>Economy</option>
+              <option value="Business">Business</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <!--<button type="button" class="btn btn-info">Find Flights</button>-->
+        <input type="button" class="btn btn-info hvr-pulse btn-lg pull-right" value="Find Flights" ng-click="flightForm.$valid &&findFlightsButtonClick()" ></input>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="container" id="viewBF">
+    <div class="row viewBooking">
+      <div class="col-sm-3">
+        <div class = "input-group">
+          <input type = "text" class = "form-control" placeholder="Booking ref no.">
+          <span class = "input-group-btn">
+            <button class = "btn btn-default hvr-pulse" type = "button" href="/#booking-info">Find Booking</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row " id="checkFlight">
+    <div class="col-sm-3">
+      <div class = "input-group">
+        <input type = "text" class = "form-control" placeholder="Flight no.">
+        <span class = "input-group-btn">
+          <button class = "btn btn-default hvr-pulse" type = "button" href="/#flights">Find Flight</button>
+        </span>
+      </div>
+    </div>
+  </div>

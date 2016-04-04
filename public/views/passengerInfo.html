@@ -2,25 +2,25 @@
 
     <!-- Header -->
     <header>
-        <div class="container" ng-controller="SubmitCtr">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                  
- 	
+
+
        <font color="White" size="5"> Please fill the required info to complete your reservation.</font><br><br>
        <div>
-  
+
  	   <form method="post">
- 	   
+
  		<font color="White">First Name:</font><br>
  		<input type="text" name="firstname" required><br><br>
- 		
+
  		<font color="White">Last Name:</font><br>
  		<input type="text" name="lastname" required><br><br>
- 		
+
  		<font color="White">Passport Country:</font><br>
  		<select name="passC">
- 	
+
  	  <option value="AF">Afghanistan</option>
 		<option value="AX">Åland Islands</option>
 		<option value="AL">Albania</option>
@@ -269,31 +269,23 @@
 		<option value="EH">Western Sahara</option>
 		<option value="YE">Yemen</option>
 		<option value="ZM">Zambia</option>
-		<option value="ZW">Zimbabwe</option></select><br><br> 
- 		
+		<option value="ZW">Zimbabwe</option></select><br><br>
+
  		<font color="White">Passport no.:</font><br>
  		<input type="text" name="passportno" required><br><br>
- 		
+
  		<font color="White">Issue Date:</font><br>
  		<input type="date" name="issuedate" required><br><br>
- 		
+
  		<font color="White">Expire Date:</font><br>
  		<input type="date" name="expiredate" required><br><br>
- 		
+
  		<input type="submit" value="Continue" id= 'btnSubmit' ng-click='SubmitInfo()'>
 
- 		
+
    </form>
 	</div>
 	 </div>
 	    </div>
 		   </div>
     </header>
- 
-
-
-
-
-
-
- 
