@@ -1,13 +1,13 @@
 
 angular.module('alaska').factory('landingSrvc', function ($http) {
-     return {
+  return {
 
-        setFindFlightInfo: function(value){
-          this.flightInfo=value;
-        },
+    setFindFlightInfo: function(value){
+      this.flightInfo=value;
+    },
 
-         getFindFlightInfo: function() {
-           return this.flightInfo;
-         }
-     };
- });
+    getFindFlightInfo: function() {
+      return this.flightInfo;
+    }
+  };
+});

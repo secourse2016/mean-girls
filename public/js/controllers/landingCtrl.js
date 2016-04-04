@@ -1,9 +1,9 @@
 angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,$location,$http){
 
 	$http.get('dummyData/airports.json').success(function(data) {
-		    $scope.airports = data;
+		$scope.airports = data;
 	});
-	$scope.submitted=false;
+
 	$scope.form={};
 	$scope.form.class = "Economy";
 
@@ -13,11 +13,11 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,
 		$location.url('/flights');
 
 
- 	};
+	};
 
- 	$scope.notNull = function (airport){
- 		return airport.name != null;
- 	}
+	$scope.notNull = function (airport){
+		return airport.name != null;
+	}
 
 
 });
