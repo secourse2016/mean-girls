@@ -1,0 +1,87 @@
+#pen{
+    max-width: 200px;
+    max-height: 300px;
+}
+
+.header {
+    text-align: center;
+    color: #fff;
+
+}
+
+.header .container {
+    padding-bottom: 50px;
+}
+
+.header img {
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.header .intro-text .name {
+    display: block;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.header .intro-text .skills {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+
+.header .container {
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+.header .intro-text .name {
+    font-size: 4.75em;
+}
+
+.header .intro-text .skills {
+    font-size: 1.75em;
+}
+
+
+
+
+.find-flight-form{
+    padding-left: 30px;
+    padding-right: 30px;
+    vertical-align: center;
+
+}
+
+#form-title{
+    font-size: 2em;
+    padding-top: 0px;
+
+}
+
+.form-group{
+    padding: 20px;
+}
+
+#find-flight-button{
+
+}
+
+.ng-invalid .ng-pristine{
+    border-color: #02C9E3;
+}
+
+.viewBF{
+    background: #fff;
+    padding-left:0px;
+    padding-right: 0px;
+    left: 50%;
+}
+.viewFlights{
+    padding: 15px;
+}
+.viewBooking{
+    padding: 15px;
+}

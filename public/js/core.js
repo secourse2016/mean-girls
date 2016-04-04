@@ -32,6 +32,10 @@ app.config(function($routeProvider) {
 		templateUrl: 'views/resv-info.html',
 		controller: 'resvConfirmCtrl'
 	})
+	.when('/', {
+		templateUrl : 'views/landing.html',
+		controller  : 'landingCtrl'
+	})
 
 
 
