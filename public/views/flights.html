@@ -1,60 +1,43 @@
-<header style="color: #2c3e50;">
-        <div class="container">
-            <h2>Modify Search</h2>
-            <form class="form-inline" role="form">
-                <div class="form-group">
-                    <input class="form-control" id="From" placeholder="From">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" id="To" placeholder="To">
-                </div>
-                <div class="form-group">
-                    <input type="date" class="form-control" id="Date" >
-                </div>
-                <button type="submit" class="btn btn-default">Modify</button>
-            </form>
-        </div>
-        <div>
-            <div id="flightInfo"  style="float: left;">
-                <table class="table table-bordered">
-                    <tr ng-repeat="x in infos" >
-                        <td>
-                            <p>{{x.origin+" - "+x.destination}}</p>
-                            <p>{{x.departureDate+" - "+x.arrivalDate}}</p>
-                            <!-- <p >{{x.departureDate|date:"'Year:' yyyy, 'Month:' MMM, 'Day:' EEEE"}}</p> -->
-                            <p>{{departureDate | date:'MM-dd-yyyy HH:MM:ss' }}</p>
-                        </td>
-                        <td>{{x.flightNumber}}</td>
-                        <td>{{x.availableSeats}}</td>
-                        <td>
-                            <p ><input type="radio" name="choseAFlight" ng-model="infoFlightNo.index" ng-value="{{$index}}" ng-disabled="x.availableSeats==0" <br></p>
-                            <p ng-repeat="y in x.seatmap" >{{y.cost}}</p>
-                        </td>
-
-                    </tr>
-
-                </table>
-            </div>
-            <div style="float: right;">
-                <table class="table table-bordered" >
-                    <head>
-                        <h3>Shopping Cart</h3>
-                    </head>
-                    <body>
-                        <tr>
-                            <td>
-                                <p>{{infos[infoFlightNo.index].flightNumber}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Total:{{infos[infoFlightNo.index].seatmap[0].cost}}</p>
-                            </td>
-                        </tr>
-                    </body>
-                </table>
-                <button ng-show="infoFlightNo.index!=null" type="button" class="btn btn-primary btn-lg" ng-click='Continue()'>Continue</button>
-            </div>
-        </div>
-
- </header>
+<div class="container text-center">
+  <button class="btn btn-lg btn-primary  btn-default hvr-pulse">Modify Search</button>
+</div>
+<div class="container">
+  <div class="jumbotron">
+    <div class="row">
+    <div class="col-sm-9">
+      <table class="table table-bordered">
+        <tr ng-repeat="x in infos" >
+          <td>
+            <p>{{x.origin+" - "+x.destination}}</p>
+            <p>{{x.departureDate+" - "+x.arrivalDate}}</p>
+            <!-- <p >{{x.departureDate|date:"'Year:' yyyy, 'Month:' MMM, 'Day:' EEEE"}}</p> -->
+            <p>{{departureDate | date:'MM-dd-yyyy HH:MM:ss' }}</p>
+          </td>
+          <td>{{x.flightNumber}}</td>
+          <td>{{x.availableSeats}}</td>
+          <td>
+            <p ><input type="radio" name="choseAFlight" ng-model="infoFlightNo.index" ng-value="{{$index}}" ng-disabled="x.availableSeats==0" <br></p>
+            <p ng-repeat="y in x.seatmap" >{{y.cost}}</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-3">
+      <table class="table table-bordered" >
+        <h3>Shopping Cart</h3>
+        <tr>
+          <td>
+            <p>{{infos[infoFlightNo.index].flightNumber}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Total:{{infos[infoFlightNo.index].seatmap[0].cost}}</p>
+          </td>
+        </tr>
+      </table>
+      <button ng-show="infoFlightNo.index!=null" type="button" class="btn btn-primary btn-lg" ng-click='Continue()'>Continue</button>
+    </div>
+  </div>
+  </div>
+</div>
