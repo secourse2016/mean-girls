@@ -73,6 +73,21 @@
     border-color: #02C9E3;
 }
 
+.viewBF{
+    background: #fff;
+    padding-left:0px;
+    padding-right: 0px;
+    left: 50%;
+}
+.viewFlights{
+    padding: 15px;
+}
+.viewBooking{
+    padding: 15px;
+}
+
+
+
 
 
 
