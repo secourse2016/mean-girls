@@ -1,4 +1,4 @@
-angular.module('alaska').controller('landingCtrl', function ($scope,landingSrv,$location,$http){
+angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,$location,$http){
 
 	$http.get('dummyData/airports.json').success(function(data) {
 		    $scope.airports = data;
@@ -8,10 +8,10 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrv,$
 	$scope.form.class = "Economy";
 
 	$scope.findFlightsButtonClick = function() {
-		landingSrv.setFindFlightInfo($scope.form);
+		landingSrvc.setFindFlightInfo($scope.form);
 
 		$location.url('/flights');
-	
+
 
  	};
 
