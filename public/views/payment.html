@@ -1,0 +1,78 @@
+<header ng-app="alaska">
+        <div class="container"  ng-init="tab = 0">
+            <div class="page-header">
+               <h1>Payment Details</h1>
+            </div>
+              <form ng-hide="hideform">
+               <div class="col-xs-4">
+                   <label for="fname">First Name</label>
+                   <input type="text" class="form-control" ng-model="fname" id="fname"  placeholder="First Name" required>
+                </div>
+                <div class="col-xs-4">
+                   <label for="lname">Last Name</label>
+                   <input type="text" class="form-control" ng-model="lname" id="lname" placeholder="Last Name" required>
+                </div>
+                <div class="col-xs-4">
+                   <label for="adr">Address</label>
+                   <input type="text" id="adr" ng-model="adr" class="form-control" placeholder="Address" required>
+                </div>
+                <div class="col-xs-4">
+                     <label for="sec">Security Code</label>
+                     <input type="text" id="sec" ng-model="sec" class="form-control" placeholder="Security Code" required>
+                </div>
+                <div class="col-xs-4">
+                   <label for="zipcode">Zip Code</label>
+                   <input type="text" id="zipcode" ng-model="zipcode" class="form-control" placeholder="Zip Code" required>
+                </div>
+                <div class="col-xs-4">
+                   <label for="country">Country</label>
+                   <select ng-model="selectedCountry" class="form-control"  ng-options="x for x in countries">
+                   </select>
+                </div>
+                <div class="col-xs-4">
+                   <label for="cardtype">Card Type</label>
+                   <select ng-model="selectedCard" class="form-control" ng-options="y for y in card">
+                   </select>
+                </div>
+                 <div class="col-xs-4">
+                    <label for ="cardno">Card Number</label>
+                    <input type="text" id="cardno" ng-model="cardno" class="form-control"  placeholder="Card Number" required>
+                </div>
+                <div class="col-xs-4">
+                    <label for ="expdate">Expiry Date</label>
+                    <input type="date" id="expdate"  ng-model="expdate" class="form-control" required > <br>
+                </div>
+                    <!-- <div class>
+                     <input type="radio" required><h3>I have read and  accept the terms and conditions.</h3> <br>
+                      </div> -->
+                       <div>
+                         <label><input type="checkbox">I have read and  accept the terms and conditions.
+                         </label> <br>
+                      </div>
+
+                      <div >
+                          <br>
+                          <input type="submit" name="Submit " class="btn btn-success" ng-click='SubmitPayment()' ng-disabled="ng-invalid">&#10004;
+                          <!-- <a href="#/submit" class="btn btn-info" role="button" ng-disabled="ng-invalid">Submit</a> -->
+
+                        </div>
+
+                </form>
+
+               <form role="form">
+                     <!--  <div class="checkbox">
+                         <label><input type="checkbox">I have read and  accept the terms and conditions.
+                         </label>
+                      </div> -->
+
+               </form>
+               <!-- <div class="checkbox">
+                      <label>
+                      <input type="checkbox">I have read and  accept the terms and conditions.
+                      </label>
+                </div>    -->
+
+          </div>
+
+
+    </header>

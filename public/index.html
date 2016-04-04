@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="alaska">
+
+<head>
+
+	<title>Alaska alaskas</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+
+	<!-- ADD LINKS TO CSS OF YOUR VIEWS HERE -->
+	<link href="css/resv-info.css" rel="stylesheet">
+	<link href="css/landing.css" rel="stylesheet">
+
+
+	<!-- js files -->
+	<script src="js/jquery-1.12.2.min.js"> </script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"> </script>
+
+	<!-- main angular routing file -->
+	<script src="js/core.js"></script>
+
+	<!-- controllers -->
+	<script src="js/controllers/resvConfirmCtrl.js"></script>
+	<script src="js/controllers/mainCtrl.js"></script>
+	<script src="js/controllers/flightInfoCtrl.js"></script>
+	<script src="js/controllers/flightsCtrl.js"></script>
+	<script src="js/controllers/paymentCtrl.js"></script>
+	<script src="js/controllers/submitCtrl.js"></script>
+	<script src="js/controllers/landingCtrl.js"></script>
+	<!--services-->
+	<script src="js/services/resvConfirmSrvc.js"></script>
+	<script src="js/services/landingSrvc.js"></script>
+
+
+</head>
+
+<body ng-app='alaska'>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+
+			<div class="navbar-header page-scroll">
+				<a class="navbar-brand" id="logo" href="">
+
+					<img class="img-responsive"  src="../img/logo.png" alt="">
+				</a>
+			</div>
+
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="page-scroll">
+					<a href="##book">Book</a>
+				</li>
+				<li class="page-scroll">
+					<a href="##viewBF">View Booking</a>
+				</li>
+				<li class="page-scroll">
+					<a href="##checkFlight">Check Flight</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div ng-view id="main"></div>
+</body>
+
+</html>
