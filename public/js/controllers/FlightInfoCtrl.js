@@ -1,7 +1,7 @@
 (function(){
-    var app = angular.module('Alaska',[]);
+    // var app = angular.module('alaska',[]);
 
-    app.controller('FlightController',['$scope','$http',function($scope, $http){
+    app.controller('FlightInfoCtrl',['$scope','$http',function($scope, $http){
 
       $http.get('dummyData/flights.json').success(function(data){
         $scope.infos = data;
