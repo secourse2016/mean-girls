@@ -14,6 +14,18 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,
 
 
 	};
+	$scope.showBooking = function() {
+
+		$location.url('/resv/'+ $scope.bookingRef);
+
+
+	};
+	$scope.checkFlight = function() {
+
+		$location.url('/flight-info');
+
+
+	};
 
 	$scope.notNull = function (airport){
 		return airport.name != null;
