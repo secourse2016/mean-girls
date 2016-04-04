@@ -1,41 +1,23 @@
 angular.module('alaska').controller('landingCtrl', function ($scope,landingSrv,$location,$http){
-	$scope.formInfo=[];
 
+	$http.get('dummyData/airports.json').success(function(data) {
+		    $scope.airports = data;
+	});
+	$scope.submitted=false;
+	$scope.form={};
+	$scope.form.class = "Economy";
 
+	$scope.findFlightsButtonClick = function() {
+		landingSrv.setFindFlightInfo($scope.form);
 
-	$scope.airports=[
-    {
-        "iata": "HDF",
-        "lon": "14.138242",
-        "iso": "DE",
-        "status": 1,
-        "name": "Heringsdorf Airport",
-        "continent": "EU",
-        "type": "airport",
-        "lat": "53.87825",
-        "size": "medium"
-    },
-    {
-        "iata": "BBH",
-        "lon": "12.711667",
-        "iso": "DE",
-        "status": 1,
-        "name": "Barth Airport",
-        "continent": "EU",
-        "type": "airport",
-        "lat": "54.33972",
-        "size": "small"
-    }];
+		$location.url('/flights');
+	
 
-
-	$scope.findFlightsButtonClick = function(form) {
-		$scope.formInfo=form;
-
-		landingSrv.setFindFlightInfo(form);
-
-		$location.path('/flights');
-		$scope.apply();
  	};
+
+ 	$scope.notNull = function (airport){
+ 		return airport.name != null;
+ 	}
 
 
 });
