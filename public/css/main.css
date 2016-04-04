@@ -120,3 +120,11 @@ h1
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
+
+#modify{
+  padding-bottom: 10px;
+}
+
+#cart{
+  background-color: #b1c1c5;
+}

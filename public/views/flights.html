@@ -1,29 +1,30 @@
-<div class="container text-center">
+<div id="modify" class="container text-center">
   <button class="btn btn-lg btn-primary  btn-default hvr-pulse">Modify Search</button>
 </div>
 <div class="container">
-  <div class="jumbotron">
-    <div class="row">
-    <div class="col-sm-9">
-      <table class="table table-bordered">
-        <tr ng-repeat="x in infos" >
-          <td>
-            <p>{{x.origin+" - "+x.destination}}</p>
-            <p>{{x.departureDate+" - "+x.arrivalDate}}</p>
-            <!-- <p >{{x.departureDate|date:"'Year:' yyyy, 'Month:' MMM, 'Day:' EEEE"}}</p> -->
-            <p>{{departureDate | date:'MM-dd-yyyy HH:MM:ss' }}</p>
-          </td>
-          <td>{{x.flightNumber}}</td>
-          <td>{{x.availableSeats}}</td>
-          <td>
-            <p ><input type="radio" name="choseAFlight" ng-model="infoFlightNo.index" ng-value="{{$index}}" ng-disabled="x.availableSeats==0" <br></p>
-            <p ng-repeat="y in x.seatmap" >{{y.cost}}</p>
-          </td>
-        </tr>
-      </table>
+  <div class="row">
+    <div class="jumbotron col-sm-8">
+      <div>
+        <table class="table">
+          <tr ng-repeat="x in infos" >
+            <td>
+              <p>{{x.origin+" - "+x.destination}}</p>
+              <p>{{x.departureDate+" - "+x.arrivalDate}}</p>
+              <!-- <p >{{x.departureDate|date:"'Year:' yyyy, 'Month:' MMM, 'Day:' EEEE"}}</p> -->
+              <p>{{departureDate | date:'MM-dd-yyyy HH:MM:ss' }}</p>
+            </td>
+            <td>{{x.flightNumber}}</td>
+            <td>{{x.availableSeats}}</td>
+            <td>
+              <p ><input type="radio" name="choseAFlight" ng-model="infoFlightNo.index" ng-value="{{$index}}" ng-disabled="x.availableSeats==0" <br></p>
+              <p ng-repeat="y in x.seatmap" >{{y.cost | currency}}</p>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <div class="col-sm-3">
-      <table class="table table-bordered" >
+    <div class="jumbotron col-sm-3 pull-right " id="cart">
+      <table class="table" >
         <h3>Shopping Cart</h3>
         <tr>
           <td>
@@ -32,12 +33,12 @@
         </tr>
         <tr>
           <td>
-            <p>Total:{{infos[infoFlightNo.index].seatmap[0].cost}}</p>
+            <p>Total: {{infos[infoFlightNo.index].seatmap[0].cost | currency}}</p>
           </td>
         </tr>
       </table>
-      <button ng-show="infoFlightNo.index!=null" type="button" class="btn btn-primary btn-lg" ng-click='Continue()'>Continue</button>
+      <button ng-disabled="infoFlightNo.index==null" type="button" class="btn btn-primary btn-lg" ng-click='Continue()'>Continue</button>
     </div>
   </div>
-  </div>
+
 </div>
