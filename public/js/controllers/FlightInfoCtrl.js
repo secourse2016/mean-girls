@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('Alaska',[]);
+    // var app = angular.module('alaska',[]);
 
     app.controller('FlightInfoCtrl',['$scope','$http',function($scope, $http){
 

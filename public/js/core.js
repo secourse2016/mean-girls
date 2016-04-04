@@ -12,21 +12,21 @@
     $routeProvider
 
       
-        .when('/flight-info',{
+        .when('/flight-info', {
         	templateUrl : '../views/flight-info.html',
             controller  : 'FlightInfoCtrl'
 
-        });
+        })
 
         .when('/flights', {
             templateUrl : '../views/flights.html',
             controller  : 'FlightController'
-        });
+        })
        
-       .when('/passengerInfo',{
+       .when('/passengerInfo', {
 		  templateUrl: '../views/passengerInfo.html',
 		  controller: 'SubmitCtr'
-	  });
+	  })
 
         .when('/payment', {
             templateUrl : '../views/payment.html',
