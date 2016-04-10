@@ -27,7 +27,7 @@
                     <div class="row">
                         
                             <div class="form-group col-sm-6">
-                                <select class="form-control" ng-model="form.fromCountry" ng-options="airport.iata as airport.name for airport in airports | filter:notNull" required>
+                                <select class="form-control" ng-model="form.fromCountry" ng-options="airport.iata as airport.name for airport in airports| filter:notNull" required>
                                 </select>
                             </div>
 
@@ -81,7 +81,7 @@
 <div class="container viewBF">
     <div class="row viewBooking">
         <div class="col-sm-3">
-            <div class = "input-group">
+            <div class = "input-group buttons">
                 <input type = "text" class = "form-control" placeholder="Booking ref no.">
                 <span class = "input-group-btn">
                     <button class = "btn btn-default" type = "button" href="/#booking-info">Find Booking</button>
@@ -92,7 +92,7 @@
 
     <div class="row viewFlights">
         <div class="col-sm-3">
-            <div class = "input-group">
+            <div class = "input-group buttons">
                 <input type = "text" class = "form-control" placeholder="Flight no.">
                 <span class = "input-group-btn">
                     <button class = "btn btn-default" type = "button" href="/#flights">Find Flight</button>

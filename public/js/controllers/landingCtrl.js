@@ -3,9 +3,12 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrv,$
 	$http.get('dummyData/airports.json').success(function(data) {
 		    $scope.airports = data;
 	});
+
 	$scope.submitted=false;
 	$scope.form={};
 	$scope.form.class = "Economy";
+	$scope.form.fromCountry="HDF";
+	$scope.form.toCountry="HDF";
 
 	$scope.findFlightsButtonClick = function() {
 		landingSrv.setFindFlightInfo($scope.form);
