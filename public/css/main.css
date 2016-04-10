@@ -7,6 +7,9 @@ body {
   background-image: url("../img/alaska3.png");
   font-family: Alegreya;
   position: relative;
+  margin:0;
+  padding:0;
+  height:100%;
 }
 div{
   background-color: rgba(0, 0, 0, 0);
@@ -128,7 +131,7 @@ p.small {
 
 /*footer styling*/
 .social a {
-  font-size: 1.25em;
+  font-size: 1.5em;
   color: #fff;
   text-decoration: none;
 }
@@ -198,7 +201,7 @@ p.small {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  font-size: 25px;
+  font-size: 1.5em;
   background: #ffffff;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
@@ -210,7 +213,9 @@ p.small {
 #footer {
   background-color: #01426a;
   color: #fff;
-  font-family: 'Raleway', sans-serif;
+  font-family: Alegreya;
+  width: 100%;
+  height: 100%;
 }
 #eskimo{
   margin-top: 40px;
