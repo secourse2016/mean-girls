@@ -6,7 +6,7 @@
 .header {
     text-align: center;
     color: #fff;
-    
+
 }
 
 .header .container {
@@ -58,7 +58,7 @@
 #form-title{
     font-size: 2em;
     padding-top: 0px;
-    
+
 }
 
 .form-group{
@@ -79,17 +79,9 @@
     padding-right: 0px;
     left: 50%;
 }
-.viewFlights{
+.checkFlight{
     padding: 15px;
 }
 .viewBooking{
     padding: 15px;
 }
-
-
-
-
-
-
-
-

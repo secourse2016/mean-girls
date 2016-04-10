@@ -1,26 +1,37 @@
-angular.module('alaska').controller('landingCtrl', function ($scope,landingSrv,$location,$http){
+angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,$location,$http){
 
 	$http.get('dummyData/airports.json').success(function(data) {
-		    $scope.airports = data;
+		$scope.airports = data;
 	});
 
-	$scope.submitted=false;
 	$scope.form={};
 	$scope.form.class = "Economy";
 	$scope.form.fromCountry="HDF";
 	$scope.form.toCountry="HDF";
 
 	$scope.findFlightsButtonClick = function() {
-		landingSrv.setFindFlightInfo($scope.form);
+		landingSrvc.setFindFlightInfo($scope.form);
 
 		$location.url('/flights');
-	
 
- 	};
 
- 	$scope.notNull = function (airport){
- 		return airport.name != null;
- 	}
+	};
+	$scope.showBooking = function() {
+
+		$location.url('/resv/'+ $scope.bookingRef);
+
+
+	};
+	$scope.checkFlight = function() {
+
+		$location.url('/flight-info');
+
+
+	};
+
+	$scope.notNull = function (airport){
+		return airport.name != null;
+	}
 
 
 });
