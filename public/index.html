@@ -4,7 +4,7 @@
 
 <head>
 
-	<title>Alaska alaskas</title>
+	<title>Alaska Airlines</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 
@@ -34,15 +34,22 @@
 	<script src="js/services/resvConfirmSrvc.js"></script>
 	<script src="js/services/landingSrvc.js"></script>
 
+	<!-- scroll & navbar feature -->
+	<script src="js/smooth-scroll.js"></script>
 
 </head>
 
-<body ng-app='alaska'>
+<body ng-app='alaska' data-spy="scroll" data-target=".navbar">
 	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
+		<div class="container-fluid">
 
-			<div class="navbar-header page-scroll">
-				<a class="navbar-brand" id="logo" href="">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" id="logo" href="#">
 					<svg version="1.1" class="alaska-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="113px" height="34px" viewBox="0 0 114.7 34.1" enable-background="new 0 0 114.7 34.1" xml:space="preserve">
 						<g>
 							<g>
@@ -59,21 +66,22 @@
 				</a>
 			</div>
 
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="page-scroll">
-					<a  href="##book">Book</a>
-				</li>
-				<li class="page-scroll">
-					<a  href="##viewBF">View Booking</a>
-				</li>
-				<li class="page-scroll">
-					<a  href="##checkFlight">Check Flight</a>
-				</li>
-				<li class="page-scroll">
-					<a  href="#">About us</a>
-				</li>
-			</ul>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li >
+						<a  href="#book" data-target="#book">Book</a>
+					</li>
+					<li >
+						<a  href="#viewBF" data-target="#viewBF">View Booking</a>
+					</li>
+					<li >
+						<a  href="#checkFlight" data-target="#checkFlight">Check Flight</a>
+					</li>
+					<li >
+						<a  href="">About us</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</nav>
 	<div ng-view id="main"></div>

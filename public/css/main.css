@@ -5,8 +5,8 @@
 
 body {
   background-image: url("../img/alaska3.png");
-  padding-top: 120px;
   font-family: Alegreya;
+  position: relative;
 }
 div{
   background-color: rgba(0, 0, 0, 0);
@@ -31,20 +31,19 @@ p.small {
   font-family: Alegreya;
   font-weight: 800;
   font-size: 4em;
-  padding-top: 50px;
+  margin-top: 150px;
 }
 
 
-.img-centered {
-  margin: 0 auto;
-}
+
 
 
 
 
 .navbar {
-  padding-top: 10px;
   background-color: #01426a;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 
@@ -63,9 +62,11 @@ p.small {
   color: #496F8C;
 
 }
-#logo{
-  padding-top: 10px;
+.navbar .navbar-nav li a:active{
+  color: #496F8C;
+
 }
+
 
 @-webkit-keyframes hvr-pulse {
   25% {
@@ -120,3 +121,6 @@ p.small {
   background-color: #b1c1c5;
 }
 .alaska-logo path{fill:#fff}
+#logo{
+  margin-left: 5px;
+}
