@@ -42,5 +42,9 @@
 }
 .intro-text{
   text-align:center;
-  color: #093654;
+  font-family: Alegreya;
+  font-weight: 800;
+  font-size: 4em;
+  margin-top: 150px;
+  color: #01426a;
 }

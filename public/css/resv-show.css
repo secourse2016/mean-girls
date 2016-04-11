@@ -29,7 +29,7 @@
 }
 
 .circle {
-  background-color: black;
+  background-color: #01426a;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   width: 110px;
   height: 110px;
@@ -114,8 +114,6 @@
 }
 
 .tickets {
-  background: -webkit-linear-gradient(315deg, #C7767B 0%, #77A2E0 100%);
-  background: linear-gradient(135deg, #C7767B 0%, #77A2E0 100%);
   padding: 20px;
   position: relative;
 }
