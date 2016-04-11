@@ -1,12 +1,10 @@
 #bigWrapper{
-  background-image: url("../img/bg.png");
-
+  width: 80%;
 }
 
 .wrapper {
   font-family: "Helvetica Neue", Arial;
   font-weight: 300;
-  width: 600px;
   margin: 0 auto;
   margin-top: 150px;
   margin-bottom: 50px;
@@ -33,8 +31,8 @@
 .circle {
   background-color: black;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   text-align: center;
   margin: 0px auto;
   border-radius: 50%;
@@ -48,6 +46,7 @@
   position: absolute;
   display: block;
   text-align: center;
+  margin: 0 auto;
   right: 0;
   left: 0;
   color: white;
@@ -59,11 +58,12 @@
 .circle .airport {
   font-weight: 800;
   top: 35px;
+  font-size: 1.25em;
 }
 .circle .city {
   font-weight: 100;
   top: 50px;
-  font-size: 0.75em;
+  font-size: 1em;
   visibility: none;
   opacity: 0;
 }
@@ -99,7 +99,7 @@
 
 .diagram {
   position: absolute;
-  left: 190px;
+  left: 380px;
   width: 200px;
   height: 100px;
 }
@@ -183,13 +183,16 @@
   font-weight: 800;
   margin-bottom: 5px;
   padding: 5px 20px;
+  font-size: 1.25em;
+  text-align: center;
 }
 .depart span.way, .return span.way {
   padding: 5px 0;
 }
 
 .depart .half, .return .half {
-  font-size: 0.8em;
+  font-size: 1em;
+  text-align: center;
   padding: 5px 20px;
 }
 
