@@ -40,6 +40,9 @@ app.config(function($routeProvider) {
 		templateUrl : 'views/landing.html',
 		controller  : 'landingCtrl'
 	})
+	.when('/payment-new', {
+		templateUrl : 'views/payment-new.html',
+	})
 
 
 
