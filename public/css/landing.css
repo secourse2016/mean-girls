@@ -20,9 +20,6 @@
   padding: 20px;
 }
 
-#find-flight-button{
-
-}
 
 .ng-invalid .ng-pristine{
   border-color: #02C9E3;
@@ -48,3 +45,101 @@
   margin-top: 150px;
   color: #01426a;
 }
+
+
+
+
+
+
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.form-container {
+  display: block;
+  width:800px;
+  height: 1000px;
+  padding-left: 30%;
+}
+
+.login-form {
+  background: rgba(0, 93, 130, 0.7);
+  border: 4px solid rgba(0, 93, 130, 0.9);
+  border-radius: 8px;
+}
+
+.title {
+  background: rgba(0, 90, 120, 0.9);
+  color: #fff;
+  font-weight: normal;
+  font-size: 2em;
+  padding: 10px 10px 10px 20px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  padding: 5px;
+  min-width: 50%;
+  height: 20px;
+  border-radius: 4px;
+  border: none;
+  font-weight: normal;
+}
+
+textarea:focus, input:focus, button:focus {
+    outline: 0;
+}
+
+.tooltip {
+  width: 35%;
+  background: rgba(6, 41, 61, 1);
+  font-size: 0.8em;
+  color: #fff;
+  font-weight: normal;
+  margin-left: 10px;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+.form-group {
+  padding: 10px 10px 10px 20px;
+}
+
+#checkFlightButton {
+  width: 100px;
+  height: 30px;
+  margin-bottom: 10px;
+  
+  border: none;
+  border-radius: 4px;
+  background-size: 500% 100%;
+  background: rgba(6, 41, 61, 1);
+  box-shadow: inset 0 0 0 0 rgba(20, 196, 148, 1);
+    -webkit-transition: all ease 0.3s;
+    -moz-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+  
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.8em;
+}
+
+#checkFlightButton:hover {
+  box-shadow: inset 0 40px 0 0 rgba(20, 196, 148, 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
