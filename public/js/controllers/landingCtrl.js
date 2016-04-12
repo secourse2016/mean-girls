@@ -6,8 +6,8 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,
 
 	$scope.form={};
 	$scope.form.class = "Economy";
-	$scope.form.fromCountry="HDF";
-	$scope.form.toCountry="HDF";
+	$scope.form.fromCountry="IAD";
+	$scope.form.toCountry="IAD";
 
 	$scope.findFlightsButtonClick = function() {
 		landingSrvc.setFindFlightInfo($scope.form);

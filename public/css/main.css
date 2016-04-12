@@ -1,80 +1,61 @@
-body {
-    background: #158fbf;
-    padding-top: 120px;
+@font-face {
+  font-family: Alegreya;
+  src: url("../fonts/AlegreyaSans-MediumItalic.ttf");
 }
 
+body {
+  background-image: url("../img/alaska-new.png");
+  font-family: Alegreya;
+  position: relative;
+  margin:0;
+  padding:0;
+  height:100%;
+}
+div{
+  background-color: rgba(0, 0, 0, 0);
+}
+.jumbotron{
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+
+
+}
 p {
-    font-size: 20px;
+  font-size: 0.7em;
 }
 
 p.small {
-    font-size: 16px;
+  font-size: 0.5em;
 }
-
-
-h1
-{
-    text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 800;
-}
-
-
-.img-centered {
-    margin: 0 auto;
-}
-
-
-.navbar-fixed-top {
-    padding: 25px 0;
-    -webkit-transition: padding .3s;
-    -moz-transition: padding .3s;
-    transition: padding .3s;
-}
-
-.navbar-fixed-top .navbar-brand {
-    font-size: 2em;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    transition: all .3s;
-}
-
-.navbar-fixed-top.navbar-shrink {
-    padding: 10px 0;
-}
-
-.navbar-fixed-top.navbar-shrink .navbar-brand {
-    font-size: 1.5em;
-}
-
 
 .navbar {
-    text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 700;
-    background: #fff;
+  background-color: #01426a;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 
-.navbar .navbar-nav {
-    letter-spacing: 1px;
-}
+
 
 .navbar .navbar-nav li a{
-    color: #496F8C;
-    font-size: 1.5em;
+  color: #fff;
+  font-size: 1.5em;
 
 }
 .navbar .navbar-nav li a:hover{
-
-    color: #F2E394;
+  color: #496F8C;
 
 }
-#logo{
-    padding-top: 0px;
-    max-height: 100px;
-    max-width: 200px;
+.navbar .navbar-nav li a:focus{
+  color: #fff;
 }
+.navbar .navbar-nav li a:active{
+  color: #fff;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+  background-color: #496F8C;
+}
+
 
 @-webkit-keyframes hvr-pulse {
   25% {
@@ -127,4 +108,333 @@ h1
 
 #cart{
   background-color: #b1c1c5;
+}
+.alaska-logo path{fill:#fff}
+#logo{
+  margin-left: 5px;
+}
+
+/*footer styling*/
+.social a {
+  font-size: 1.5em;
+  color: #fff;
+  text-decoration: none;
+}
+
+.social {
+  float: left;
+  margin-top: 5px;
+  max-width: 250px;
+}
+.social ul {
+  padding: 0px;
+  -webkit-transform: translate(-270px, 0);
+  -moz-transform: translate(-270px, 0);
+  -ms-transform: translate(-270px, 0);
+  -o-transform: translate(-270px, 0);
+  transform: translate(-270px, 0);
+}
+.social ul li {
+  display: block;
+  margin: 5px;
+  background: rgba(0, 0, 0, 0.36);
+  width: 320px;
+  text-align: right;
+  padding: 12px;
+  -webkit-border-radius: 0 30px 30px 0;
+  -moz-border-radius: 0 30px 30px 0;
+  border-radius: 0 30px 30px 0;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+.social ul li:hover {
+  -webkit-transform: translate(110px, 0);
+  -moz-transform: translate(110px, 0);
+  -ms-transform: translate(110px, 0);
+  -o-transform: translate(110px, 0);
+  transform: translate(110px, 0);
+  background: rgba(255, 255, 255, 0.4);
+}
+.social ul li:hover a {
+  color: #000;
+}
+.social ul li:hover i {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.36);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  transform: rotate(360deg);
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+.social ul li i {
+  text-align: center;
+  vertical-align: center;
+  margin-left: 10px;
+  color: #000;
+  background: #fff;
+  padding: 10px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5em;
+  background: #ffffff;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+#footer {
+  background-color: #01426a;
+  color: #fff;
+  font-family: Alegreya, sans-serif;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-grow: right;
+}
+#eskimo{
+  margin-top: 40px;
+  max-width: 400px;
+  max-height: 400px;
+
+}
+#eskimo svg{
+  height: 100%;
+  width: 100%;
+}
+
+/*contact us envelope styling*/
+#envelope {
+  width: 408px;
+  height: 224px;
+  background: #f2f2f2;
+  margin: 100px 30px 20px 30px;
+  position: relative;
+  font-family: Special Elite, sans-serif;
+  text-align: center;
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='rgba(85,152,195,0.7)', endColorstr='rgba(85,152,195,1)', GradientType=0);
+  color: #777;
+  font-size: 1.5em;
+  flex: 1;
+}
+
+#envelope p {
+  margin: 15px;
+  text-align: center;
+}
+
+.callback {
+  color: rgba(0, 0, 0, 0.2);
+  padding-top: 25px;
+  font-size: : 1.5em;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+}
+
+#envelope input {
+  border: 0;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+  margin: 0;
+  height: 20px;
+  outline: none;
+  font-family: Special Elite, sans-serif;
+}
+
+#envelope input::-webkit-input-placeholder {
+  color: rgba(1, 1, 1, 0.5);
+  transition: color 0.3s;
+}
+
+#envelope input:focus::-webkit-input-placeholder {
+  color: rgba(1, 1, 1, 0.1);
+}
+
+#envelope input::-moz-placeholder {
+  color: rgba(1, 1, 1, 0.5);
+  transition: color 0.3s;
+}
+
+#envelope input:focus::-moz-placeholder {
+  color: rgba(1, 1, 1, 0.1);
+}
+
+#envelope p:nth-child(3) {
+  margin-top: -10px;
+  margin-left: 0;
+  border: 0;
+}
+
+#send {
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  color: #777;
+  font-size: 1em;
+  transition: color 0.3s;
+}
+
+#send:hover {
+  color: #9b1d4a;
+}
+
+
+
+#envelope div:first-child {
+  width: 100%;
+  height: 135px;
+  position: absolute;
+  bottom: 0;
+  background: -webkit-linear-gradient(top, #fff 0%, #f2f2f2 20%);
+  background: -moz-linear-gradient(top, #fff 0%, #f2f2f2 20%);
+  background: -o-linear-gradient(top, #fff 0%, #f2f2f2 20%);
+  background: -ms-linear-gradient(top, #fff) 0%, #f2f2f2 20%);
+  background: linear-gradient(top, #fff 0%, #f2f2f2 20%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#f2f2f2', GradientType=0);
+  z-index: 10;
+  box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#envelope div:nth-child(2) {
+  width: 550px;
+  height: 200px;
+  background: #fff;
+  position: relative;
+  z-index: 5;
+  top: -80px;
+  margin-left: -180px;
+  padding-top: 20px;
+  margin: 0 auto;
+
+}
+
+#envelope div:nth-child(2):before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 84px solid #e6e6e6;
+  border-left: 9px solid transparent;
+  left: -9px;
+  top: 50px;
+}
+
+#envelope div:nth-child(2):after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 84px solid #e6e6e6;
+  border-right: 9px solid transparent;
+  right: -9px;
+  top: 50px;
+}
+
+#envelope div:nth-child(3) {
+  width: 100%;
+  height: 9px;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 850;
+}
+
+.line {
+  width: 35px;
+  height: 9px;
+  float: left;
+  transform: skewX(25deg);
+  z-index: 900;
+  margin: 0 0 0 19px;
+}
+
+.line:nth-child(odd) {
+  background: #005091;
+}
+
+.line:nth-child(even) {
+  background: #9b1d4a;
+}
+
+#envelope div:nth-child(5) .line:nth-child(odd) {
+  background: #9b1d4a;
+}
+
+#envelope div:nth-child(5) .line:nth-child(even) {
+  background: #005091;
+}
+
+.line:first-child {
+  margin-left: -10px;
+}
+
+#envelope div:nth-child(4) {
+  width: 140px;
+  height: 9px;
+  position: absolute;
+  top: 88px;
+  left: 9px;
+  overflow: hidden;
+  z-index: 850;
+  transform: rotate(-270deg);
+  transform-origin: 0 0;
+}
+
+#envelope div:nth-child(5) {
+  width: 136px;
+  height: 9px;
+  position: absolute;
+  top: 88px;
+  right: -136px;
+  overflow: hidden;
+  z-index: 850;
+  transform: rotate(-270deg);
+  transform-origin: 0 0;
+}
+
+#envelope div:nth-child(5) .line {
+  transform: skewX(-25deg);
+}
+
+#envelope div:nth-child(5) .line:first-child {
+  margin-left: -7px;
+}
+
+.sending {
+  animation: sending 1.5s forwards;
+}
+
+@keyframes sending {
+  0% {
+    transform: translateY(0px);
+  }
+  10% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(200px);
+    height:  0;
+    opacity: 0;
+  }
+}
+
+.snow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -100;
 }
