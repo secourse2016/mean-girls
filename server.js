@@ -1,5 +1,5 @@
 var app=require("./app");
-app.listen(3000, function(){
+app.listen(80, function(){
 
-	console.log("Server up & listening on 3000");
+	console.log("Server up & listening on 80");
 });
