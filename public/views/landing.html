@@ -1,19 +1,12 @@
 
-<div class="container header">
-  <div class="row">
-    <div class="col-lg-12">
-      <img class="img-responsive" id="pen" src="img/p1.png">
-      <div class="intro-text">
-        <h1>Welcome!</h1>
-      </div>
-    </div>
+  <!-- <img class="img-responsive" id="pen" src="img/p1.png"> -->
+  <div class="intro-text">
   </div>
-</div>
 
 <!-- Find Flights Form-->
 
 
-<div class="container find-flight-form" >
+<div class="container find-flight-form" id="book" >
   <div class="jumbotron">
 
 
@@ -64,32 +57,47 @@
         </div>
       </form>
       <div class="row">
-        <!--<button type="button" class="btn btn-info">Find Flights</button>-->
         <input type="button" class="btn btn-info hvr-pulse btn-lg pull-right" value="Find Flights" ng-click="flightForm.$valid &&findFlightsButtonClick()" ></input>
 
       </div>
 
     </div>
   </div>
-  <div class="container" id="viewBF">
-    <div class="row viewBooking">
-      <div class="col-sm-3">
-        <div class = "input-group">
-          <input type = "text" class = "form-control" placeholder="Booking ref no.">
-          <span class = "input-group-btn">
-            <button class = "btn btn-default hvr-pulse" type = "button" href="/#booking-info">Find Booking</button>
-          </span>
+  <div class="container text-center" id="viewBF">
+    <div class="jumbotron">
+      <div class="row text-center">
+
+        <div class = "form-group text-center">
+          <input type = "text" class = "input-lg form-control" placeholder="Booking Refernce" ng-model="bookingRef" >
+
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row " id="checkFlight">
-    <div class="col-sm-3">
-      <div class = "input-group">
-        <input type = "text" class = "form-control" placeholder="Flight no.">
-        <span class = "input-group-btn">
-          <button class = "btn btn-default hvr-pulse" type = "button" href="/#flights">Find Flight</button>
-        </span>
+      <div class="row text-center">
+        <button class = "btn btn-default hvr-pulse btn-lg" type = "button" ng-click="showBooking()">Find Booking</button>
       </div>
     </div>
   </div>
+  <div class="container text-center" id="checkFlight">
+    <div class="jumbotron text-center">
+      <div class="row text-center">
+
+        <div class = "form-group  text-center  ">
+          <input type = "text" class = "input-lg form-control" placeholder="Flight Number">
+
+        </div>
+      </div>
+      <div class="row text-center">
+        <button class = "btn btn-default hvr-pulse btn-lg" type = "button" ng-click="checkFlight()">Check Flight</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="js/typed.js"></script>
+  <script>
+  $(function(){
+    $(".intro-text").typed({
+      strings: ["Welcome!", "Ready to book on Alaska Airlines?"],
+      typeSpeed: 0
+    });
+  });
+  </script>
