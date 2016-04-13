@@ -107,9 +107,11 @@
 
 .diagram {
   position: absolute;
-  left: 380px;
+  left: 50%;
   width: 200px;
   height: 100px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 .diagram img {
   width: 100%;
@@ -153,10 +155,10 @@ transform: rotate(1deg);*/
 }
 .tickets .ticket .seat {
   font-family: "Courier", Monospace;
-  width: 100px;
+  max-width: 100px;
   position: absolute;
   top: 15px;
-  left: 150px;
+  left: 50%;
   padding: 5px;
   background-color: #f5f5f5;
 }
