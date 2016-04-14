@@ -96,8 +96,9 @@ Form
 
 .passenger .form fieldset .select {
   position: relative;
-  width: 30%;
+  width: 32%;
   font-size: 1em;
+  overflow: hidden;
 
 }
 
@@ -180,4 +181,11 @@ Form
 .input-gender{
   display: inline-block;
   margin-right: 15px;
+}
+#first-name, #last-name{
+  width: 75%;
+}
+
+#passport-number{
+  width: 30%;
 }
