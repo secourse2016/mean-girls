@@ -1,6 +1,6 @@
 
 .wrapper {
-  font-family: "Helvetica Neue", Arial;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   margin: 0 auto;
   margin-top: 150px;
@@ -8,7 +8,7 @@
   /*background: -webkit-linear-gradient(315deg, #C7767B 0%, #77A2E0 100%);
   background: linear-gradient(135deg, #C7767B 0%, #77A2E0 100%);*/
   background: linear-gradient(135deg, #bd6772, #53223f);
-  border-radius: 5px;
+  border-radius: 15px;
   padding-top: 10px;
   width: 70%;
   box-sizing: border-box;
@@ -22,7 +22,7 @@
   text-align: center;
   padding: 10px;
   color: #eee;
-  font-family: "Helvetica Neue", Arial;
+  font-family: 'Open Sans', sans-serif;
   font-size: 0.8em;
 }
 .date.outbound {
@@ -127,7 +127,7 @@
   padding: 20px;
   position: relative;
 }
-.tickets:hover .ticket:last-of-type {
+.tickets:hover {
   margin-top: 10px;
   -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
@@ -145,16 +145,12 @@
   -webkit-transition: 0.4s ease all;
   transition: 0.4s ease all;
 }
-/*.tickets .ticket:last-of-type {
-/*margin-top: -35px;
--webkit-transform: rotate(1deg);
-transform: rotate(1deg);*/
-}*/
-.tickets .ticket .name {
-  font-weight: 800;
+
+.ticket .name {
+  font-weight: 500;
+  font-size: 1.25em;
 }
 .tickets .ticket .seat {
-  font-family: "Courier", Monospace;
   max-width: 100px;
   position: absolute;
   top: 15px;
@@ -213,10 +209,9 @@ transform: rotate(1deg);*/
 }
 
 .flight-details {
-
   color: white;
   text-shadow: 0 1px 2px black;
-  padding-top: 70px;
+  margin-top: 50px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
@@ -258,7 +253,7 @@ transform: rotate(1deg);*/
   border: 1px solid #aaa;
   padding: 20px;
   box-shadow: 1px 2px 4px black;
-  font-family: "courier", monospace;
+  font-family: Inconsolata;
   box-sizing: border-box;
   position: relative;
   -webkit-transition: 0.4s ease all;
@@ -273,7 +268,7 @@ transform: rotate(1deg);*/
   margin-top: 50px;
 }
 .payment .card .payment-title {
-  font-family: "Helvetica Neue", Arial;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 800;
   color: white;
   text-shadow: 0 1px 2px black;
@@ -325,4 +320,7 @@ transform: rotate(1deg);*/
 .payment .card #number {
   bottom: 100px;
   width: 86%;
+}
+.bookingRef{
+  font-size:1.5em;
 }
