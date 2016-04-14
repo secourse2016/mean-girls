@@ -34,7 +34,8 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,
 	}
 
 
-	//date picker items
+
+
 
 
 	

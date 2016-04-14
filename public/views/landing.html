@@ -10,7 +10,7 @@
       <h2 class="title"><span class="fontawesome-plane"></span>Find Flight</h2>
       <form name="flightForm" class="form-inline" novalidate>
         <div class="row">
-          <label class="col-sm-3"> <input type="checkbox" ng-model="form.oneway"> One-way </label>
+          <label class="col-sm-3"> <input class="checkboxWay" type="checkbox" ng-model="form.oneway"> One-way </label>
           <div class="col-sm-3">
             <select class="form-control" ng-model="form.class">
               <option value="Economy"  selected>Economy</option>
@@ -22,9 +22,10 @@
           <div class="col-sm-3">
             <h4>From</h4>
           </div>
-          <div class="form-group col-sm-6">
+          <div class="form-group col-sm-6" >
             <select class="form-control" ng-model="form.fromCountry" ng-options="airport.iata as airport.name + ' (' + airport.iata + ')' for airport in airports | filter:notNull" required>
             </select>
+
           </div>
         </div>
 
@@ -165,4 +166,5 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:900,300' rel="stylesheet"></link>
   <link href='http://weloveiconfonts.com/api/?family=fontawesome' rel="stylesheet"></link>
   <script src="js/datePicker.js"> </script>
+
 

@@ -45,6 +45,9 @@
   margin-top: 150px;
   color: #01426a;
 }
+ .checkBoxWay{
+  font-size: 3em;
+ }
 
 
 
@@ -61,7 +64,7 @@
 
 #book .form-container {
   display: block;
-  padding:10%;
+  padding:7%;
   padding-top: 5%;
 
 }
@@ -91,16 +94,6 @@ textarea:focus, input:focus, button:focus {
     outline: 0;
 }
 
-.tooltip {
-  width: 35%;
-  background: rgba(6, 41, 61, 1);
-  font-size: 0.8em;
-  color: #fff;
-  font-weight: normal;
-  margin-left: 10px;
-  padding: 7px;
-  border-radius: 5px;
-}
 
 #book .form-group {
   padding: 10px;
@@ -113,26 +106,25 @@ textarea:focus, input:focus, button:focus {
 }
 
 #checkFlightButton {
-  width: 100px;
-  height: 30px;
+  text-align: center;
+  width: 140px;
+  height: 50px;
+  margin-left: 75%;
   margin-bottom: 10px;
-  
   border: none;
   border-radius: 4px;
-  background-size: 500% 100%;
   background: rgba(6, 41, 61, 1);
-  box-shadow: inset 0 0 0 0 rgba(20, 196, 148, 1);
-    -webkit-transition: all ease 0.3s;
-    -moz-transition: all ease 0.3s;
-    transition: all ease 0.3s;
-  
+  box-shadow: inset 0 0 0 0 #fff;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
   color: #fff;
-  font-weight: 500;
-  font-size: 0.8em;
 }
 
 #checkFlightButton:hover {
-  box-shadow: inset 0 40px 0 0 rgba(20, 196, 148, 1);
+  box-shadow: inset 0 40px 0 0 #fff;
+  color:rgba(1, 66, 106, 0.7);
 }
 
 
