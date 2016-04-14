@@ -127,10 +127,10 @@
   padding: 20px;
   position: relative;
 }
-.tickets:hover {
+.tickets:hover .ticket:last-of-type {
   margin-top: 10px;
   -webkit-transform: rotate(0deg);
-  transform: rotate(0deg);
+          transform: rotate(0deg);
 }
 .tickets .ticket {
   padding: 20px;
@@ -145,18 +145,30 @@
   -webkit-transition: 0.4s ease all;
   transition: 0.4s ease all;
 }
-
+.tickets .ticket:last-of-type {
+  margin-top: -35px;
+  -webkit-transform: rotate(1deg);
+          transform: rotate(1deg);
+}
 .ticket .name {
   font-weight: 500;
   font-size: 1.25em;
 }
 .tickets .ticket .seat {
-  max-width: 100px;
   position: absolute;
   top: 15px;
   left: 50%;
   padding: 5px;
   background-color: #f5f5f5;
+}
+.tickets .ticket .cost {
+  max-width: 100px;
+  position: absolute;
+  top: 15px;
+  left: 70%;
+  padding: 5px;
+  background-color: #f5f5f5;
+  font-size:1.2em;
 }
 .tickets .ticket .seat:before {
   content: "Seat ";
@@ -171,7 +183,14 @@
   background-color: #f5f5f5;
   font-weight: 800;
 }
+.tickets .ticket .direction {
 
+  top: 15px;
+  padding: 10px;
+  margin-left: 10px;
+  background-color: #f5f5f5;
+  font-weight: 800;
+}
 .center {
   text-align: center;
 }
@@ -233,20 +252,14 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.payment #card-container.flip .card {
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-}
-.payment #card-container.flip .card .card-back {
-  opacity: 1;
-  visibility: visible;
-}
+
+
 .payment .card {
-  display: inline-block;
+  display: block;
   background: -webkit-linear-gradient(315deg, #37456C 0%, #2F397A 100%);
   background: linear-gradient(135deg, #37456C 0%, #2F397A 100%);
   width: 390px;
-  height: 246px;
+  height: 280px;
   border-radius: 10px;
   margin: 20px;
   overflow: hidden;
@@ -285,14 +298,10 @@
   -webkit-transition: 0.4s ease all;
   transition: 0.4s ease all;
 }
-.payment .card .payment-card.active {
-  opacity: 1;
-}
-.payment .card .front .field {
-  left: 20px;
-  position: absolute;
-}
+
 .payment .card .field {
+  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: rgba(255, 255, 255, 0.2);
   border-bottom: 1px dotted #eee !important;
   border: 0px;
@@ -304,23 +313,22 @@
   transition: 0.4s ease all;
   text-transform: uppercase;
 }
-.payment .card .field.active {
-  background-color: rgba(255, 255, 255, 0);
-  border-bottom: 0px !important;
-  letter-spacing: 0.2em;
-}
 .payment .card #name {
-  bottom: 60px;
   width: 50%;
 }
 .payment .card #date {
-  bottom: 20px;
   width: 40%;
 }
 .payment .card #number {
-  bottom: 100px;
   width: 86%;
+}
+.payment .card #total {
+  width: 40%;
 }
 .bookingRef{
   font-size:1.5em;
+}
+.title-b{
+  font-size: 0.7em;
+  opacity: 0.5;
 }
