@@ -3,8 +3,8 @@ var dbURL = 'mongodb://localhost:27017/alaska';
 var DB=null;
 
 
-var flights=require('./json/flights.json');
-var bookings=require('./json/bookings.json');
+var flights=require('./dummyData/flights.json');
+var bookings=require('./dummyData/bookings.json');
 
 exports.connect = function (cb){
 	mongo.connect(dbURL, function (err,db){
