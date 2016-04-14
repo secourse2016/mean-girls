@@ -46,6 +46,9 @@ app.config(function($routeProvider) {
 	.when('/passenger-info', {
 		templateUrl : 'views/passenger-info.html',
 	})
+	.when('/flights-new', {
+		templateUrl : 'views/flights-new.html',
+	})
 
 
 });
