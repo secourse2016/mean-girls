@@ -5,7 +5,6 @@
 
 body {
   background-image: url("../img/alaska-new.png");
-  font-family: Alegreya;
   position: relative;
   margin:0;
   padding:0;
@@ -30,6 +29,8 @@ p.small {
   background-color: #01426a;
   padding-top: 5px;
   padding-bottom: 5px;
+  font-family: Alegreya;
+
 }
 
 
@@ -220,4 +221,7 @@ p.small {
   left: 0;
   z-index: -100;
   pointer-events: none;
+}
+.main{
+  overflow: auto;
 }

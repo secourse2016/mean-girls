@@ -1,78 +1,120 @@
 
 <link rel="stylesheet" href="css/flights.css" >
 <div class="flights-wrapper">
+  <h3> Choose your flight(s).</h3>
   <div class="outFlights">
-    <div class="info-header container-fluid"><h3><i class="material-icons">fast_forward</i>
-      Cairo-Berlin</h2></div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Flight</th>
-          <th>Economy</th>
-          <th>Business</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="row">
-              08:00 - 10:00
-            </div>
-            <div class="row">
-              Aircraft 1272
-            </div>
-          </td>
-          <td>
-            <fieldset >
-              <input type="radio" class="class" id="economyOut" name="outClass" value="economy"/>
-              <label for="economyOut">$120</label>
-            </fieldset>
-          </td>
-          <td>
-            <fieldset >
-              <input type="radio" class="class" id="businessOut" name="outClass" value="business"/>
-              <label for="businessOut">$200</label>
-            </fieldset>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="returnFlights">
-    <div class="info-header container-fluid"><h3><i class="material-icons">fast_rewind</i>
-      Berlin-Cairo</h3></div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Flight</th>
-          <th>Economy</th>
-          <th>Business</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="row">
-              08:00 - 10:00
-            </div>
-            <div class="row">
-              Aircraft 1272
-            </div>
-          </td>
-          <td>
-            <fieldset >
-              <input type="radio" class="class" id="economyRet" name="retClass" value="economy"/>
-              <label for="economyRet">$120</label>
-            </fieldset>
-          </td>
-          <td>
-            <fieldset >
-              <input type="radio" class="class" id="businessRet" name="retClass" value="business"/>
-              <label for="businessRet">$200</label>
-            </fieldset>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  </div>
+    <div class="info-header container-fluid">
+      <h3><i class="material-icons">fast_forward</i>
+        Cairo-Berlin</h2>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Flight</th>
+            <th>Economy</th>
+            <th>Business</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="row flight-number">
+                M1720
+              </div>
+              <div class="row">
+                08:00 - 10:00
+              </div>
+              <div class="row">
+                Aircraft 1272
+              </div>
+
+            </td>
+            <td>
+              <fieldset >
+                <input type="radio" class="class" id="economyOut" name="outClass" value="economy"/>
+                <label for="economyOut">$120</label>
+              </fieldset>
+            </td>
+            <td>
+              <fieldset >
+                <input type="radio" class="class" id="businessOut" name="outClass" value="business"/>
+                <label for="businessOut">$200</label>
+              </fieldset>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="returnFlights">
+      <div class="info-header container-fluid">
+        <h3><i class="material-icons">fast_rewind</i>
+          Berlin-Cairo</h3>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Flight</th>
+              <th>Economy</th>
+              <th>Business</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="row flight-number">
+                  M1720
+                </div>
+                <div class="row">
+                  08:00 - 10:00
+                </div>
+                <div class="row">
+                  Aircraft 1272
+                </div>
+
+              </td>
+
+              <td>
+                <fieldset >
+                  <input type="radio" class="class" id="economyRet" name="retClass" value="economy"/>
+                  <label for="economyRet">$120</label>
+                </fieldset>
+              </td>
+              <td>
+                <fieldset >
+                  <input type="radio" class="class" id="businessRet" name="retClass" value="business"/>
+                  <label for="businessRet">$200</label>
+                </fieldset>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div id="pricing-table" class="clear">
+
+      <div class="plan">
+        <h3>Shopping Cart<span>$9</span></h3>
+
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td>
+                <div class="row flight-number">
+                  M1720
+                </div>
+                <div class="row">
+                  CAI - BER
+                </div>
+                <div class="row">
+                  08:00 - 10:00
+                </div>
+              </td>
+              <td>$120</td>
+              </tbody>
+            </table>
+            <a class="checkout hvr-pulse" href="">Checkout</a>
+          </div>
+        </div>
+        <script src="js/cart-scroll.js">
+        </script>
