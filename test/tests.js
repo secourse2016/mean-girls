@@ -2,8 +2,8 @@ var assert = require('chai').assert;
 var request = require('supertest');
 var app = require('../app.js');
 var db = require('../db.js');
-var flightsJSON=require('../dummyData/flights.json');
-var bookingsJSON=require('../dummyData/bookings.json');
+var flightsJSON=require('../json/flights.json');
+var bookingsJSON=require('../json/bookings.json');
 
 before(function(done) {
     // use this after you have completed the connect function

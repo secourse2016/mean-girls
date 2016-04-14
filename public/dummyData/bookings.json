@@ -1,0 +1,50 @@
+[
+  {
+    "passenger" :{
+      "firstName"		: "Hagar",
+      "lastName"		: "Mosaad",
+      "passportCountry"	: "Egypt",
+      "passportNo"		: "A102830",
+      "issueDate"		: "1/5/2015",
+      "expiryDate"		: "1/5/2018"
+
+    },
+    "payment" :{
+
+      "cardType" : "Credit Card",
+      "cardNo"	: 1831930301392,
+      "expiryDate" : "1/1/2019",
+      "amount"	: 200
+    },
+    "receiptNo"			: 37389,
+    "reservationID"		: "hy123",
+    "bookingRefNo" 		: "hy123",
+    "outgoingFlight"	: "AB123",
+    "returnFlight"		: null,
+    "oneWay"			: 1
+  },
+  {
+    "passenger" :{
+      "firstName"		: "MEAN",
+      "lastName"		: "Girls",
+      "passportCountry"	: "Egypt",
+      "passportNo"		: "A123456",
+      "issueDate"		: "1/5/2015",
+      "expiryDate"		: "1/5/2018"
+
+    },
+    "payment" :{
+
+      "cardType" : "Master Card",
+      "cardNo"	: 1831930301392,
+      "expiryDate" : "1/1/2019",
+      "amount"	: 200
+    },
+    "receiptNo"			: 123456,
+    "reservationID"		: "mg123",
+    "bookingRefNo" 		: "mg123",
+    "outgoingFlight"	: "AB123",
+    "returnFlight"		: "CD123",
+    "oneWay"			: 0
+  }
+]

@@ -1,0 +1,71 @@
+<div id="modify" class="container text-center">
+  <button class="btn btn-lg btn-primary  btn-default hvr-pulse">Modify Search</button>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="jumbotron col-sm-8">
+      <h3> Outgoing Flights </h3>
+      <div class="row">
+        <table class="table">
+          <tr ng-repeat="outFlight in outFlights" >
+            <td>
+              <p>{{outFlight.origin+" - "+outFlight.destination}}</p>
+              <p>{{outFlight.departureDate+" - "+outFlight.arrivalDate}}</p>
+            </td>
+            <td>{{outFlight.flightNumber}}</td>
+            <td>{{outFlight.availableSeats}}</td>
+            <td>
+              <p ><input type="radio" name="outFlight" ng-model="infoFlightNo.index" ng-value="{{$index}}" ng-disabled="outFlight.availableSeats==0" <br></p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <h3 ng-hide="oneway"> Return Flights </h3>
+      <div class="row" ng-hide="oneway">
+        <table class="table">
+          <tr ng-repeat="retFlight in retFlights" >
+            <td>
+              <p>{{retFlight.origin+" - "+retFlight.destination}}</p>
+              <p>{{retFlight.departureDate+" - "+retFlight.arrivalDate}}</p>
+            </td>
+            <td>{{retFlight.flightNumber}}</td>
+            <td>{{retFlight.availableSeats}}</td>
+            <td>
+              <p ><input type="radio" name="retFlight" ng-model="infoFlightNo1.index" ng-value="{{$index}}" ng-disabled="retFlights.availableSeats==0" <br></p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+
+    <div class="jumbotron col-sm-3 pull-right " id="cart">
+      <table class="table" >
+        <h3>Shopping Cart</h3>
+        <tr>
+          <td>
+            <p>{{outFlights[infoFlightNo.index].flightNumber}}</p>
+          </td>
+        </tr>
+        <tr ng-hide="oneway">
+          <td>
+            <p>{{retFlights[infoFlightNo1.index].flightNumber}}</p>
+          </td>
+        </tr>
+        <tr ng-hide="oneway">
+          <td >
+            <p>Total: {{outFlights[infoFlightNo.index].seatmap[0].cost + outFlights[infoFlightNo1.index].seatmap[0].cost | currency}}</p>
+          </td>
+        </tr>
+        <tr ng-show="oneway">
+          <td >
+            <p>Total: {{outFlights[infoFlightNo.index].seatmap[0].cost | currency}}</p>
+          </td>
+        </tr>
+      </table>
+      <button ng-disabled="infoFlightNo.index==null" type="button" class="btn btn-primary btn-lg" ng-click='Continue()'>Continue</button>
+    </div>
+  </div>
+
+</div>

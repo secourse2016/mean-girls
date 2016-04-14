@@ -1,0 +1,50 @@
+#pen{
+  max-width: 200px;
+  max-height: 300px;
+}
+
+.find-flight-form{
+  padding-left: 30px;
+  padding-right: 30px;
+  vertical-align: center;
+
+}
+
+#form-title{
+  font-size: 2em;
+  padding-top: 0px;
+
+}
+
+.form-group{
+  padding: 20px;
+}
+
+#find-flight-button{
+
+}
+
+.ng-invalid .ng-pristine{
+  border-color: #02C9E3;
+}
+
+.viewBF{
+  background: #fff;
+  padding-left:0px;
+  padding-right: 0px;
+  left: 50%;
+}
+.checkFlight{
+  padding: 15px;
+}
+.viewBooking{
+  padding: 15px;
+}
+.intro-text{
+  text-align:center;
+  font-family: Alegreya;
+  font-weight: 800;
+  font-size: 4em;
+  margin-top: 150px;
+  color: #01426a;
+}
