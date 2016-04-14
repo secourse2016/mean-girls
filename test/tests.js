@@ -2,14 +2,23 @@ var assert = require('chai').assert;
 var request = require('supertest');
 var app = require('../app.js');
 var db = require('../db.js');
-var flightsJSON=require('../public/dummyData/flights.json');
-var bookingsJSON=require('../public/dummyData/bookings.json');
+var flightsJSON=require('../dummyData/flights.json');
+var bookingsJSON=require('../dummyData/bookings.json');
+
+before(function(done) {
+    // use this after you have completed the connect function
+    db.connect(function(err, db) {
+       if (err) return done(err);
+       else done();
+    });
+});
 
 describe("searchFlight", function() {
     var flightNo = "AB123";
     it("should return flight with the same flight number given", function() {
         db.searchFlight(flightNo,function(flight){
         	assert.equal(flightsJSON[0],flight,'when given first flightNo, returned first element');
+        	done();
         });
     });
   
@@ -20,6 +29,7 @@ describe("searchBooking", function() {
     it("should return booking with the same booking ref number given", function() {
         db.searchFlight(flightNo,function(booking){
         	assert.equal(bookingsJSON[0],booking,'when given first booking ref no., returned first element');
+       		done();
         });
     });
   

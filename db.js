@@ -3,10 +3,10 @@ var dbURL = 'mongodb://localhost:27017/alaska';
 var DB=null;
 
 
-var flights=require('./public/dummyData/flights.json');
-var bookings=require('./public/dummyData/bookings.json');
+var flights=require('./dummyData/flights.json');
+var bookings=require('./dummyData/bookings.json');
 
-connect = function (cb){
+exports.connect = function (cb){
 	mongo.connect(dbURL, function (err,db){
 			if(err)
 				console.log(err);
@@ -50,24 +50,24 @@ seedBooking = function(cb){
 }
 
 
-connect(function (cb){
-	seedFlights(function(cb){
-		seedBooking(function(cb){
+// connect(function (cb){
+// 	seedFlights(function(cb){
+// 		seedBooking(function(cb){
 
-			searchFlight("AB123",function(err,flight){
-				 console.log(flight);
-			});
-			searchBooking("hy123",function(err,booking){
-				 console.log(booking);
-			});
+// 			searchFlight("AB123",function(err,flight){
+// 				 console.log(flight);
+// 			});
+// 			searchBooking("hy123",function(err,booking){
+// 				 console.log(booking);
+// 			});
 
-		});
-	});
-});
+// 		});
+// 	});
+// });
 
 
 
-searchFlight = function(flightNo,cb){
+exports.searchFlight = function(flightNo,cb){
 	DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
 		cursor.toArray(cb);
 		// cb(err,flight);
@@ -76,7 +76,7 @@ searchFlight = function(flightNo,cb){
 
 
 
-searchBooking = function(bookingRef,cb){
+exports.searchBooking = function(bookingRef,cb){
 	DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
 		cursor.toArray(cb);
 	});

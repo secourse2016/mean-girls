@@ -15,6 +15,18 @@
     "method-override": "^2.3.5",
     "mongodb": "^2.1.14",
     "mongoose": "^4.4.10",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "mocha": "latest",
+    "chai": "latest",
+    "supertest": "latest"
+  },
+    "scripts": {
+    "start": "node server.js",
+    "test": "mocha",
+    "cover": "istanbul cover _mocha"
+  },
+  "main": "app.js",
+  "directories": {
+    "test": "test"
   }
 }
