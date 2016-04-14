@@ -1,0 +1,183 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+/*--------------------
+passenger
+--------------------*/
+.passenger {
+  font-family: 'Open Sans', sans-serif;
+  margin: 120px auto 30px;
+  position: relative;
+  width: 70%;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  height: 850px;
+}
+
+/*--------------------
+Buttons
+--------------------*/
+.passenger .continue {
+  color: white;
+  text-decoration: none;
+  padding: 15px 15px;
+  border-radius: 5px;
+  background: #01426a;
+  width: 200px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5em;
+  border: none;
+  box-shadow: none;
+  clear: both;
+  float: right;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 15px;
+  margin-right: 15px;
+
+
+}
+
+
+/*--------------------
+Form
+--------------------*/
+.passenger .form fieldset {
+  border: none;
+  padding: 0;
+  padding: 10px 0;
+  position: relative;
+  clear: both;
+}
+.passenger .form fieldset.passport-date ,
+.passenger .form fieldset.birth-date
+{
+
+  float: left;
+  width: 60%;
+}
+.passenger .form fieldset.passport-date .select,
+.passenger .form fieldset.birth-date .select
+{
+  width: 84px;
+  margin-right: 12px;
+  float: left;
+}
+
+.passenger .form fieldset label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-family: Inconsolata;
+}
+.passenger .form fieldset input,
+.passenger .form fieldset .select {
+  height: 38px;
+  color: #333333;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1em;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.input-first-name,
+.input-last-name
+{
+  width: 40%;
+  display: inline-block;
+}
+
+.passenger .form fieldset .select {
+  position: relative;
+  width: 30%;
+  font-size: 1em;
+
+}
+
+.passenger .form fieldset .select::after {
+  content: '';
+  border-top: 8px solid #222;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 10px;
+  pointer-events: none;
+}
+.passenger .form fieldset .select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  border: none;
+  width: 100%;
+  outline: none !important;
+
+  background: none;
+}
+.passenger .form fieldset .select select :-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+
+.info-header{
+  width: 100%;
+  height: 70px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #bd6772, #53223f);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  color: white;
+  padding-left: 15px;
+}
+.info-wrapper{
+  padding: 30px 45px 30px;
+}
+
+.gender{
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  width: 1px;
+  position: absolute;
+}
+.gender ~ label:before {
+    font-family: FontAwesome;
+    content: "\f1db";
+    letter-spacing: 10px;
+    font-size: 1.2em;
+    color: #535353;
+    width: 1.4em;
+}
+
+.gender:checked ~ label:before {
+    content: "\f00c";
+    font-size: 1.2em;
+    color: #bd6772;
+    letter-spacing: 5px;
+}
+.gender ~ label:before {
+    content: "\f096";
+}
+
+.gender:focus ~ label:before,
+.gender:focus ~ label
+{
+    color: #bd6772;
+}
+.input-gender{
+  display: inline-block;
+  margin-right: 15px;
+}
