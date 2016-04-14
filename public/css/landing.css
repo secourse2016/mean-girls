@@ -117,7 +117,8 @@ textarea:focus, input:focus, button:focus {
   font-weight: bold;
   font-size: 1.5em;
   border: solid;
-  border-color: rgba(1, 66, 106, 0.7);
+  border-radius: 20px;
+  border-color: rgba(1, 66, 106, 1);
   box-shadow: none;
   clear: both;
   float: right;
