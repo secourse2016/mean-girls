@@ -38,6 +38,12 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,
 
 
 
+
+
+
+
+
+
 	
 
 
