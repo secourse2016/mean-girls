@@ -18,58 +18,73 @@ connect = function (cb){
 		});
 }
 // var DB = connect();
-// seed = function(cb){
-// 	DB.collection("flights").count(function (err,i){
-// 		if(i>0){
-// 			console.log("error");
-// 			cb(err,false);
-// 		}
-// 		else{
-// 			DB.collection("flights").insert(flights,function(err,seeded){
-// 				// console.log(seeded);
-// 				cb(err,seeded);
-// 			});
+seedFlights = function(cb){
+	DB.collection("flights").count(function (err,i){
+		if(i>0){
+			console.log("error");
+			cb(err,false);
+		}
+		else{
+			DB.collection("flights").insert(flights,function(err,seeded){
+				// console.log(seeded);
+				cb(err,seeded);
+			});
 			
-// 		}
+		}
 		
-// 	});
-// }
+	});
+}
+
+seedBooking = function(cb){
+	DB.collection("bookings").count(function (err,i){
+		if(i>0){
+			console.log("error");
+			cb(err,false);
+		}
+		else{
+			DB.collection("bookings").insert(bookings,function(err,seeded){
+				// console.log(seeded);
+				cb(err,seeded);
+			});
+			
+		}
+		
+	});
+}
 
 // DB.collection("bookings").insert(bookings,function(err){
 // 	if(err)
 // 		console.log(err);
 // });
 connect(function (cb){
-	// seed(function(cb){
-		searchFlight("AB123",function(err,flight){
-			 // console.log(flight);
-			 console.log(flight.length);
+	seedFlights(function(cb){
+		seedBooking(function(cb){
+
+			searchFlight("AB123",function(err,flight){
+				 console.log(flight);
+			});
+			searchBooking("hy123",function(err,booking){
+				 console.log(booking);
+			});
 
 		});
-	// });
+	});
 });
-
-
-
 
 
 
 searchFlight = function(flightNo,cb){
 	console.log("in search flight");
-	DB.collection('flights').find({"flightNumber":flightNo},function(err,flight){
-		console.log(err+"1234");
-		cb(err,flight);
+	DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
+		cursor.toArray(cb);
+		// cb(err,flight);
 	});
 }
 
 
 
 searchBooking = function(bookingRef,cb){
-	DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,booking){
-		if(err){
-			cb(err);
-		}
-		else
-		cb(booking);
+	DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
+		cursor.toArray(cb);
 	});
 }

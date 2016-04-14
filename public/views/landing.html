@@ -37,22 +37,20 @@
             </select>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-3">
-            <h4>Outgoing Date</h4>
-          </div>
-          <div class="form-group col-sm-3">
-            <input class="form-control" type="date" value="2016-05-04" ng-model="form.outgoingDate" required ></input>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3" ng-hide="form.oneway">
-            <h4>Return Date</h4>
-          </div>
-          <div class="form-group col-sm-3">
-            <input class="form-control"  type="date" value="2016-05-05" ng-model="form.returnDate" ng-hide="form.oneway" ></input>
-          </div>
-        </div>
+
+  <div id="flight-datepicker" class="input-daterange input-group">
+    <div class="form-item">
+      <label>Depart on</label><span class="fontawesome-calendar"></span>
+      <input type="text" id="start-date" name="start" placeholder="Select depart date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="form.outgoingDate" required/><span class="date-text date-depart"></span>
+    </div>
+    <div class="form-item" ng-hide="form.oneway">
+      <label>Return on</label><span class="fontawesome-calendar"></span>
+      <input type="text" id="end-date" name="end" placeholder="Select return date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="form.returnDate"  /><span class="date-text date-return"></span>
+    </div>
+  </div>
+
+
+
 
 
 
@@ -166,4 +164,5 @@
 
   <link href='https://fonts.googleapis.com/css?family=Lato:900,300' rel="stylesheet"></link>
   <link href='http://weloveiconfonts.com/api/?family=fontawesome' rel="stylesheet"></link>
+  <script src="js/datePicker.js"> </script>
 
