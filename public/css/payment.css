@@ -15,7 +15,7 @@ Checkout
   border-radius: 15px;
   padding: 160px 45px 30px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  height: 550px;
+  height: 650px;
 }
 
 /*--------------------
@@ -290,4 +290,7 @@ Credit Card
 .credit-card-box .ccv label {
   margin: -25px 0 14px;
   color: #fff;
+}
+#select-type {
+  width:20%;
 }
