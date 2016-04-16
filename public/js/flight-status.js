@@ -7,7 +7,6 @@ $layer = $(".layered-content");
 $mainButton.on("click", function(){
   $ripple.addClass("rippling");
   $buttonWrapper.addClass("clicked").delay(1000).queue(function(next){
-    console.log("here");
     $layer.addClass("active");
     next();
   });

@@ -8,10 +8,16 @@
     <div class="line"></div>
   </div>
   <div class="status">
-    <h1>DEPARTED</h1>
+    <h1>departed</h1>
   </div>
-  <div class="statusIcon">
+  <div  ng-show="false" class="statusIcon">
     <i class="material-icons">flight_takeoff</i>
+  </div>
+  <div  ng-show="false"  class="statusIcon">
+    <i class="material-icons">flight_land</i>
+  </div>
+  <div  ng-show="true"  class="statusIcon">
+    <i class="material-icons">event</i>
   </div>
   <div class="button-wrapper">
     <div class="layer"></div>
@@ -23,16 +29,16 @@
   <div class="layered-content">
     <button class="close-button fa fa-times"></button>
     <div class="content">
-      <h1>M1720</h1>
+      <h2>M1720</h2>
       <div class="airports">
         Cairo International Airport
         <i class="material-icons">keyboard_arrow_right</i>
         Berlin International Airport
       </div>
-      <h2>Departs 10/10 8:00 </h2>
-      <h2>Arrives 10/10 10:00</h2>
-      <h2>Duartion 2hrs</h2>
-      <h2> Aircraft 1234 </h2>
+      <h3>01/10 8:00 - 01/10 10:00</h3>
+      <div class="airplane">
+        <h3>Aircraft 1234</h3>
+      </div>
     </div>
   </div>
 </div>

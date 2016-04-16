@@ -32,25 +32,38 @@ button:hover {
   line-height: 1.5;
   text-align: center;
   margin: 0 auto;
+  text-transform: uppercase;
 }
-
+#statusContainer .status h1{
+  font-family: Inconsolata;
+}
 .flightNo {
   padding: 0;
   position: relative;
   text-align: center;
   font-size: 30px;
   margin: 0 auto;
-  margin-top: 50px;
   color:#01426a;
   display: block;
   position: relative;
 }
 .flightNo .line{
   height: 5px;
-  background: black;
+  width: 10px;
+  background: #01426a;
   position: relative;
+  margin: auto;
+  animation-name: draw;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
 }
-
+@keyframes draw {
+  to {
+    width: 100%;
+  }
+}
 #statusContainer .button-wrapper {
   width: 50px;
   height: 100%;
@@ -223,11 +236,18 @@ button:hover {
 
 #statusContainer .airports{
   margin: 0 auto;
-  font-size: 1.25em;
+  font-size: 1.5em;
+  color: #6d6e70;
+  background: white;
+  border-radius: 5px;
+  padding: 10px 10px;
 
 }
 #statusContainer .airports i{
   font-size: 50px;
-  opacity: 0.7;
   vertical-align: middle;
+  color: #bd6772;
+}
+#statusContainer .airplane{
+  color: #6d6e70;
 }
