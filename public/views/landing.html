@@ -4,9 +4,68 @@
   </div>
 
 <!-- Find Flights Form-->
+<div class="container find-flight-form" id="book">
+  <div class="form-container">
+    <form class="login-form">
+      <h2 class="title"><span class="fontawesome-plane"></span>Find Flight</h2>
+      <form name="flightForm" class="form-inline" novalidate>
+        <div class="row">
+          <label class="col-sm-3"> <input class="checkboxWay" type="checkbox" ng-model="form.oneway"> One-way </label>
+          <div class="col-sm-3">
+            <select class="form-control" ng-model="form.class">
+              <option value="Economy"  selected>Economy</option>
+              <option value="Business">Business</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h4>From</h4>
+          </div>
+          <div class="form-group col-sm-6" >
+            <select class="form-control" ng-model="form.fromCountry" ng-options="airport.iata as airport.name + ' (' + airport.iata + ')' for airport in airports | filter:notNull" required>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3">
+              <h4>To</h4>
+          </div>
+          <div class="form-group col-sm-6">
+            <select class="form-control" ng-model="form.toCountry" ng-options="airport.iata as airport.name + ' (' + airport.iata + ')' for airport in airports | filter:notNull" required>
+            </select>
+          </div>
+        </div>
+
+  <div id="flight-datepicker" class="input-daterange input-group">
+    <div class="form-item">
+      <label>Depart on</label><span class="fontawesome-calendar"></span>
+      <input type="text" id="start-date" name="start" placeholder="Select depart date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="form.outgoingDate" required/><span class="date-text date-depart"></span>
+    </div>
+    <div class="form-item" ng-hide="form.oneway">
+      <label>Return on</label><span class="fontawesome-calendar"></span>
+      <input type="text" id="end-date" name="end" placeholder="Select return date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="form.returnDate"  /><span class="date-text date-return"></span>
+    </div>
+  </div>
 
 
-<div class="container find-flight-form" id="book" >
+
+
+
+
+
+        <div class="row text-center ">
+          <button id="checkFlightButton" class = "btn btn-default hvr-pulse btn-lg" type = "button" ng-click="checkFlight()">Check Flight</button>
+        </div>
+      </form>
+
+    </form>
+  </div>
+</div>
+<!-- till here-->
+<!-- <div class="container find-flight-form" id="book" >
   <div class="jumbotron">
 
 
@@ -29,6 +88,7 @@
           </div>
 
         </div>
+
 
         <div class="row">
           <div class="col-sm-3">
@@ -54,6 +114,7 @@
               <option value="Business">Business</option>
             </select>
           </div>
+
         </div>
       </form>
       <div class="row">
@@ -62,7 +123,7 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
   <div class="container text-center" id="viewBF">
     <div class="jumbotron">
       <div class="row text-center">
@@ -101,3 +162,12 @@
     });
   });
   </script>
+
+  <link href='https://fonts.googleapis.com/css?family=Lato:900,300' rel="stylesheet"></link>
+  <link href='http://weloveiconfonts.com/api/?family=fontawesome' rel="stylesheet"></link>
+  <script src="js/datePicker.js"> </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>
+
+
