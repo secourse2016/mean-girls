@@ -1,7 +1,6 @@
 
 function makeSnow() {
 	var el = document.getElementById('snow');
-	var ctx = el.getContext('2d');
 	var width = 1000;
 	var height = 1000;
 	var particles = [];
@@ -37,8 +36,6 @@ function makeSnow() {
 	}
 
 	function updateParticles() {
-		ctx.clearRect(0, 0, width, height);
-		ctx.fillStyle = '#f6f9fa';
 
 		particles.forEach(function(particle) {
 			particle.y += particle.dy;
@@ -53,9 +50,6 @@ function makeSnow() {
 				particle.y = 0;
 			}
 
-			ctx.beginPath();
-			ctx.arc(particle.x, particle.y, 5, 0, Math.PI * 2, false);
-			ctx.fill();
 		});
 		window.requestAnimationFrame(updateParticles);
 	}
