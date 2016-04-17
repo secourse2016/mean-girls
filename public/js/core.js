@@ -37,8 +37,8 @@ app.config(function($routeProvider) {
 		controller: 'resvConfirmCtrl'
 	})
 	.when('/', {
-		templateUrl : 'views/landing.html',
-		controller  : 'landingCtrl'
+		templateUrl : 'views/landing-new.html',
+		// controller  : 'landingCtrl'
 	})
 	.when('/payment-new', {
 		templateUrl : 'views/payment-new.html',

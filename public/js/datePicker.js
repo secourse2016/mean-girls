@@ -1,11 +1,11 @@
-var dateSelect     = $('#flight-datepicker');
-var dateDepart     = $('#start-date');
-var dateReturn     = $('#end-date');
-var spanDepart     = $('.date-depart');
-var spanReturn     = $('.date-return');
+var dateSelect = $('#flight-datepicker');
+var dateDepart = $('#start-date');
+var dateReturn = $('#end-date');
+var spanDepart = $('.date-depart');
+var spanReturn = $('.date-return');
 var spanDateFormat = 'ddd, MMMM D yyyy';
 
-$('#flight-datepicker').datepicker({
+dateSelect.datepicker({
   autoclose: true,
   format: "mm/dd",
   maxViewMode: 0,
@@ -16,4 +16,3 @@ $('#flight-datepicker').datepicker({
   spanDepart.text(start);
   spanReturn.text(end);
 });
-
