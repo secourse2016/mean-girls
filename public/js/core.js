@@ -2,7 +2,7 @@
 * Angular Routes
 */
 
-var app = angular.module('alaska',['ngRoute']);
+var app = angular.module('alaska',['ngRoute','ui.bootstrap']);
 
 
 app.config(function($routeProvider) {
@@ -38,7 +38,7 @@ app.config(function($routeProvider) {
 	})
 	.when('/', {
 		templateUrl : 'views/landing-new.html',
-		// controller  : 'landingCtrl'
+		controller  : 'landingCtrl'
 	})
 	.when('/payment-new', {
 		templateUrl : 'views/payment-new.html',

@@ -1,12 +1,10 @@
-angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,$location,$http){
+angular.module('alaska').controller('landingCtrl',function ($scope,landingSrvc,$location,$http){
 	$http.get('dummyData/airports.json').success(function(data) {
 		$scope.airports = data;
 	});
 
 	$scope.form={};
-	$scope.form.class = "Economy";
-	$scope.form.fromCountry="IAD";
-	$scope.form.toCountry="IAD";
+
 
 
 	$scope.findFlightsButtonClick = function() {
@@ -44,7 +42,7 @@ angular.module('alaska').controller('landingCtrl', function ($scope,landingSrvc,
 
 
 
-	
+
 
 
 
