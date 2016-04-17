@@ -16,9 +16,9 @@ exports.connect = function (cb){
 }
 
 
-// connect(function (cb){
+connect(function (cb){
 
-// });
+});
 
 //Find flight from DB when given flight number
 exports.searchFlight = function(flightNo,cb){
