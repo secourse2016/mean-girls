@@ -17,4 +17,10 @@
 		});
   
     });
+
+    app.get('/api/airports', function(req,res){
+        dbFunctions.getAirports(function(err, airports){
+            res.send(airports);
+        });
+    });
 };
