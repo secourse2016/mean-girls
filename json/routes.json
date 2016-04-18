@@ -1,0 +1,12 @@
+[
+      {"origin": "BOM", "destination": "DEL", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" , "flightNumber": "SE2804","economyCost":"150","businessCost":"300","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "CAI", "destination": "JED", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" ,"flightNumber": "SE2804","economyCost":"200","businessCost":"400","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "HKG", "destination": "TTT", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" , "flightNumber": "SE2804","economyCost":"200","businessCost":"400","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "JNB", "destination": "CPT", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" , "flightNumber": "SE2804","economyCost":"200","businessCost":"400","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "RUH", "destination": "JED", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" , "flightNumber": "SE2804","economyCost":"150","businessCost":"300","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "LHR", "destination": "JFK", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" , "flightNumber": "SE2804","economyCost":"500","businessCost":"800","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "LAS", "destination": "LAX", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" ,"flightNumber": "SE2804","economyCost":"150","businessCost":"300","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "LAX", "destination": "SFO", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" ,"flightNumber": "SE2804","economyCost":"100","businessCost":"250","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "FRA", "destination": "TXL", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" ,"flightNumber": "SE2804","economyCost":"100","businessCost":"250","availableSeats" :60 , "status":"scheduled"},
+      {"origin": "FCO", "destination": "MXP", "duration": "2 hours", "capacity": 60, "aircraftType": "Airbus","aircraftModel":"a318" , "flightNumber": "SE2804","economyCost":"100","businessCost":"250","availableSeats" :60 , "status":"scheduled"}
+]
