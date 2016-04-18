@@ -13,7 +13,25 @@
     app.get('/api/booking/:bookingRef', function(req,res){
         var bookingRefNo = req.params['bookingRef'];
 		dbFunctions.searchBooking(bookingRefNo,function(err,booking){
-			res.send(booking);
+
+            var outFlight=booking[0].outgoingFlight;
+
+            dbFunctions.searchFlight(outFlight,function(err,Outflight){
+                booking[0].outgoingFlight=Outflight;
+                var retFlight=booking[0].returnFlight;
+                if(retFlight != null){
+                    dbFunctions.searchFlight(retFlight,function(err,Retflight){
+                        booking[0].returnFlight=Retflight;
+                        res.send(booking);
+                    });
+                }
+                else{
+                    res.send(booking);
+                }
+                
+            });
+            
+			
 		});
   
     });
