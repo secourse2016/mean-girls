@@ -169,7 +169,7 @@ function searchRoundTripFlight (requiredFlight, cb){
 	};
 	query["available"+requiredFlight.class+"Seats"] = { $gt: 0 }; 
 	// console.log("QUERY: ", query);
-	DB.collection('flights13').find(query).toArray(function(err,flights) {
+	DB.collection('flights').find(query).toArray(function(err,flights) {
         if (err) return cb(err);
 		for(var i =0;i<flights.length;i++){
 	    	var temp = flights[i];
