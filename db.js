@@ -1,30 +1,32 @@
 
 var mongo = require('mongodb').MongoClient;
-var DB = null;
+var dbURL = 'mongodb://localhost:27017/alaska';
+var DB=null;
 var moment = require('moment');
-var dbURL = 'mongodb://localhost:27017/test';
 
-// var flights=require('./public/dummyData/flights.json');
-// var bookings=require('./public/dummyData/bookings.json');
 
-exports.connect = function(cb) {
-    return mongo.connect(dbURL, function(err, db) {
-        if (err) return cb(err);
-        console.log('connected to db');
-        DB = db;
-        cb(null, db);
+exports.connect = function (cb){
+  mongo.connect(dbURL, function (err,db){
+      if(err)
+        console.log(err);
+      else
+        console.log("connected the database!");
+
+      DB=db;
+      cb(err,db);
     });
 }
 
-exports.db = function() {
-    if (DB === null) throw Error('DB Object has not yet been initialized');
-    return DB;
-}
+
+// exports.db = function() {
+//     if (DB === null) throw Error('DB Object has not yet been initialized');
+//     return DB;
+// }
 
 
 
 
-function addBooking(i,cb){
+exports.addBooking=function(i,cb){
     DB.collection('bookings').insert({ 
 
         "passenger": {
@@ -74,61 +76,22 @@ function addBooking(i,cb){
   }
 }     
 
-exports.addBooking=addBooking;
 
 
 
-
-//var i = {
-//         "passenger": {
-//             "firstName" : "Hadeel",
-//             "lastname":"Ahmed",
-//             "birthDate":"17-07-1995",
-//             "gender":"FEMALE",
-//             "passportCountry":"Egypt",
-//             "passportNo": 0382,
-//             "issueDate":"03-03-2013",
-//            "expiryDate":"05-06-2018"
-//         },
-//         "payment": {
-//             "cardType":"Visa",
-//             "cardNo":1235654326457,
-//             "expiryDate":"04-05-2018",
-//             "amount":220
-//         },
-
-//          "flightNumber":"AB132",
-//          "receiptNo":230,
-//          "reservationID":"XH600",
-//          "bookingRefNo":"40",
-//          "outgoingFlight":"CAI",
-//          "returnFlight":"BER",
-//          "oneWay":0,
-//          "cabin":"economy",
-         
-        
-//      "seatmap":[
-//     {
-//         "seatNumber":"12A",
-//         "type":"window" ,
-//         "cabin":"economy",
-//         "cost":"220"
-     
-//     }
-
-//     ]
-// }
+//Find flight from DB when given flight number
+exports.searchFlight = function(flightNo,cb){
+	DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
+		cursor.toArray(cb);
+		// cb(err,flight);
+	});
+}
 
 
-
-// connect(function (cb){
-        
-//     addBooking(i,function(err,flight){
-              
-//       console.log(flight);
-//     });
-// });
-
-
- 
+//Find booking from DB when given booking reference number
+exports.searchBooking = function(bookingRef,cb){
+	DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
+		cursor.toArray(cb);
+	});
+}
 
