@@ -13,8 +13,9 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,masterS
         data.returnFlight=null;
       }
       $http.post('/api/addbooking',data).success(function(booking){
-        bookingSrvc.bookingReference=booking.bookingReference;
-        $location.url('/booking');
+        var bookingReference=booking.bookingReference;
+        bookingSrvc.bookingReference=bookingReference;
+        })
       })
 
     }

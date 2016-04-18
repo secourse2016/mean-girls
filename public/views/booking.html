@@ -61,16 +61,16 @@
       <div class="ticket">
         <span class="name">{{booking.passenger.firstName}} {{booking.passenger.lastName}}</span>
         <span class="direction">outgoing</span>
-        <span class="seat">{{booking.seatNumber}}</span>
+        <span class="seat">{{booking.outgoingFlight.seatNumber}}</span>
         <span class="cost">${{booking.outgoingFlight.cost}}</span>
         <span class="class">{{booking.outgoingFlight.class}}</span>
       </div>
       <div ng-hide="booking.oneWay" class="ticket">
         <span class="name">{{booking.passenger.firstName}} {{booking.passenger.lastName}}</span>
         <span class="direction">outgoing</span>
-        <span class="seat">{{booking.seatNumber}}</span>
-        <span class="cost">${{booking.outgoingFlight.cost}}</span>
-        <span class="class">{{booking.outgoingFlight.class}}</span>
+        <span class="seat">{{booking.returnFlight.seatNumber}}</span>
+        <span class="cost">${{booking.returnFlight.cost}}</span>
+        <span class="class">{{booking.returnFlight.class}}</span>
       </div>
     </div>
 
