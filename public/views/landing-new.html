@@ -9,11 +9,11 @@
   <form class="form" autocomplete="off" novalidate>
     <div class="form-item checks">
       <fieldset class="input-direction">
-        <input type="checkbox" class="direction" id="direction" name="direction"ng-model="oneWay"/>
+        <input type="checkbox" class="direction" id="direction" name="direction"ng-model="oneWay" ng-true-value="1" ng-false-value="0"/>
         <label for="direction">ONE-WAY</label>
       </fieldset>
       <fieldset class="input-direction">
-        <input type="checkbox" class="direction" id="otherAirlines" name="otherAirlines" ng-model="otherAirlines"/>
+        <input type="checkbox" class="direction" id="otherAirlines" name="otherAirlines" ng-model="otherAirlines" ng-true-value="1" ng-false-value="0"/>
         <label for="otherAirlines">OTHER AIRLINES</label>
       </fieldset>
     </div>
