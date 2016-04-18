@@ -228,9 +228,8 @@ function formatData(beforeFormattingData,reqClass,cb) {
 		temp.origin=beforeFormattingData.outgoingFlights[i].origin
 		temp.destination=beforeFormattingData.outgoingFlights[i].destination
 		temp.cost=beforeFormattingData.outgoingFlights[i][costOfClass]
-		// temp.cost="economy";
 		temp.currency="USD";
-		temp.class=reqClass;
+		temp.class=firstToLowerCase(reqClass);
 		temp.Airline="Alaska";
 		formattedOutgoing.push(temp)
 	}
@@ -246,7 +245,7 @@ function formatData(beforeFormattingData,reqClass,cb) {
 		temp.destination=beforeFormattingData.returnFlights[i].destination
 		temp.cost=beforeFormattingData.returnFlights[i][costOfClass]
 		temp.currency="USD"
-		temp.class=reqClass
+		temp.class=firstToLowerCase(reqClass)
 		temp.Airline="Alaska"
 		formattedReturn.push(temp)
 	}
