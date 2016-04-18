@@ -1,8 +1,7 @@
-
 var mongo = require('mongodb').MongoClient;
 var moment = require('moment');
 var DB = null;
-var dbURL = 'mongodb://localhost:27017/test';
+var dbURL = 'mongodb://localhost:27017/alaska';
 
 exports.connect = function(cb) {
     return mongo.connect(dbURL, function(err, db) {
@@ -70,7 +69,7 @@ function filteringClass(flights,i){
 
 
 function searchFlightsOneWay(i,cb) {
-    DB.collection('flight2').find({ destination:i.destination , origin:i.origin }).toArray(function(err,flights) {
+    DB.collection('flights').find({ destination:i.destination , origin:i.origin }).toArray(function(err,flights) {
         if (err) return cb(err);
         cb(null,filteringClass(flights,i)); 
     });
@@ -79,4 +78,21 @@ function searchFlightsOneWay(i,cb) {
 
 exports.searchFlightsOneWay=searchFlightsOneWay;
 exports.filteringClass=filteringClass;
+
+
+//Find flight from DB when given flight number
+exports.searchFlight = function(flightNo,cb){
+	DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
+		cursor.toArray(cb);
+		// cb(err,flight);
+	});
+}
+
+
+//Find booking from DB when given booking reference number
+exports.searchBooking = function(bookingRef,cb){
+	DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
+		cursor.toArray(cb);
+	});
+}
 
