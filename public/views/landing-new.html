@@ -37,7 +37,7 @@
         <i class="fa fa-calendar" aria-hidden="true"></i>
         <span class="date-text date-depart"></span>
       </div>
-      <div class="form-item">
+      <div class="form-item class">
         <label>Return on</label>
         <input type="text" id="end-date" name="end" placeholder="Select return date" data-date-format="DD, MM d" class="input-sm form-control"/>
         <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -45,6 +45,7 @@
       </div>
     </div>
     <fieldset class="class">
+      <label>Class</label>
       <div class="select" id="select-type">
         <select id="class">
           <option>Economy</option>
@@ -54,6 +55,24 @@
     </fieldset>
     <button id="search" class = "hvr-pulse"><i class="fa fa-search" id="searchIcon" aria-hidden="true"></i>SEARCH</button>
   </form>
+</div>
+<div id="viewBF" class="find">
+  <div class="info-header container-fluid">
+    <h1><i class="fa fa-eye" aria-hidden="true"></i>  View booking</h1>
+  </div>
+  <div class="search-holder">
+    <input type="text" class="search-input" placeholder="Booking Ref.">
+    <button type="button" class="hvr-fade"><i class="fa fa-search " aria-hidden="true"></i></button>
+  </div>
+</div>
+<div id="checkFlight" class="find">
+  <div class="info-header container-fluid">
+    <h1><i class="fa fa-info-circle" aria-hidden="true"></i>  check flight</h1>
+  </div>
+  <div class="search-holder">
+    <input type="text" class="search-input" placeholder="Flight No.">
+    <button type="button" class="hvr-fade"><i class="fa fa-search " aria-hidden="true"></i></button>
+  </div>
 </div>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>

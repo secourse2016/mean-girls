@@ -26,9 +26,11 @@
   height: 100%;
   background: rgba(255,255,255,0.8);
   border-radius: 15px;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
+
 
 }
-#searchWrapper .info-header{
+#searchWrapper .info-header,.find .info-header{
   width: 100%;
   height: 70px;
   background: linear-gradient(50deg, #bd6772, #01426a);
@@ -39,7 +41,7 @@
   text-transform: uppercase;
 }
 
-#searchWrapper h1 {
+#searchWrapper h1 ,.find h1 {
   font-size: 30px;
   font-weight: 700;
   color: #fff;
@@ -161,7 +163,7 @@
   margin: auto;
   top: calc(100% + 6px);
   font-size: 15px;
-  color: #6d6e70;
+  color: #01426a;
 }
 @media screen and (min-width: 400px) {
   #flight-datepicker .date-text {
@@ -415,4 +417,65 @@
 }
 #searchWrapper .checks{
   display: inline-flex;
+}
+.find {
+  width: 60%;
+  background: rgba(255,255,255,0.8);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
+  margin: 60px auto 30px;
+  border-radius: 15px;
+}
+.search-holder{
+  border-radius: 60px;
+  margin:auto;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  position: relative;
+  vertical-align: middle;
+  min-height: 80px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 2em;
+  width: 70%;
+}
+.search-holder button{
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  vertical-align: middle;
+  display: inline-block;
+
+}
+
+.search-holder input{
+  display: inline-block;
+  border: none;
+  padding: 0px 0px 0 20px;
+  border: none;
+  outline: none;
+  font-weight: 400;
+  vertical-align: middle;
+  background: none;
+}
+.hvr-fade {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
+  background-color: #bd6772;
+  color: white;
 }
