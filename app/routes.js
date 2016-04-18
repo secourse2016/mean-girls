@@ -47,7 +47,7 @@ var routes = function(app) {
         app.get('/api/flight/:flightNo', function(req,res){
         var flightNumber = req.params['flightNo'];
     	dbFunctions.searchFlight(flightNumber,function(err,flight){
-    		res.send(flight);
+    		res.send(flight[0]);
     	});
   
     });
@@ -68,7 +68,7 @@ var routes = function(app) {
                     });
                 }
                 else{
-                    res.send(booking);
+                    res.send(booking[0]);
                 }
                 
             });
