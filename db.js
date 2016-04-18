@@ -161,57 +161,54 @@ function seedAirports (cb) {
 function searchRoundTripFlight (requiredFlight, cb){
 	var chosenFlights = {}
 	var filteredFlights = [];
- 
+ 	
 
 	var query = { 
 		origin:requiredFlight.origin, 
-		destination:requiredFlight.destination,
-		// departureDate:requiredFlight.departingDate
-		
+		destination:requiredFlight.destination
 	};
 	query["available"+requiredFlight.class+"Seats"] = { $gt: 0 }; 
-	console.log("QUERY: ", query);
+	// console.log("QUERY: ", query);
 	DB.collection('flights13').find(query).toArray(function(err,flights) {
         if (err) return cb(err);
-        flights.filter(function(flight){
-        	var date = moment(flight.departureDate).format('YYYY-MM-DD');
-            if( date ===requiredFlight.departureDate){
-            	console.log("TIMEEE"  + moment(flight.departureDate).format('YYYY-MM-DD'));
-            	filteredFlights.push(flight);
-            }
-            chosenFlights.outgoingFlights = filteredFlights;
-        	searchOtherWayAround(chosenFlights, requiredFlight, function(){
+		for(var i =0;i<flights.length;i++){
+	    	var temp = flights[i];
+	    	var date = moment(temp.departureDate).format('YYYY-MM-DD');
+	    	// console.log("tab el date hena bye2ul eh?"+requiredFlight.departingDate);
+	    	if (date === requiredFlight.departingDate)
+	    		filteredFlights.push(temp);
+	    }
+        chosenFlights.outgoingFlights = filteredFlights;
+    	searchOtherWayAround(chosenFlights, requiredFlight, function(){
         		cb(chosenFlights);
-        	});
-        });
-
-        
-    });
+    	});
+     });
 }
 
 function searchOtherWayAround(chosenFlights, requiredFlight, cb) {
 	var filteredFlights = []
 	var query = { 
 		origin:requiredFlight.destination, 
-		destination:requiredFlight.origin,
-		// arrivalDate:requiredFlight.returningDate
+		destination:requiredFlight.origin
 	};
 	query["available"+requiredFlight.class+"Seats"] = { $gt: 0 };
 	DB.collection('flights13').find(query).toArray(function(err,flights) {
     	if (err) return err;
-    	flights.filter(function(flight){
-    	if( moment(flight.arrivalDate).format('YYYY-MM-DD')===requiredFlight.returningDate){
-            	filteredFlights.push(flight);
-            }
-    	chosenFlights.returnFlights = flights
+
+     	for(var i =0;i<flights.length;i++){
+	    	var temp = flights[i];
+	    	var date = moment(temp.arrivalDate).format('YYYY-MM-DD')
+	    	if (date === requiredFlight.returningDate)
+	    		filteredFlights.push(temp);
+	    }
+        chosenFlights.returnFlights = filteredFlights;
     	cb();
-    	});
 	});
 }
 
 
 function formatData(beforeFormattingData,reqClass,cb) {
-	console.log("BEFORE FORMATING: ", beforeFormattingData);
+	// console.log("BEFORE FORMATING: ", beforeFormattingData);
 	var formattedData = {};
 	var formattedOutgoing = [];
 	var formattedReturn = [];
@@ -222,8 +219,8 @@ function formatData(beforeFormattingData,reqClass,cb) {
 		temp.flightNumber=beforeFormattingData.outgoingFlights[i].flightNumber
 		temp.aircraftType=beforeFormattingData.outgoingFlights[i].aircraftType
 		temp.aircraftModel=beforeFormattingData.outgoingFlights[i].aircraftModel
-		temp.departureDateTime=beforeFormattingData.outgoingFlights[i].departureDate
-		temp.arrivalDateTime=beforeFormattingData.outgoingFlights[i].arrivalDate
+		temp.departureDateTime=moment(beforeFormattingData.outgoingFlights[i].departureDate).toDate().getTime();
+		temp.arrivalDateTime=moment(beforeFormattingData.outgoingFlights[i].arrivalDate).toDate().getTime();
 		temp.origin=beforeFormattingData.outgoingFlights[i].origin
 		temp.destination=beforeFormattingData.outgoingFlights[i].destination
 		temp.cost=beforeFormattingData.outgoingFlights[i].costOfClass
@@ -237,8 +234,8 @@ function formatData(beforeFormattingData,reqClass,cb) {
 		temp.flightNumber=beforeFormattingData.returnFlights[i].flightNumber
 		temp.aircraftType=beforeFormattingData.returnFlights[i].aircraftType
 		temp.aircraftModel=beforeFormattingData.returnFlights[i].aircraftModel
-		temp.departureDateTime=beforeFormattingData.returnFlights[i].departureDate
-		temp.arrivalDateTime=beforeFormattingData.returnFlights[i].arrivalDate
+		temp.departureDateTime=moment(beforeFormattingData.returnFlights[i].departureDate).toDate().getTime();
+		temp.arrivalDateTime=moment(beforeFormattingData.returnFlights[i].arrivalDate).toDate().getTime();
 		temp.origin=beforeFormattingData.returnFlights[i].origin
 		temp.destination=beforeFormattingData.returnFlights[i].destination
 		temp.cost=beforeFormattingData.returnFlights[i].costOfClass
@@ -249,7 +246,7 @@ function formatData(beforeFormattingData,reqClass,cb) {
 	}
 	formattedData.outgoingFlights = formattedOutgoing;
 	formattedData.returnFlights = formattedReturn;
-	console.log("FORMATTED DATA: ",formattedData);
+	// console.log("FORMATTED DATA: ",formattedData);
 	cb(formattedData);
 }
 

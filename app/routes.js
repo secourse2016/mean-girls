@@ -1,5 +1,6 @@
 var db = require('../db.js');
 var path = require('path');
+var moment = require('moment');
 
 var routes = function(app) {
 	app.get('/', function(req, res){
@@ -21,9 +22,9 @@ var routes = function(app) {
 		params.returningDate = req.params['returningDate'] 
 		params.class = req.params['class'];
 		db.searchRoundTripFlight(params,function(result){
-			// db.formatData(result,reqClass,function(finalresult){
-				res.send(result);
-			// });
+			db.formatData(result,reqClass,function(finalresult){
+				res.send(finalresult);
+			});
 		});
 	});
 
