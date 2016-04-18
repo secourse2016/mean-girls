@@ -206,13 +206,17 @@ function searchOtherWayAround(chosenFlights, requiredFlight, cb) {
 	});
 }
 
+function firstToLowerCase(string) {
+    return string.substr(0, 1).toLowerCase() + string.substr(1);
+}
 
 function formatData(beforeFormattingData,reqClass,cb) {
-	// console.log("BEFORE FORMATING: ", beforeFormattingData);
+	 // console.log("BEFORE FORMATING: ", beforeFormattingData);
 	var formattedData = {};
 	var formattedOutgoing = [];
 	var formattedReturn = [];
-	var costOfClass = reqClass+"Cost";
+	var classCost = reqClass+"Cost";
+	var costOfClass = firstToLowerCase(classCost);
 
 	for(var i =0; i < beforeFormattingData.outgoingFlights.length ; i++){
 		var temp = {};
@@ -223,14 +227,16 @@ function formatData(beforeFormattingData,reqClass,cb) {
 		temp.arrivalDateTime=moment(beforeFormattingData.outgoingFlights[i].arrivalDate).toDate().getTime();
 		temp.origin=beforeFormattingData.outgoingFlights[i].origin
 		temp.destination=beforeFormattingData.outgoingFlights[i].destination
-		temp.cost=beforeFormattingData.outgoingFlights[i].costOfClass
-		temp.currency="USD"
-		temp.class=reqClass
-		temp.Airline="Alaska"
+		temp.cost=beforeFormattingData.outgoingFlights[i][costOfClass]
+		// temp.cost="economy";
+		temp.currency="USD";
+		temp.class=reqClass;
+		temp.Airline="Alaska";
 		formattedOutgoing.push(temp)
 	}
 	for(var i =0; i < beforeFormattingData.returnFlights.length ; i++){
 		var temp = {};
+
 		temp.flightNumber=beforeFormattingData.returnFlights[i].flightNumber
 		temp.aircraftType=beforeFormattingData.returnFlights[i].aircraftType
 		temp.aircraftModel=beforeFormattingData.returnFlights[i].aircraftModel
@@ -238,7 +244,7 @@ function formatData(beforeFormattingData,reqClass,cb) {
 		temp.arrivalDateTime=moment(beforeFormattingData.returnFlights[i].arrivalDate).toDate().getTime();
 		temp.origin=beforeFormattingData.returnFlights[i].origin
 		temp.destination=beforeFormattingData.returnFlights[i].destination
-		temp.cost=beforeFormattingData.returnFlights[i].costOfClass
+		temp.cost=beforeFormattingData.returnFlights[i][costOfClass]
 		temp.currency="USD"
 		temp.class=reqClass
 		temp.Airline="Alaska"
