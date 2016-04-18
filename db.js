@@ -142,6 +142,11 @@ function seedAFlight (reverseFlag, cb){
     });
 }
 
+exports.db = function() {
+    if (DB === null) throw Error('DB Object has not yet been initialized');
+    return DB;
+};
+
 
 function seedAirports (cb) {
     DB.collection('airports').find().toArray(function (err, docs) {
@@ -262,9 +267,6 @@ exports.searchRoundTripFlight = searchRoundTripFlight;
 exports.formatData = formatData;
 
 
-// connect(function (cb){
-
-// });
 
 //Find flight from DB when given flight number
 exports.searchFlight = function(flightNo,cb){
@@ -272,7 +274,7 @@ exports.searchFlight = function(flightNo,cb){
 		cursor.toArray(cb);
 		// cb(err,flight);
 	});
-}
+};
 
 
 //Find booking from DB when given booking reference number
@@ -280,5 +282,15 @@ exports.searchBooking = function(bookingRef,cb){
 	DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
 		cursor.toArray(cb);
 	});
-}
+};
+
+
+exports.getAirports = function(cb){
+	Db.collection('airports').find().toArray(function(err,airports){
+		cb(err,airports);
+	});
+};
+
+
+
 

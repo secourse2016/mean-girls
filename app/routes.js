@@ -43,6 +43,48 @@ var routes = function(app) {
 	    	});
         });
     }); 
+
+        app.get('/api/flight/:flightNo', function(req,res){
+        var flightNumber = req.params['flightNo'];
+    	dbFunctions.searchFlight(flightNumber,function(err,flight){
+    		res.send(flight);
+    	});
+  
+    });
+
+    app.get('/api/booking/:bookingRef', function(req,res){
+        var bookingRefNo = req.params['bookingRef'];
+		db.searchBooking(bookingRefNo,function(err,booking){
+
+            var outFlight=booking[0].outgoingFlight;
+
+            db.searchFlight(outFlight,function(err,Outflight){
+                booking[0].outgoingFlight=Outflight;
+                var retFlight=booking[0].returnFlight;
+                if(retFlight != null){
+                    db.searchFlight(retFlight,function(err,Retflight){
+                        booking[0].returnFlight=Retflight;
+                        res.send(booking);
+                    });
+                }
+                else{
+                    res.send(booking);
+                }
+                
+            });
+            
+			
+		});
+  
+    });
+
+    app.get('/api/airports', function(req,res){
+        db.getAirports(function(err, airports){
+            res.send(airports);
+        });
+    });
+
 }
 
 module.exports = routes;
+

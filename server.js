@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require('./db.js');
+
 db.connect(function(){
 	var app=require("./app/app.js");
 
@@ -7,3 +8,4 @@ db.connect(function(){
 		console.log("Server up & listening on 3000");
 	});
 });
+
