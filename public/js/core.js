@@ -20,7 +20,7 @@ app.config(function($routeProvider) {
 
 	.when('/passenger-info', {
 		templateUrl: '../views/passenger-info.html',
-		controller: 'submitCtrl'
+		controller: 'passengerCtrl'
 	})
 
 	.when('/payment', {
@@ -29,7 +29,7 @@ app.config(function($routeProvider) {
 	})
 	.when('/resv-show', {
 		templateUrl : 'views/resv-show.html',
-		controller: 'resvConfirmCtrl'
+		controller: 'bookingCtrl'
 	})
 	.when('/', {
 		templateUrl : 'views/landing-new.html',
