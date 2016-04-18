@@ -136,7 +136,7 @@ function seedAFlight (reverseFlag, cb){
 			allFlights.push(flightToBeInserted);
 		}
 	}
-	DB.collection('flights13').insert(allFlights, function (err) {
+	DB.collection('flights').insert(allFlights, function (err) {
         if (err) return cb(err);
         cb();
     });
@@ -192,7 +192,7 @@ function searchOtherWayAround(chosenFlights, requiredFlight, cb) {
 		destination:requiredFlight.origin
 	};
 	query["available"+requiredFlight.class+"Seats"] = { $gt: 0 };
-	DB.collection('flights13').find(query).toArray(function(err,flights) {
+	DB.collection('flights').find(query).toArray(function(err,flights) {
     	if (err) return err;
 
      	for(var i =0;i<flights.length;i++){
