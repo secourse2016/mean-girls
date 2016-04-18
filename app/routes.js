@@ -60,16 +60,45 @@ var routes = function(app) {
 
             db.searchFlight(outFlight,function(err,Outflight){
                 booking[0].outgoingFlight=Outflight[0];
-                var retFlight=booking[0].returnFlight;
-                if(retFlight != null){
-                    db.searchFlight(retFlight,function(err,Retflight){
-                        booking[0].returnFlight=Retflight[0];
-                        res.send(booking[0]);
-                    });
-                }
-                else{
-                    res.send(booking[0]);
-                }
+                var resvID=booking[0].reservationID;
+
+                Outflight[0].seatmap.find({"reservationID":resvID},function(err,cursor){
+					var seatMap = cursor.toArray()[0];
+					var seat = seatMap.seatNumber;
+					var cabinClass = seatMap.cabin;
+					var cost = seatMap.cost;
+
+					booking[0].outgoingFlight.seatNumber = seat;
+					booking[0].outgoingFlight.class = cabinClass;
+					booking[0].outgoingFlight.cost = cost;
+
+					var retFlight=booking[0].returnFlight;
+	                if(retFlight != null){
+	                    db.searchFlight(retFlight,function(err,Retflight){
+	                        booking[0].returnFlight=Retflight[0];
+
+	                        Retflight[0].seatmap.find({"reservationID":resvID},function(err,cursor){
+								var returnseatMap = cursor.toArray()[0];
+								var returnSeat = returnseatMap.seatNumber;
+								var returnCabinClass = returnseatMap.cabin;
+								var returnCost = returnseatMap.cost;
+
+								booking[0].returnFlight.seat = returnSeat;
+								booking[0].returnFlight.class = returnCabinClass;
+								booking[0].returnFlight.cost = returnCost;
+
+	                       		res.send(booking[0]);
+	                    	});
+	                    });
+	                }
+	                else{
+	                    res.send(booking[0]);
+	                }
+
+
+				});
+
+
                 
             });
             
