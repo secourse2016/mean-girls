@@ -2,9 +2,10 @@ module.exports = function(app) {
 
     var jwt     = require('jsonwebtoken');
     var express = require('express');
-    var db= require('../db.js');
-    var moment = require('moment');
+    var db      = require('../db.js');
+    var moment  = require('moment');
     var path    = require('path');
+    var airlinesIP = require('../json/otherAirlines.js');
      
 
    app.get('/', function (req, res) {
@@ -55,5 +56,16 @@ module.exports = function(app) {
             });  
 
        });
+
+  //new code other airlines
+
+    // app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class', function(req, res) {
+          
+    //      app.get('/api/flights/search/:origin/:destination/:departingDate/:class', function(req, res) {
+             
+    //      });
+
+    // });
+
 
 };
