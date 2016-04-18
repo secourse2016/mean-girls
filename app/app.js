@@ -3,6 +3,7 @@ var bodyParser    = require('body-parser');
 var app           = express();
 var path          = require('path');
 var moment        = require('moment');
+var jwt           = require('jsonwebtoken');
 //Export environment vars first thing
 require('dotenv').load();
 
