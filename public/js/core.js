@@ -22,15 +22,15 @@ app.config(function($httpProvide,$routeProvider) {
 		templateUrl : '../views/payment-new.html',
 		controller  : 'paymentCtrl'
 	})
-	.when('/resv-show', {
-		templateUrl : 'views/resv-show.html',
+	.when('/booking', {
+		templateUrl : 'views/booking.html',
 		controller: 'bookingCtrl'
 	})
 	.when('/', {
 		templateUrl : 'views/landing-new.html',
 		controller  : 'landingCtrl'
 	})
-	
+
 	// Inject jwt token to all http requests
 	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjA5NzIzNzIsImV4cCI6MTQ5MjUwODM3NCwiYXVkIjoiIiwic3ViIjoiIn0.j0XqCZ_NU9gyl3bA_QckQoVqNOG7LpX58w2KxjNrGEk'
 	$httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {

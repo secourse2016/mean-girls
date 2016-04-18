@@ -7,7 +7,7 @@ var spanDateFormat = 'ddd, MMMM D yyyy';
 
 dateSelect.datepicker({
   autoclose: true,
-  format: "mm/dd",
+  format: "yyyy-mm-dd",
   maxViewMode: 0,
   startDate: "now"
 }).on('change', function() {
