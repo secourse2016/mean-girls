@@ -1,5 +1,9 @@
-var app=require("./app/app");
-app.listen(3000, function(){
+var db=require("./db.js");
 
-	console.log("Server up & listening on 80");
+db.connect(function(){
+ 	var app=require("./app/app");
+ 	app.listen(3000, function(){
+		console.log("Server up & listening on 80");
+	});
+
 });

@@ -3,14 +3,16 @@
  module.exports = function(app) {
 
     app.get('/api/flight/:flightNo', function(req,res){
-    	db.searchFlight(flightNo,function(err,flight){
+        var flightNumber = req.params['flightNo'];
+    	dbFunctions.searchFlight(flightNumber,function(err,flight){
     		res.send(flight);
     	});
   
     });
 
     app.get('/api/booking/:bookingRef', function(req,res){
-		db.searchBooking(bookRef,function(err,booking){
+        var bookingRefNo = req.params['bookingRef'];
+		dbFunctions.searchBooking(bookingRefNo,function(err,booking){
 			res.send(booking);
 		});
   

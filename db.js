@@ -13,12 +13,17 @@ exports.connect = function (cb){
 			DB=db;
 			cb(err,db);
 		});
-}
+};
+
+exports.db = function() {
+    if (DB === null) throw Error('DB Object has not yet been initialized');
+    return DB;
+};
 
 
-connect(function (cb){
+// connect(function (cb){
 
-});
+// });
 
 //Find flight from DB when given flight number
 exports.searchFlight = function(flightNo,cb){

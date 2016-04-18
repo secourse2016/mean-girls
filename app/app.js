@@ -1,9 +1,16 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 
-app.use(express.static(__dirname + '/public'));
-// Here's the new code:
-app.use('/*', function(req, res){
-  res.sendFile(__dirname + './public/index.html');
-});
+
+app.use(express.static(path.join(__dirname + '/../public')));
+
+// app.use('/*', function(req, res){
+//        res.sendFile(path.join(__dirname+'/../public/404.html'));
+// });
+
+
+
+require('./routes')(app);
+
 module.exports=app;
