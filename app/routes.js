@@ -59,12 +59,12 @@ var routes = function(app) {
             var outFlight=booking[0].outgoingFlight;
 
             db.searchFlight(outFlight,function(err,Outflight){
-                booking[0].outgoingFlight=Outflight;
+                booking[0].outgoingFlight=Outflight[0];
                 var retFlight=booking[0].returnFlight;
                 if(retFlight != null){
                     db.searchFlight(retFlight,function(err,Retflight){
-                        booking[0].returnFlight=Retflight;
-                        res.send(booking);
+                        booking[0].returnFlight=Retflight[0];
+                        res.send(booking[0]);
                     });
                 }
                 else{
