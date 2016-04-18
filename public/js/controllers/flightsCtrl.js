@@ -49,7 +49,7 @@ controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrv
 			total+=$scope.selectedReturn.cost;
 		}
 
-		masterSrvc.amount=total;
+		masterSrvc.payment.amount=total;
 
 		$location.url('/passenger-info');
 	}
