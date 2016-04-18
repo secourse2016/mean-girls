@@ -51,12 +51,6 @@ function flightNumberGenerator (min, max) {
 
 function seedAFlight (reverseFlag, cb){
 
-<<<<<<< HEAD
-			DB=db;
-			cb(err,db);
-		});
-};
-=======
 	var allFlights = [];
 	for(var i=0 ;i<routes.length;i++){
 		var flight = routes[i];
@@ -147,15 +141,13 @@ function seedAFlight (reverseFlag, cb){
         cb();
     });
 }
->>>>>>> 953ccce393cfec38ec107cdf5beed63f5289e039
 
 exports.db = function() {
     if (DB === null) throw Error('DB Object has not yet been initialized');
     return DB;
 };
 
-<<<<<<< HEAD
-=======
+
 function seedAirports (cb) {
     DB.collection('airports').find().toArray(function (err, docs) {
         if (err) return cb(err);
@@ -275,10 +267,6 @@ exports.searchRoundTripFlight = searchRoundTripFlight;
 exports.formatData = formatData;
 
 
-// connect(function (cb){
-
-// });
->>>>>>> 953ccce393cfec38ec107cdf5beed63f5289e039
 
 //Find flight from DB when given flight number
 exports.searchFlight = function(flightNo,cb){
@@ -294,7 +282,6 @@ exports.searchBooking = function(bookingRef,cb){
 	DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
 		cursor.toArray(cb);
 	});
-<<<<<<< HEAD
 };
 
 
@@ -303,7 +290,7 @@ exports.getAirports = function(cb){
 		cb(err,airports);
 	});
 };
-=======
-}
 
->>>>>>> 953ccce393cfec38ec107cdf5beed63f5289e039
+
+
+
