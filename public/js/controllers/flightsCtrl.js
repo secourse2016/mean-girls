@@ -26,7 +26,7 @@ controller('flightsCtrl',function($scope, $http,$location ,landingSrvc){
 			$scope.infoFlightNo = { index: null };
 			$scope.infoFlightNo1 = { index: null };
 			$scope.Continue = function (){
-				$location.url('/passengerInfo');
+				$location.url('/passenger-info');
 			}
 
 		});

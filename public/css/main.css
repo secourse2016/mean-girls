@@ -222,6 +222,9 @@ p.small {
   z-index: -100;
   pointer-events: none;
 }
-.main{
-  overflow: auto;
+.navbar-brand{
+  cursor: pointer;
+}
+a{
+  cursor: pointer;
 }

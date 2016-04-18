@@ -8,29 +8,24 @@ var app = angular.module('alaska',['ngRoute','ui.bootstrap']);
 app.config(function($routeProvider) {
 	$routeProvider
 	.when('/flight-info', {
-		templateUrl : '../views/flight-info.html',
+		templateUrl : '../views/flight-status.html',
 		controller  : 'flightInfoCtrl'
 
 	})
 
 	.when('/flights', {
-		templateUrl : '../views/flights.html',
+		templateUrl : '../views/flights-new.html',
 		controller  : 'flightsCtrl'
 	})
 
-	.when('/passengerInfo', {
-		templateUrl: '../views/passengerInfo.html',
+	.when('/passenger-info', {
+		templateUrl: '../views/passenger-info.html',
 		controller: 'submitCtrl'
 	})
 
 	.when('/payment', {
-		templateUrl : '../views/payment.html',
+		templateUrl : '../views/payment-new.html',
 		controller  : 'paymentCtrl'
-	})
-	.when('/resv/:id',{
-
-		templateUrl: 'views/resv-info.html',
-		controller: 'resvConfirmCtrl'
 	})
 	.when('/resv-show', {
 		templateUrl : 'views/resv-show.html',
@@ -40,18 +35,7 @@ app.config(function($routeProvider) {
 		templateUrl : 'views/landing-new.html',
 		controller  : 'landingCtrl'
 	})
-	.when('/payment-new', {
-		templateUrl : 'views/payment-new.html',
-	})
-	.when('/passenger-info', {
-		templateUrl : 'views/passenger-info.html',
-	})
-	.when('/flights-new', {
-		templateUrl : 'views/flights-new.html',
-	})
-	.when('/flight-status', {
-		templateUrl : 'views/flight-status.html',
-	})
+
 
 
 });

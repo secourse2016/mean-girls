@@ -7,7 +7,7 @@ angular.module('alaska').controller('landingCtrl',function ($scope,landingSrvc,$
 
 
 
-	$scope.findFlightsButtonClick = function() {
+	$scope.findFlights = function() {
 		landingSrvc.setFindFlightInfo($scope.form);
 
 		$location.url('/flights');
@@ -15,9 +15,7 @@ angular.module('alaska').controller('landingCtrl',function ($scope,landingSrvc,$
 
 	};
 	$scope.showBooking = function() {
-
-		$location.url('/resv/'+ $scope.bookingRef);
-
+		$location.url('/resv-show');
 
 	};
 	$scope.checkFlight = function() {

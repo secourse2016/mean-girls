@@ -428,7 +428,7 @@
   border-radius: 15px;
 }
 .search-holder{
-  border-radius: 60px;
+  border-radius: 15px;
   margin:auto;
   margin-top: 35px;
   margin-bottom: 35px;
@@ -478,4 +478,7 @@
 .hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
   background-color: #bd6772;
   color: white;
+}
+.class{
+  padding-bottom: 0px;
 }

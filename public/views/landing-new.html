@@ -53,7 +53,7 @@
         </select>
       </div>
     </fieldset>
-    <button id="search" class = "hvr-pulse"><i class="fa fa-search" id="searchIcon" aria-hidden="true"></i>SEARCH</button>
+    <button id="search" class = "hvr-pulse" ng-click="findFlights()"><i class="fa fa-search" id="searchIcon" aria-hidden="true"></i>SEARCH</button>
   </form>
 </div>
 <div id="viewBF" class="find">
@@ -62,7 +62,7 @@
   </div>
   <div class="search-holder">
     <input type="text" class="search-input" placeholder="Booking Ref.">
-    <button type="button" class="hvr-fade"><i class="fa fa-search " aria-hidden="true"></i></button>
+    <button type="button" class="hvr-fade" ng-click="showBooking()"><i class="fa fa-search " aria-hidden="true"></i></button>
   </div>
 </div>
 <div id="checkFlight" class="find">
@@ -71,9 +71,11 @@
   </div>
   <div class="search-holder">
     <input type="text" class="search-input" placeholder="Flight No.">
-    <button type="button" class="hvr-fade"><i class="fa fa-search " aria-hidden="true"></i></button>
+    <button type="button" class="hvr-fade" ng-click="checkFlight()"><i class="fa fa-search " aria-hidden="true"></i></button>
   </div>
 </div>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/scrolling-nav.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>
 <script src="js/datePicker.js"></script>
