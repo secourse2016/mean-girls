@@ -25,7 +25,7 @@
               {{outgoingFlight.flightNumber}}
             </div>
             <div class="row">
-              {{outgoingFlight.departureTime}} - {{outgoingFlight.arrivalTime}}
+              {{outgoingFlight.departureDateTime | date :  "short"}} - {{outgoingFlight.arrivalDateTime | date :  "short"}}
             </div>
             <div class="row">
               {{outgoingFlight.aircraftType}} {{outgoingFlight.aircraftModel}}
@@ -33,7 +33,7 @@
           </td>
           <td>
             <fieldset >
-              <input type="radio" class="class" id="outgoingCost" name="outgoingCost" ng-model="selectedOutgoing.index" ng-value="{{$index}}"/>
+              <input type="radio" class="class" id="outgoingCost" name="outgoingCost" ng-model="selectedOutgoingIndex" ng-value="{{$index}}"/>
               <label for="outgoingCost">{{outgoingFlight.cost}} {{outgoingFlight.currency}}</label>
             </fieldset>
           </td>
@@ -67,7 +67,7 @@
               {{returnFlight.flightNumber}}
             </div>
             <div class="row">
-              {{returnFlight.departureTime}} - {{returnFlight.arrivalTime}}
+              {{returnFlight.departureDateTime | date :  "short"}} - {{returnFlight.arrivalDateTime | date :  "short"}}
             </div>
             <div class="row">
               {{returnFlight.aircraftType}} {{returnFlight.aircraftModel}}
@@ -75,7 +75,7 @@
           </td>
           <td>
             <fieldset >
-              <input type="radio" class="class" id="returnCost" name="returnCost" ng-model="selectedReturn.index" ng-value="{{$index}}"/>
+              <input type="radio" class="class" id="returnCost" name="returnCost" ng-model="selectedReturnIndex" ng-value="{{$index}}"/>
               <label for="returnCost">{{returnFlight.cost}} {{returnFlight.currency}}</label>
             </fieldset>
           </td>

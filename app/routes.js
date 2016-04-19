@@ -19,7 +19,20 @@ module.exports = function(app) {
 	// 		return null;
 	// 	}
 	// }));
-
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+		var params = {};
+		var reqClass = req.params['class'];
+		params.origin = req.params['origin'];
+		params.destination = req.params['destination'];
+		params.departingDate = req.params['departingDate']
+		params.returningDate = req.params['returningDate']
+		params.class = req.params['class'];
+		db.searchRoundTripFlight(params,function(result){
+			db.formatData(result,reqClass,function(finalresult){
+				res.send(finalresult);
+			});
+		});
+	});
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public', 'index.html'));
 	});
@@ -160,20 +173,7 @@ module.exports = function(app) {
 	});
 
 
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
-		var params = {};
-		var reqClass = req.params['class'];
-		params.origin = req.params['origin'];
-		params.destination = req.params['destination'];
-		params.departingDate = req.params['departingDate']
-		params.returningDate = req.params['returningDate']
-		params.class = req.params['class'];
-		db.searchRoundTripFlight(params,function(result){
-			db.formatData(result,reqClass,function(finalresult){
-				res.send(finalresult);
-			});
-		});
-	});
+
 
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:class', function(req, res) {
 		var originValue = req.params['origin'];

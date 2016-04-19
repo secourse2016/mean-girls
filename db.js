@@ -233,10 +233,7 @@ function searchRoundTripFlight (requiredFlight, cb){
     for(var i =0;i<flights.length;i++){
       var temp = flights[i];
       var date = moment(parseInt(requiredFlight.departingDate)).format('YYYY-MM-DD');
-      console.log(date);
       var currdate=moment(temp.departureDateTime).format('YYYY-MM-DD');
-      console.log(currdate);
-      console.log(date == currdate);
       if (date == currdate)
       filteredFlights.push(temp);
     }
@@ -286,8 +283,8 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.flightNumber=beforeFormattingData.outgoingFlights[i].flightNumber
     temp.aircraftType=beforeFormattingData.outgoingFlights[i].aircraftType
     temp.aircraftModel=beforeFormattingData.outgoingFlights[i].aircraftModel
-    temp.departureDateTime=moment(moment(beforeFormattingData.outgoingFlights[i].departureDateTime).format('YYYY-MM-DD')).toDate().getTime();
-    temp.arrivalDateTime=moment(moment(beforeFormattingData.outgoingFlights[i].arrivalDateTime).format('YYYY-MM-DD')).toDate().getTime();
+    temp.departureDateTime=moment(moment(beforeFormattingData.outgoingFlights[i].departureDateTime).format('YYYY-MM-DD hh:mm A')).toDate().getTime();
+    temp.arrivalDateTime=moment(moment(beforeFormattingData.outgoingFlights[i].arrivalDateTime).format('YYYY-MM-DD hh:mm A')).toDate().getTime();
     temp.origin=beforeFormattingData.outgoingFlights[i].origin
     temp.destination=beforeFormattingData.outgoingFlights[i].destination
     temp.cost=beforeFormattingData.outgoingFlights[i][costOfClass]
@@ -302,8 +299,8 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.flightNumber=beforeFormattingData.returnFlights[i].flightNumber
     temp.aircraftType=beforeFormattingData.returnFlights[i].aircraftType
     temp.aircraftModel=beforeFormattingData.returnFlights[i].aircraftModel
-    temp.departureDateTime=moment(moment(beforeFormattingData.returnFlights[i].departureDateTime).format('YYYY-MM-DD')).toDate().getTime();
-    temp.arrivalDateTime=moment(moment(beforeFormattingData.returnFlights[i].arrivalDateTime).format('YYYY-MM-DD')).toDate().getTime();
+    temp.departureDateTime=moment(moment(beforeFormattingData.returnFlights[i].departureDateTime).format('YYYY-MM-DD hh:mm A')).toDate().getTime();
+    temp.arrivalDateTime=moment(moment(beforeFormattingData.returnFlights[i].arrivalDateTime).format('YYYY-MM-DD hh:mm A')).toDate().getTime();
     temp.origin=beforeFormattingData.returnFlights[i].origin
     temp.destination=beforeFormattingData.returnFlights[i].destination
     temp.cost=beforeFormattingData.returnFlights[i][costOfClass]

@@ -1,6 +1,7 @@
 angular.module('alaska').factory('flightsSrvc', function ($http) {
-  return {
+  this.outgoingFlights=[];
+  this.returnFlights=[];
+  return{
 
-
-  };
+  }
 });

@@ -3,11 +3,9 @@ angular.module('alaska').
 controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrvc){
 	$scope.outgoingFlights =angular.copy(flightsSrvc.outgoingFlights);
 	$scope.returnFlights =angular.copy(flightsSrvc.returnFlights);
-
-	var oneWay= $scope.oneWay = flightsSrvc.oneWay;
+	var oneWay= flightsSrvc.oneWay;
+	$scope.oneWay = oneWay;
 	$scope.otherAirlines=flightsSrvc.otherAirlines;
-	$scope.selectedOutgoing={index:null};
-	$scope.selectedReturn={index:null};
 	$scope.origin=flightsSrvc.origin;
 	$scope.destination=flightsSrvc.destination;
 	$scope.seatClass=flightsSrvc.seatClass;
@@ -30,6 +28,10 @@ controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrv
 			$scope.returnFlights[i].arrivalTime   = arrivalTime.getHours()+':'+arrivalTime.getMinutes();
 		}
 	}
+	$scope.selectedOutgoing=$scope.outgoingFlights[$scope.selectedOutgoingIndex];
+	if(oneWay!==1)
+	$scope.selectedReturn=$scope.returnFlights[$scope.selectedReturnIndex];
+
 
 	$scope.Continue = function (){
 

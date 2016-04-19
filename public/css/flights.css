@@ -1,13 +1,17 @@
 
 .flights-wrapper table{
-  table-layout: fixed;
   width: 100%;
   background-color: rgba(255,255,255,0);
   margin-left: 20px;
   margin-top: 10px;
-  position: relative;
-  overflow: scroll;
+}
 
+.flights-wrapper thead, tbody { display: block; }
+
+.flights-wrapper tbody {
+    height: 400px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
 }
 .outFlights, .returnFlights{
   background-color: rgba(255,255,255,0.9);
@@ -15,7 +19,6 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   padding-bottom: 20px;
   margin-top: 20px;
-
 }
 
 
