@@ -9,5 +9,6 @@ angular.module('alaska').factory('landingSrvc', function ($http) {
     getFindFlightInfo: function() {
       return this.flightInfo;
     }
+
   };
 });

@@ -1,5 +1,5 @@
 angular.module('alaska')
-.controller("resvConfirmCtrl", function($scope,$routeParams,resvConfirmSrvc){
+.controller("bookingCtrl", function($scope,$routeParams,resvConfirmSrvc){
 	resvConfirmSrvc.getResv($routeParams.id, function(reservation){
 		$scope.resv = reservation;
 		var oneWay = resvConfirmSrvc.isOneWay();

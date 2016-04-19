@@ -1,0 +1,484 @@
+.intro-text{
+  text-align:center;
+  font-family: Alegreya;
+  font-weight: 600;
+  font-size: 3em;
+  margin-top: 150px;
+  color: #01426a;
+}
+#searchWrapper {
+  position: relative;
+  margin: 40px auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width:60%;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
+
+
+}
+#searchWrapper .info-header,.find .info-header{
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(50deg, #bd6772, #01426a);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: #9b1d4a;
+  padding: 15px;
+  text-transform: uppercase;
+}
+
+#searchWrapper h1 ,.find h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+#searchWrapper h2 {
+  font-size: 22px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+#flight-datepicker {
+  margin-top: 30px;
+  margin-bottom: 20px;
+
+}
+@media screen and (min-width: 400px) {
+  #flight-datepicker {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+#flight-datepicker .form-item,
+#route .form-item {
+  position: relative;
+  margin: 12px 24px 12px;
+}
+
+#flight-datepicker label, #searchWrapper #route label, #searchWrapper .class label
+{
+  display: block;
+  margin-bottom: 8px;
+  color: #01426a;
+}
+#flight-datepicker input,
+#searchWrapper #route input{
+  display: block;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  width: 100%;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: left;
+  color: #6d6e70;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0;
+  outline: none;
+  -webkit-transition: border-color .2s ease-out;
+  transition: border-color .2s ease-out;
+}
+#flight-datepicker input:first-child, #flight-datepicker input:last-child,
+#route input:first-child, #route input:last-child {
+  border-radius: 0;
+}
+#flight-datepicker input::-webkit-input-placeholder,
+#route input::-webkit-input-placeholder {
+  color: #0e3e43;
+  font-size: 20px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+#flight-datepicker input:-moz-placeholder {
+  color: #0e3e43;
+  font-size: 20px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+#flight-datepicker input::-moz-placeholder {
+  color: #0e3e43;
+  font-size: 20px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+#flight-datepicker input:-ms-input-placeholder {
+  color: #0e3e43;
+  font-size: 20px;
+  line-height: 30px;
+  -webkit-transition: color .2s .2s ease-out;
+  transition: color .2s .2s ease-out;
+}
+#flight-datepicker input:focus,
+#route input:focus{
+  border-bottom-color: #125259;
+}
+#flight-datepicker input:focus::-webkit-input-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+#flight-datepicker input:focus:-moz-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+#flight-datepicker input:focus::-moz-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+#flight-datepicker input:focus:-ms-input-placeholder {
+  color: transparent;
+  -webkit-transition: color .2s ease-out;
+  transition: color .2s ease-out;
+}
+#flight-datepicker .date-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  top: calc(100% + 6px);
+  font-size: 15px;
+  color: #01426a;
+}
+@media screen and (min-width: 400px) {
+  #flight-datepicker .date-text {
+    top: 100%;
+  }
+}
+
+.datepicker.dropdown-menu {
+  padding: 0;
+  background-clip: border-box;
+  border: none;
+  border-radius: 0;
+  -webkit-animation: popup .2s ease-out forwards;
+  animation: popup .2s ease-out forwards;
+}
+.datepicker.dropdown-menu table {
+  background-color: #01426a;
+}
+.datepicker.dropdown-menu table thead {
+  background-color: #01426a;
+}
+.datepicker.dropdown-menu table thead tr {
+  border-top: 0;
+}
+.datepicker.dropdown-menu table tbody {
+  background-color: white;
+}
+.datepicker.dropdown-menu table tr {
+  border-top: 1px solid #ededed;
+}
+.datepicker.dropdown-menu table tr td, .datepicker.dropdown-menu table tr th {
+  width: auto;
+  height: 24px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 0;
+  -webkit-transition: background-color .6s ease-out;
+  transition: background-color .6s ease-out;
+}
+@media screen and (min-width: 400px) {
+  .datepicker.dropdown-menu table tr td, .datepicker.dropdown-menu table tr th {
+    padding: 12px;
+  }
+}
+.datepicker.dropdown-menu table tr td:hover, .datepicker.dropdown-menu table tr td.active:hover, .datepicker.dropdown-menu table tr td:active:hover, .datepicker.dropdown-menu table tr th:hover, .datepicker.dropdown-menu table tr th.active:hover, .datepicker.dropdown-menu table tr th:active:hover {
+  border-color: #ededed;
+  border-radius: 0;
+  -webkit-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+}
+.datepicker.dropdown-menu table tr td:focus, .datepicker.dropdown-menu table tr td.selected, .datepicker.dropdown-menu table tr th:focus, .datepicker.dropdown-menu table tr th.selected {
+  background-color: #4987a5;
+  border-color: #ededed;
+  border-radius: 0;
+}
+.datepicker.dropdown-menu table tr td.active, .datepicker.dropdown-menu table tr td.active:focus, .datepicker.dropdown-menu table tr td.active.active:hover, .datepicker.dropdown-menu table tr td:active:focus, .datepicker.dropdown-menu table tr td.highlighted, .datepicker.dropdown-menu table tr th.active, .datepicker.dropdown-menu table tr th.active:focus,
+.datepicker.dropdown-menu table tr th.active:hover, .datepicker.dropdown-menu table tr th:active:focus, .datepicker.dropdown-menu table tr th.highlighted {
+  background-color: #01426a;
+  border-color: #ededed;
+}
+.datepicker.dropdown-menu table tr th.datepicker-switch {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 2;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #ffffff;
+  background-color: inherit;
+  border-radius: 0;
+}
+.datepicker.dropdown-menu table tr th.prev,
+.datepicker.dropdown-menu table tr th.next {
+  color: #ffffff;
+  background-color: #01426a;
+  border-radius: 0;
+}
+.datepicker.dropdown-menu table tr th.dow {
+  padding: 2px 12px;
+  font-size: 12px;
+  line-height: 2;
+  color: #ffffff;
+  background: #bd6772;
+  border-radius: 0;
+}
+.datepicker.dropdown-menu table tr td.day {
+  width: 24px;
+  border-right: 1px solid #ededed;
+}
+.datepicker.dropdown-menu table tr td.day:last-child {
+  border-right-width: 0;
+}
+.datepicker.dropdown-menu table tr td.range {
+  background-color: #eeeeee;
+}
+.datepicker.dropdown-menu .new,
+.datepicker.dropdown-menu .old,
+.datepicker.dropdown-menu .disabled,
+.datepicker.dropdown-menu .disabled:hover {
+  color: #ccc;
+}
+
+
+#searchWrapper .fa-calendar,
+#searchWrapper .fa-location-arrow
+{
+  position: absolute;
+  top: 26px;
+  right: 0;
+  font-size: 24px;
+}
+#searchWrapper .fa-search{
+
+  margin-right: 6px;
+  font-size: 1em;
+}
+@-webkit-keyframes popup {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+#searchWrapper form{
+  padding: 20px;
+  position: relative;
+}
+#searchWrapper .direction ~ label:before {
+  font-family: FontAwesome;
+  content: "\f096";
+  letter-spacing: 10px;
+  font-size: 1.2em;
+  color: #01426a;
+  width: 1.4em;
+}
+
+#searchWrapper .direction:checked ~ label:before {
+  content: "\f14a";
+  font-size: 1.2em;
+  color: #4987a5;
+  letter-spacing: 5px;
+}
+#searchWrapper .direction:focus ~ label:before,
+#searchWrapper .direction:focus ~ label
+{
+  color: #4987a5;
+}
+#searchWrapper .direction
+{
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  width: 1px;
+  position: absolute;
+}
+#searchWrapper #search{
+  color: white;
+  text-decoration: none;
+  padding: 15px 15px;
+  border-radius: 10px;
+  background: #01426a;
+  width: 150px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5em;
+  border: none;
+  box-shadow: none;
+  float: right;
+  margin-top: 5px;
+  margin-right: 15px;
+  vertical-align: middle;
+}
+
+#searchWrapper .input-direction{
+  margin: 10px;
+}
+#route{
+  display: inline-flex;
+}
+#searchWrapper fieldset.class {
+  border: none;
+  padding: 10px 15px;
+  position: relative;
+}
+#searchWrapper fieldset.class .select {
+  position: relative;
+  background: rgba(255, 255, 255, 0.7);
+}
+#searchWrapper fieldset.class .select::after {
+  content: '';
+  border-top: 8px solid #222;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 10px;
+  pointer-events: none;
+}
+#searchWrapper fieldset.class .select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+  padding-left: 10px;
+  border: none;
+  width: 100%;
+  outline: none !important;
+  top: 6px;
+  left: 6px;
+  background: none;
+
+}
+#searchWrapper fieldset.class .select select :-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+#searchWrapper fieldset.class .select {
+  width: 100%;
+  height: 38px;
+  color: #333333;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1em;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+#searchWrapper #select-type {
+  width:20%;
+}
+#searchWrapper .checks{
+  display: inline-flex;
+}
+.find {
+  width: 60%;
+  background: rgba(255,255,255,0.8);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
+  margin: 60px auto 30px;
+  border-radius: 15px;
+}
+.search-holder{
+  border-radius: 15px;
+  margin:auto;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  position: relative;
+  vertical-align: middle;
+  min-height: 80px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 2em;
+  width: 70%;
+}
+.search-holder button{
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  vertical-align: middle;
+  display: inline-block;
+
+}
+
+.search-holder input{
+  display: inline-block;
+  border: none;
+  padding: 0px 0px 0 20px;
+  border: none;
+  outline: none;
+  font-weight: 400;
+  vertical-align: middle;
+  background: none;
+}
+.hvr-fade {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
+  background-color: #bd6772;
+  color: white;
+}
+.class{
+  padding-bottom: 0px;
+}

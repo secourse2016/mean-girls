@@ -1,16 +1,17 @@
-#bigWrapper{
-  width: 80%;
-  border-radius: 5px;
-}
-
 .wrapper {
-  font-family: "Helvetica Neue", Arial;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   margin: 0 auto;
   margin-top: 150px;
   margin-bottom: 50px;
-  background: -webkit-linear-gradient(315deg, #C7767B 0%, #77A2E0 100%);
-  background: linear-gradient(135deg, #C7767B 0%, #77A2E0 100%);
+  /*background: -webkit-linear-gradient(315deg, #C7767B 0%, #77A2E0 100%);
+  background: linear-gradient(135deg, #C7767B 0%, #77A2E0 100%);*/
+  background: linear-gradient(135deg, #bd6772, #53223f);
+  border-radius: 15px;
+  padding-top: 10px;
+  width: 70%;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 4px black;
   border-radius: 5px;
 }
 
@@ -20,7 +21,7 @@
   text-align: center;
   padding: 10px;
   color: #eee;
-  font-family: "Helvetica Neue", Arial;
+  font-family: 'Open Sans', sans-serif;
   font-size: 0.8em;
 }
 .date.outbound {
@@ -31,14 +32,21 @@
 }
 
 .circle {
-  background-color: black;
+  background: #ffffff;
+  background: -moz-linear-gradient(left, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-linear-gradient(left, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -o-linear-gradient(left, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -ms-linear-gradient(left, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: linear-gradient(to right, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   width: 110px;
   height: 110px;
   text-align: center;
   margin: 0px auto;
   border-radius: 50%;
-  border: 5px solid white;
+  border: 5px solid #F5F5F5;
   box-sizing: border-box;
   position: relative;
 }
@@ -51,9 +59,9 @@
   margin: 0 auto;
   right: 0;
   left: 0;
-  color: white;
+  color: #01426A;
   z-index: 1;
-  text-shadow: 0px 1px 2px black;
+  /*text-shadow: 0px 1px 2px black;*/
   -webkit-transition: 0.4s ease all;
   transition: 0.4s ease all;
 }
@@ -81,9 +89,6 @@
 }
 
 .flight {
-  box-sizing: border-box;
-  box-shadow: 0px 2px 4px black;
-  border-radius: 5px;
   position: relative;
 }
 
@@ -101,9 +106,11 @@
 
 .diagram {
   position: absolute;
-  left: 380px;
+  left: 50%;
   width: 200px;
   height: 100px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 .diagram img {
   width: 100%;
@@ -122,7 +129,7 @@
 .tickets:hover .ticket:last-of-type {
   margin-top: 10px;
   -webkit-transform: rotate(0deg);
-  transform: rotate(0deg);
+          transform: rotate(0deg);
 }
 .tickets .ticket {
   padding: 20px;
@@ -140,19 +147,27 @@
 .tickets .ticket:last-of-type {
   margin-top: -35px;
   -webkit-transform: rotate(1deg);
-  transform: rotate(1deg);
+          transform: rotate(1deg);
 }
-.tickets .ticket .name {
-  font-weight: 800;
+.ticket .name {
+  font-weight: 500;
+  font-size: 1.25em;
 }
 .tickets .ticket .seat {
-  font-family: "Courier", Monospace;
-  width: 100px;
   position: absolute;
   top: 15px;
-  left: 150px;
+  left: 50%;
   padding: 5px;
   background-color: #f5f5f5;
+}
+.tickets .ticket .cost {
+  max-width: 100px;
+  position: absolute;
+  top: 15px;
+  left: 70%;
+  padding: 5px;
+  background-color: #f5f5f5;
+  font-size:1.2em;
 }
 .tickets .ticket .seat:before {
   content: "Seat ";
@@ -167,7 +182,14 @@
   background-color: #f5f5f5;
   font-weight: 800;
 }
+.tickets .ticket .direction {
 
+  top: 15px;
+  padding: 10px;
+  margin-left: 10px;
+  background-color: #f5f5f5;
+  font-weight: 800;
+}
 .center {
   text-align: center;
 }
@@ -205,16 +227,15 @@
 }
 
 .flight-details {
-
   color: white;
   text-shadow: 0 1px 2px black;
-  padding-top: 70px;
+  margin-top: 50px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
 
 .route {
-  top: -50px;
+  top: -100px;
   position: absolute;
   right: 0;
   left: 0;
@@ -230,27 +251,21 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.payment #card-container.flip .card {
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-}
-.payment #card-container.flip .card .card-back {
-  opacity: 1;
-  visibility: visible;
-}
+
+
 .payment .card {
-  display: inline-block;
+  display: block;
   background: -webkit-linear-gradient(315deg, #37456C 0%, #2F397A 100%);
   background: linear-gradient(135deg, #37456C 0%, #2F397A 100%);
   width: 390px;
-  height: 246px;
+  height: 280px;
   border-radius: 10px;
   margin: 20px;
   overflow: hidden;
   border: 1px solid #aaa;
   padding: 20px;
   box-shadow: 1px 2px 4px black;
-  font-family: "courier", monospace;
+  font-family: Inconsolata;
   box-sizing: border-box;
   position: relative;
   -webkit-transition: 0.4s ease all;
@@ -265,7 +280,7 @@
   margin-top: 50px;
 }
 .payment .card .payment-title {
-  font-family: "Helvetica Neue", Arial;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 800;
   color: white;
   text-shadow: 0 1px 2px black;
@@ -282,14 +297,10 @@
   -webkit-transition: 0.4s ease all;
   transition: 0.4s ease all;
 }
-.payment .card .payment-card.active {
-  opacity: 1;
-}
-.payment .card .front .field {
-  left: 20px;
-  position: absolute;
-}
+
 .payment .card .field {
+  margin-top: 10px;
+  margin-bottom: 10px;
   background-color: rgba(255, 255, 255, 0.2);
   border-bottom: 1px dotted #eee !important;
   border: 0px;
@@ -301,20 +312,22 @@
   transition: 0.4s ease all;
   text-transform: uppercase;
 }
-.payment .card .field.active {
-  background-color: rgba(255, 255, 255, 0);
-  border-bottom: 0px !important;
-  letter-spacing: 0.2em;
-}
 .payment .card #name {
-  bottom: 60px;
   width: 50%;
 }
 .payment .card #date {
-  bottom: 20px;
   width: 40%;
 }
 .payment .card #number {
-  bottom: 100px;
   width: 86%;
+}
+.payment .card #total {
+  width: 40%;
+}
+.bookingRef{
+  font-size:1.5em;
+}
+.title-b{
+  font-size: 0.7em;
+  opacity: 0.5;
 }
