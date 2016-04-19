@@ -71,17 +71,51 @@ var routes = function(app) {
 
             db.searchFlight(outFlight,function(err,Outflight){
                 booking[0].outgoingFlight=Outflight[0];
-                var retFlight=booking[0].returnFlight;
-                if(retFlight != null){
-                    db.searchFlight(retFlight,function(err,Retflight){
-                        booking[0].returnFlight=Retflight[0];
-                        res.send(booking[0]);
-                    });
+                var resvID=booking[0].reservationID;
+               	var seatMap=outgoingFlight[0].seatmap;
+                var outSeat;
+                for (var i = seatMap.length - 1; i >= 0; i--) {
+                	if(seatMap[i].reservationID===resvID){
+                		outSeat=seatMap[i];
+                		break;
+                	}
                 }
-                else{
-                    res.send(booking[0]);
-                }
-                
+				var seatNumber = outSeat.seatNumber;
+				var cabinClass = outSeat.cabin;
+				var cost = outSeat.cost;
+
+				booking[0].outgoingFlight.seatNumber = seatNumber;
+				booking[0].outgoingFlight.class = cabinClass;
+				booking[0].outgoingFlight.cost = cost;
+
+				var retFlight=booking[0].returnFlight;
+
+	                if(retFlight != null){
+	                    db.searchFlight(retFlight,function(err,Retflight){
+	                        booking[0].returnFlight=Retflight[0];
+	                        var returnseatMap=Retflight[0].seatmap;
+	                        var returnSeat;
+	                        for (var i = returnseatMap.length - 1; i >= 0; i--) {
+	                        	if(returnseatMap[i].reservationID===resvID){
+	                        		returnSeat=returnseatMap[i];
+	                        		break;
+	                        	}
+                        	}
+							var returnSeatNumber = returnSeat.seatNumber;
+							var returnCabinClass = returnSeat.cabin;
+							var returnCost = returnSeat.cost;
+
+							booking[0].returnFlight.seat = returnSeatNumber;
+							booking[0].returnFlight.class = returnCabinClass;
+							booking[0].returnFlight.cost = returnCost;
+
+                       		res.send(booking[0]);
+	                    });
+	                }
+	                else{
+	                    res.send(booking[0]);
+	                }
+
             });
             
 			
