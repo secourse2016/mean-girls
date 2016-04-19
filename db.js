@@ -474,7 +474,6 @@ exports.addBooking=function(i,cb){
                     }
                   }
 
-
                 })
               })
             })

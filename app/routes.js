@@ -149,7 +149,7 @@ module.exports = function(app) {
 						booking[0].returnFlight=Retflight[0];
 						var returnseatMap=Retflight[0].seatmap;
 						var returnSeat;
-						for (var i = returnseatMap.length - 1; i >= 0; i--) {
+						for (var i = 0; i < returnseatMap.length; i++) {
 							if(returnseatMap[i].reservationID===resvID){
 								returnSeat=returnseatMap[i];
 								break;
@@ -159,7 +159,7 @@ module.exports = function(app) {
 						var returnCabinClass = returnSeat.cabin;
 						var returnCost = returnSeat.cost;
 
-						booking[0].returnFlight.seat = returnSeatNumber;
+						booking[0].returnFlight.seatNumber = returnSeatNumber;
 						booking[0].returnFlight.class = returnCabinClass;
 						booking[0].returnFlight.cost = returnCost;
 
