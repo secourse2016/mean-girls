@@ -180,12 +180,12 @@ function filteringClass(flights,i){
     }
 
     var filteredFlights2 = filteredFlights.filter(function(flight){
-            return moment(flight.departureDateTime).format('YYYY-MM-DD')===i.departureDate;
+            return moment(moment(flight.departureDateTime).format('YYYY-MM-DD')).toDate().getTime()==i.departureDateTime;
         });
 
     for(var x=0;x<filteredFlights2.length;x++)
     {
-           filteredFlights2[x].departureDateTime=moment(filteredFlights2[x].departureDateTime).toDate().getTime();
+           filteredFlights2[x].departureDateTime=moment(moment(filteredFlights2[x].departureDateTime).format('YYYY-MM-DD')).toDate().getTime();
     }
 
     var result={ "outgoingFlights" : filteredFlights2};
@@ -232,8 +232,9 @@ function searchRoundTripFlight (requiredFlight, cb){
     if (err) return cb(err);
     for(var i =0;i<flights.length;i++){
       var temp = flights[i];
-      var date = moment(moment(temp.departureDate).format('YYYY-MM-DD')).toDate().getTime();
-      if (date == requiredFlight.departingDate)
+      var date = moment(requiredFlight.departingDate).format('YYYY-MM-DD');
+
+      if (date == temp.departureDateTime)
       filteredFlights.push(temp);
     }
     chosenFlights.outgoingFlights = filteredFlights;
@@ -255,8 +256,9 @@ function searchOtherWayAround(classString,chosenFlights, requiredFlight, cb) {
 
     for(var i =0;i<flights.length;i++){
       var temp = flights[i];
-      var date = moment(moment(temp.arrivalDate).format('YYYY-MM-DD')).toDate().getTime();
-      if (date == requiredFlight.returningDate)
+      var date = moment(requiredFlight.returningDate).format('YYYY-MM-DD');
+
+      if (date == temp.arrivalDateTime)
       filteredFlights.push(temp);
     }
     chosenFlights.returnFlights = filteredFlights;
@@ -281,8 +283,8 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.flightNumber=beforeFormattingData.outgoingFlights[i].flightNumber
     temp.aircraftType=beforeFormattingData.outgoingFlights[i].aircraftType
     temp.aircraftModel=beforeFormattingData.outgoingFlights[i].aircraftModel
-    temp.departureDateTime=moment(beforeFormattingData.outgoingFlights[i].departureDateTime).toDate().getTime();
-    temp.arrivalDateTime=moment(beforeFormattingData.outgoingFlights[i].arrivalDateTime).toDate().getTime();
+    temp.departureDateTime=moment(moment(beforeFormattingData.outgoingFlights[i].departureDateTime).format('YYYY-MM-DD')).toDate().getTime();
+    temp.arrivalDateTime=moment(moment(beforeFormattingData.outgoingFlights[i].arrivalDateTime).format('YYYY-MM-DD')).toDate().getTime();
     temp.origin=beforeFormattingData.outgoingFlights[i].origin
     temp.destination=beforeFormattingData.outgoingFlights[i].destination
     temp.cost=beforeFormattingData.outgoingFlights[i][costOfClass]
@@ -297,8 +299,8 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.flightNumber=beforeFormattingData.returnFlights[i].flightNumber
     temp.aircraftType=beforeFormattingData.returnFlights[i].aircraftType
     temp.aircraftModel=beforeFormattingData.returnFlights[i].aircraftModel
-    temp.departureDateTime=moment(beforeFormattingData.returnFlights[i].departureDateTime).toDate().getTime();
-    temp.arrivalDateTime=moment(beforeFormattingData.returnFlights[i].arrivalDateTime).toDate().getTime();
+    temp.departureDateTime=moment(moment(beforeFormattingData.returnFlights[i].departureDateTime).format('YYYY-MM-DD')).toDate().getTime();
+    temp.arrivalDateTime=moment(moment(beforeFormattingData.returnFlights[i].arrivalDateTime).format('YYYY-MM-DD')).toDate().getTime();
     temp.origin=beforeFormattingData.returnFlights[i].origin
     temp.destination=beforeFormattingData.returnFlights[i].destination
     temp.cost=beforeFormattingData.returnFlights[i][costOfClass]

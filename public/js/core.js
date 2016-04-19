@@ -32,7 +32,7 @@ app.config(function($httpProvider,$routeProvider) {
 	})
 
 	// Inject jwt token to all http requests
-	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjA5NzIzNzIsImV4cCI6MTQ5MjUwODM3NCwiYXVkIjoiIiwic3ViIjoiIn0.j0XqCZ_NU9gyl3bA_QckQoVqNOG7LpX58w2KxjNrGEk'
+	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
 	$httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
 		return {
 			'request': function (config) {

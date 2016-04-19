@@ -10,15 +10,15 @@ module.exports = function(app) {
 	var jwtexp  =require('express-jwt')
 	var airlinesIP = require('../json/otherAirlines.json');
 
-	app.use(jwtexp({
-		secret: 'CSEN603ROCKSi<8SE!',
-		getToken: function(req) {
-			if (req.headers && req.headers['x-access-token']) {
-				return req.headers['x-access-token'];
-			}
-			return null;
-		}
-	}));
+	// app.use(jwtexp({
+	// 	secret: 'CSEN603ROCKSi<8SE!',
+	// 	getToken: function(req) {
+	// 		if (req.headers && req.headers['x-access-token']) {
+	// 			return req.headers['x-access-token'];
+	// 		}
+	// 		return null;
+	// 	}
+	// }));
 
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public', 'index.html'));
@@ -57,7 +57,7 @@ module.exports = function(app) {
 
 		console.log("{{{{ TOKEN }}}} => ", token);
 
-		var jwtSecret = process.env.JWTSECRET;
+		var jwtSecret = 'CSEN603ROCKSi<8SE';
 
 		// Get JWT contents:
 		try

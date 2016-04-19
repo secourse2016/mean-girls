@@ -23,18 +23,11 @@
     "jwt-simple": "^0.5.0",
     "method-override": "^2.3.5",
     "mocha": "latest",
-    "moment": "^2.12.0",
+    "moment": "^2.13.0",
     "mongodb": "^2.1.14",
     "mongoose": "^4.4.10",
     "morgan": "^1.7.0",
-<<<<<<< HEAD
     "request": "^2.72.0",
     "supertest": "latest"
-=======
-    "mocha": "latest",
-    "chai": "latest",
-    "supertest": "latest",
-    "moment" : "2.13.0"
->>>>>>> 9e5b1916f4dce1f22d301bb139eab27063d1ced7
   }
 }

@@ -1,3 +1,4 @@
+
 angular.module('alaska').controller('landingCtrl',function ($scope,$location,$http,masterSrvc,flightsSrvc,bookingSrvc,flightInfoSrvc){
 
 	$http.get('/api/airports').success(function(data) {
@@ -10,6 +11,7 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 		var origin= $scope.origin;
 		var destination= $scope.destination;
 		var departingDate=new Date($scope.departingDate).getTime();
+		console.log(departingDate);
 		var seatClass= $scope.class;
 		var otherAirlines=$scope.otherAirlines;
 		var oneWay=$scope.oneWay;
@@ -49,7 +51,6 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 		else{
 			var returningDate=new Date($scope.returningDate).getTime();
 			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(flights){
-				console.log('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass);
 				flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
 				flightsSrvc.returnFlights.concat(flights.returnFlights);
 				if(otherAirlines===1){
