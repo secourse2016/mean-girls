@@ -22,12 +22,19 @@ exports.db = function() {
 
 
 function seedFlights(cb){
-  outGoingFlightsSeed(function(){
-    returnFlightSeed(function(){
-      cb();
-    })
-  });
-};
+  // DB.collection('flights').find().toArray(function (err, docs) {
+  //   if (err) return cb(err);
+  //   if (docs.length > 0)
+  //   cb(false);
+  //   else{
+      outGoingFlightsSeed(function(){
+        returnFlightSeed(function(){
+          cb();
+        })
+      });
+  //   }
+  // });
+}
 
 function outGoingFlightsSeed(cb){
   seedAFlight(false,function(err){
@@ -145,60 +152,60 @@ function seedAFlight (reverseFlag, cb){
 
 
 function filteringClass(flights,i){
-    if(i.class = "economy") {
-        var filteredFlights = flights.filter(function(flight){
-            return flight.availableEconomy != 0;
-        });
-        for(var x=0;x<filteredFlights.length;x++)
-        {
-           filteredFlights[x].cost=filteredFlights[x].economyCost;
-        }
-    }
-    else {
-         var filteredFlights = flights.filter(function(flight){
-            return flight.availableBussiness != 0;
-        });
-         for(var x=0;x<filteredFlights.length;x++)
-        {
-           filteredFlights[x].cost=filteredFlights[x].bussinessCost;
-        }
-    }
-
+  if(i.class = "economy") {
+    var filteredFlights = flights.filter(function(flight){
+      return flight.availableEconomy != 0;
+    });
     for(var x=0;x<filteredFlights.length;x++)
     {
-           filteredFlights[x].class=i.class;
+      filteredFlights[x].cost=filteredFlights[x].economyCost;
     }
-
+  }
+  else {
+    var filteredFlights = flights.filter(function(flight){
+      return flight.availableBussiness != 0;
+    });
     for(var x=0;x<filteredFlights.length;x++)
     {
-           filteredFlights[x].Airline="Alaska";
+      filteredFlights[x].cost=filteredFlights[x].bussinessCost;
     }
+  }
 
-    for(var x=0;x<filteredFlights.length;x++)
-    {
-           filteredFlights[x].currency="USD";
-    }
+  for(var x=0;x<filteredFlights.length;x++)
+  {
+    filteredFlights[x].class=i.class;
+  }
 
-    var filteredFlights2 = filteredFlights.filter(function(flight){
-            return moment(flight.departureDateTime).format('YYYY-MM-DD')==moment(i.departureDateTime).format('YYYY-MM-DD');
-        });
+  for(var x=0;x<filteredFlights.length;x++)
+  {
+    filteredFlights[x].Airline="Alaska";
+  }
 
-    for(var x=0;x<filteredFlights2.length;x++)
-    {
-           filteredFlights2[x].departureDateTime=moment(moment(filteredFlights2[x].departureDateTime).format('YYYY-MM-DD')).toDate().getTime();
-    }
+  for(var x=0;x<filteredFlights.length;x++)
+  {
+    filteredFlights[x].currency="USD";
+  }
 
-    var result={ "outgoingFlights" : filteredFlights2};
-    return result;
+  var filteredFlights2 = filteredFlights.filter(function(flight){
+    return moment(flight.departureDateTime).format('YYYY-MM-DD')==moment(i.departureDateTime).format('YYYY-MM-DD');
+  });
+
+  for(var x=0;x<filteredFlights2.length;x++)
+  {
+    filteredFlights2[x].departureDateTime=moment(moment(filteredFlights2[x].departureDateTime).format('YYYY-MM-DD')).toDate().getTime();
+  }
+
+  var result={ "outgoingFlights" : filteredFlights2};
+  return result;
 
 }
 
 
 function searchFlightsOneWay(i,cb) {
-    DB.collection('flights').find({ destination:i.destination , origin:i.origin }).toArray(function(err,flights) {
-        if (err) return cb(err);
-        cb(null,filteringClass(flights,i));
-    });
+  DB.collection('flights').find({ destination:i.destination , origin:i.origin }).toArray(function(err,flights) {
+    if (err) return cb(err);
+    cb(null,filteringClass(flights,i));
+  });
 }
 
 
@@ -316,10 +323,15 @@ function formatData(beforeFormattingData,reqClass,cb) {
 }
 
 exports.seed= function (cb) {
-  seedFlights(function(err){
-    seedAirports(function(err,seeded){
-      if(!err) cb();
-    });
+  seedFlights(function(seeded){
+    if(!seeded){
+      seedAirports(function(err,seeded){
+        if(!err) cb();
+      });
+    }
+    else {
+      console.log("flights already seeded");
+    }
   });
 }
 
@@ -328,146 +340,146 @@ exports.seed= function (cb) {
 exports.addBooking=function(i,cb){
   var resIDToBe;
   var booking = {};
-    // var result;
-    // var seatNo;
-    DB.collection('bookings').insert({
+  // var result;
+  // var seatNo;
+  DB.collection('bookings').insert({
 
-        "passenger": {
-            "firstName":i.passenger.firstName,
-            "lastname":i.passenger.lastname,
-            "birthDate":i.passenger.birthDate,
-            "gender":i.passenger.gender,
-            "passportCountry":i.passenger.passportCountry,
-            "passportNo":i.passenger.passportNo,
-            "issueDate":i.passenger.issueDate,
-            "expiryDate":i.passenger.expiryDate
-        },
-        "payment": {
-            "cardType":i.payment.cardType,
-            "cardNo":i.payment.cardNo,
-            "expiryDate":i.payment.expiryDate,
-            "amount":i.payment.amount,
-            "ccv":i.payment.ccv,
-            "cardHolder":i.cardHolder
-        },
+    "passenger": {
+      "firstName":i.passenger.firstName,
+      "lastname":i.passenger.lastname,
+      "birthDate":i.passenger.birthDate,
+      "gender":i.passenger.gender,
+      "passportCountry":i.passenger.passportCountry,
+      "passportNo":i.passenger.passportNo,
+      "issueDate":i.passenger.issueDate,
+      "expiryDate":i.passenger.expiryDate
+    },
+    "payment": {
+      "cardType":i.payment.cardType,
+      "cardNo":i.payment.cardNo,
+      "expiryDate":i.payment.expiryDate,
+      "amount":i.payment.amount,
+      "ccv":i.payment.ccv,
+      "cardHolder":i.cardHolder
+    },
 
-        "bookingRefNo":i.bookingRefNo,
-        "reservationID":i.reservationID,
-         "receiptNo":i.receiptNo,
-         "outgoingFlight":i.outgoingFlight,
-         "returnFlight":i.returnFlight,
-         "oneWay":i.oneWay
+    "bookingRefNo":i.bookingRefNo,
+    "reservationID":i.reservationID,
+    "receiptNo":i.receiptNo,
+    "outgoingFlight":i.outgoingFlight,
+    "returnFlight":i.returnFlight,
+    "oneWay":i.oneWay
 
-    },function (err){
+  },function (err){
+    if (err) return err;
+    DB.collection('bookings').find({"passenger.passportNo":i.passenger.passportNo}).toArray(function (err,doc){
       if (err) return err;
-      DB.collection('bookings').find({"passenger.passportNo":i.passenger.passportNo}).toArray(function (err,doc){
+      resIDToBe = " "+doc[0]._id;
+      var bookRef = resIDToBe.substr(0, 7);
+      DB.collection('bookings').update({ "passenger.passportNo":i.passenger.passportNo }, {$set: { reservationID: resIDToBe , bookingRefNo: bookRef }}, function (err) {
         if (err) return err;
-        resIDToBe = " "+doc[0]._id;
-        var bookRef = resIDToBe.substr(0, 7);
-        DB.collection('bookings').update({ "passenger.passportNo":i.passenger.passportNo }, {$set: { reservationID: resIDToBe , bookingRefNo: bookRef }}, function (err) {
-          if (err) return err;
-          DB.collection('bookings').find({ "passenger.passportNo":i.passenger.passportNo }).toArray(function (err,returnedBooking){
-              booking = returnedBooking;
-            // DB.collection('bookings').find({"passenger.passportNo":i.passenger.passportNo}).toArray(function (err,doc){
-              // if (err) return err;
-              if(i.cabin === "economy"){
-                  DB.collection('flights').update(
-                  {
-                  flightNumber:i.flightNumber ,
-                  seatmap:{
-                    $elemMatch : {
-                      cabin : "economy",
-                      reservationID : null }
+        DB.collection('bookings').find({ "passenger.passportNo":i.passenger.passportNo }).toArray(function (err,returnedBooking){
+          booking = returnedBooking;
+          // DB.collection('bookings').find({"passenger.passportNo":i.passenger.passportNo}).toArray(function (err,doc){
+          // if (err) return err;
+          if(i.cabin === "economy"){
+            DB.collection('flights').update(
+              {
+                flightNumber:i.flightNumber ,
+                seatmap:{
+                  $elemMatch : {
+                    cabin : "economy",
+                    reservationID : null }
                   }
-                  },
+                },
                 {
                   $set:{"seatmap.$.reservationID":resIDToBe},
                   $inc:{availableSeats:-1,availableEconomySeats:-1}
                 },function(err,results){
-                    if(err) return err;
-                    cb(null,booking);
-                      }
-                );
-              }
-              else{
-                if(i.cabin=="business"){
-                    DB.collection('flights').update(
-                    {
+                  if(err) return err;
+                  cb(null,booking);
+                }
+              );
+            }
+            else{
+              if(i.cabin=="business"){
+                DB.collection('flights').update(
+                  {
                     flightNumber:i.flightNumber ,
                     seatmap:{
                       $elemMatch : {
                         cabin : "business",
                         reservationID : null }
-                    }
+                      }
                     },
-                  {
-                    $set:{"seatmap.$.reservationID":resIDToBe},
-                    $inc:{availableSeats:-1,availableBusinessSeats:-1}
-                  },function(err,results){
+                    {
+                      $set:{"seatmap.$.reservationID":resIDToBe},
+                      $inc:{availableSeats:-1,availableBusinessSeats:-1}
+                    },function(err,results){
                       if(err) return err;
                       cb(null,booking);
-                      }
+                    }
                   );
 
                 }
-            }
+              }
 
-          // });
+              // });
+            })
           })
         })
-    })
-  })
-}
+      })
+    }
 
 
 
 
 
 
-//Find flight from DB when given flight number
-exports.searchFlight = function(flightNo,cb){
-  DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
-    cursor.toArray(cb);
-    // cb(err,flight);
-  });
-};
+    //Find flight from DB when given flight number
+    exports.searchFlight = function(flightNo,cb){
+      DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
+        cursor.toArray(cb);
+        // cb(err,flight);
+      });
+    };
 
 
-//Find booking from DB when given booking reference number
-exports.searchBooking = function(bookingRef,cb){
-  DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
-    cursor.toArray(cb);
-  });
-};
-
-
-
-// }// };
-
-exports.getAirports = function(cb){
-  //fixed Db typo
-  DB.collection('airports').find().toArray(function(err,airports){
-    cb(err,airports);
-  });
-};
+    //Find booking from DB when given booking reference number
+    exports.searchBooking = function(bookingRef,cb){
+      DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
+        cursor.toArray(cb);
+      });
+    };
 
 
 
-exports.clearDB=function (done) {
-  DB.listCollections().toArray().then(function (collections) {
-    collections.forEach(function (c) {
-      DB.collection(c.name).removeMany();
-    });
-    done();
-  }).catch(done);
-};
+    // }// };
 
-function firstToUpperCase(string) {
-  return string.substr(0, 1).toUpperCase() + string.substr(1);
-}
-exports.seedAirports = seedAirports;
-exports.seedFlights = seedFlights;
-exports.searchRoundTripFlight = searchRoundTripFlight;
-exports.formatData = formatData;
-exports.searchFlightsOneWay=searchFlightsOneWay;
-exports.filteringClass=filteringClass;
+    exports.getAirports = function(cb){
+      //fixed Db typo
+      DB.collection('airports').find().toArray(function(err,airports){
+        cb(err,airports);
+      });
+    };
+
+
+
+    exports.clearDB=function (done) {
+      DB.listCollections().toArray().then(function (collections) {
+        collections.forEach(function (c) {
+          DB.collection(c.name).removeMany();
+        });
+        done();
+      }).catch(done);
+    };
+
+    function firstToUpperCase(string) {
+      return string.substr(0, 1).toUpperCase() + string.substr(1);
+    }
+    exports.seedAirports = seedAirports;
+    exports.seedFlights = seedFlights;
+    exports.searchRoundTripFlight = searchRoundTripFlight;
+    exports.formatData = formatData;
+    exports.searchFlightsOneWay=searchFlightsOneWay;
+    exports.filteringClass=filteringClass;
