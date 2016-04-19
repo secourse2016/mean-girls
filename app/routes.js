@@ -9,9 +9,7 @@ module.exports = function(app) {
     var jwtexp  =require('express-jwt')
     var airlinesIP = require('../json/otherAirlines.json');
      
-    app.get('/', function (req, res) {
-      res.sendFile(path.join(__dirname, '../public', 'index.html'));
-      });
+    
 
 
     app.use(jwtexp({
@@ -24,6 +22,10 @@ module.exports = function(app) {
        }
     }));
 
+    app.get('/', function (req, res) {
+      res.sendFile(path.join(__dirname, '../public', 'index.html'));
+      });
+        
     app.use(function(req, res, next) {
 
       // check header or url parameters or post parameters for token

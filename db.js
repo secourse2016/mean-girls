@@ -19,7 +19,7 @@ exports.db = function() {
 
 
 function filteringClass(flights,i){
-    if(i.class = "Economy") {
+    if(i.class = "economy") {
         var filteredFlights = flights.filter(function(flight){
             return flight.availableEconomy != 0;
         });
