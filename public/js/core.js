@@ -4,7 +4,7 @@
 
 var app = angular.module('alaska',['ngRoute','ui.bootstrap']);
 
-app.config(function($httpProvide,$routeProvider) {
+app.config(function($httpProvider,$routeProvider) {
 	$routeProvider
 	.when('/flight-info', {
 		templateUrl : '../views/flight-status.html',

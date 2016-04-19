@@ -1,4 +1,4 @@
-angular.module('alaska').factory('masterSrvc', function ($http,$location,masterSrvc,bookingSrvc) {
+angular.module('alaska').factory('masterSrvc', function ($http,$location,bookingSrvc) {
   return {
     Confirm : function(){
       var data={};
@@ -15,7 +15,7 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,masterS
       $http.post('/api/addbooking',data).success(function(booking){
         var bookingReference=booking.bookingReference;
         bookingSrvc.bookingReference=bookingReference;
-        })
+        $location.url('/booking');
       })
 
     }

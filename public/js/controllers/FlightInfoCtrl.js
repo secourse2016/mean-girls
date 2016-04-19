@@ -2,6 +2,7 @@
 angular.module('alaska').
 controller('flightInfoCtrl',function($scope, $http,flightInfoSrvc,masterSrvc){
   $scope.flight=flightInfoSrvc.flight;
+  console.log($scope.flight);
   var departure=new Date(flightInfoSrvc.flight.departureDateTime);
   var arrival=new Date(flightInfoSrvc.flight.arrivalDateTime);
   var now=new Date();
@@ -12,7 +13,7 @@ controller('flightInfoCtrl',function($scope, $http,flightInfoSrvc,masterSrvc){
     if(arrival<now)
     $scope.status="departed";
     else {
-      $scope.status="arrived"
+      $scope.status="landed";
     }
   }
   $scope.getAirportName=function(iata){

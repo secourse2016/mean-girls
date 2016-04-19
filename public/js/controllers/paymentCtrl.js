@@ -18,4 +18,5 @@ angular.module('alaska')
 
 
     masterSrvc.Confirm();
+  }
 });
