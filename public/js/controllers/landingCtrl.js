@@ -1,7 +1,8 @@
-angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$http,flightsSrvc,bookingSrvc,flightInfoSrvc){
+angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$http,masterSrvc,flightsSrvc,bookingSrvc,flightInfoSrvc){
 
 	$http.get('/api/airports').success(function(data) {
 		$scope.airports = data;
+		masterSrvc.airports=data;
 	});
 
 	$scope.findFlights = function() {
@@ -17,6 +18,8 @@ angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$h
 		flightsSrvc.oneWay=oneWay
 		flightsSrvc.otherAirlines=otherAirlines;
 		flightsSrvc.seatClass=seatClass;
+		flightsSrvc.origin=origin;
+		flightsSrvc.destination=destination;
 
 		/*one way trip*/
 		if(oneWay===1){

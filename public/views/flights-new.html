@@ -4,117 +4,128 @@
   <h3> Choose your flight(s).</h3>
   <div class="outFlights">
     <div class="info-header container-fluid">
-      <h3><i class="material-icons">fast_forward</i>
-        Cairo-Berlin</h2>
-      </div>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Flight</th>
-            <th>Economy</th>
-            <th>Business</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="row flight-number">
-                M1720
-              </div>
-              <div class="row">
-                08:00 - 10:00
-              </div>
-              <div class="row">
-                Aircraft 1272
-              </div>
-
-            </td>
-            <td>
-              <fieldset >
-                <input type="radio" class="class" id="economyOut" name="outClass" value="economy"/>
-                <label for="economyOut">$120</label>
-              </fieldset>
-            </td>
-            <td>
-              <fieldset >
-                <input type="radio" class="class" id="businessOut" name="outClass" value="business"/>
-                <label for="businessOut">$200</label>
-              </fieldset>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h3>
+        <i class="material-icons">fast_forward</i>
+        {{origin}}  - {{destination}}
+      </h3>
     </div>
-    <div class="returnFlights">
-      <div class="info-header container-fluid">
-        <h3><i class="material-icons">fast_rewind</i>
-          Berlin-Cairo</h3>
-        </div>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Flight</th>
-              <th>Economy</th>
-              <th>Business</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="row flight-number">
-                  M1720
-                </div>
-                <div class="row">
-                  08:00 - 10:00
-                </div>
-                <div class="row">
-                  Aircraft 1272
-                </div>
-
-              </td>
-
-              <td>
-                <fieldset >
-                  <input type="radio" class="class" id="economyRet" name="retClass" value="economy"/>
-                  <label for="economyRet">$120</label>
-                </fieldset>
-              </td>
-              <td>
-                <fieldset >
-                  <input type="radio" class="class" id="businessRet" name="retClass" value="business"/>
-                  <label for="businessRet">$200</label>
-                </fieldset>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th ng-show="seatClass=='economy'">Economy</th>
+          <th ng-show="seatClass=='business'">Business</th>
+          <th ng-show="otherAirlines===1">Airline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="outgoingFlight in outgoingFlights">
+          <td>
+            <div class="row flight-number">
+              {{outgoingFlight.flightNumber}}
+            </div>
+            <div class="row">
+              {{outgoingFlight.departureTime}} - {{outgoingFlight.arrivalTime}}
+            </div>
+            <div class="row">
+              {{outgoingFlight.aircraftType}} {{outgoingFlight.aircraftModel}}
+            </div>
+          </td>
+          <td>
+            <fieldset >
+              <input type="radio" class="class" id="outgoingCost" name="outgoingCost" ng-model="selectedOutgoing.index" ng-value="{{$index}}"/>
+              <label for="outgoingCost">{{outgoingFlight.cost}} {{outgoingFlight.currency}}</label>
+            </fieldset>
+          </td>
+          <td ng-show="otherAirlines===1">
+            {{outgoingFlight.Airline}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="returnFlights">
+    <div class="info-header container-fluid">
+      <h3><i class="material-icons">fast_rewind</i>
+        {{destination}} - {{origin}}
+      </h3>
     </div>
-    <div id="pricing-table" class="clear">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th ng-show="seatClass=='economy'">Economy</th>
+          <th ng-show="seatClass=='business'">Business</th>
+          <th ng-show="otherAirlines===1">Airline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="returnFlight in returnFlights">
+          <td>
+            <div class="row flight-number">
+              {{returnFlight.flightNumber}}
+            </div>
+            <div class="row">
+              {{returnFlight.departureTime}} - {{returnFlight.arrivalTime}}
+            </div>
+            <div class="row">
+              {{returnFlight.aircraftType}} {{returnFlight.aircraftModel}}
+            </div>
+          </td>
+          <td>
+            <fieldset >
+              <input type="radio" class="class" id="returnCost" name="returnCost" ng-model="selectedReturn.index" ng-value="{{$index}}"/>
+              <label for="returnCost">{{returnFlight.cost}} {{returnFlight.currency}}</label>
+            </fieldset>
+          </td>
+          <td ng-show="otherAirlines===1">
+            {{returnFlight.Airline}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="pricing-table" class="clear">
 
-      <div class="plan">
-        <h3>Shopping Cart<span>$9</span></h3>
-
-        <table class="table table-hover">
-          <tbody>
-            <tr>
-              <td>
-                <div class="row flight-number">
-                  M1720
-                </div>
-                <div class="row">
-                  CAI - BER
-                </div>
-                <div class="row">
-                  08:00 - 10:00
-                </div>
-              </td>
-              <td>$120</td>
-              </tbody>
-            </table>
-            <a class="checkout hvr-pulse" href="" ng-click="Continue()">Checkout</a>
-          </div>
-        </div>
-        <script src="js/cart-scroll.js">
-        </script>
+  <div class="plan">
+    <h3>Shopping Cart
+      <span ng-hide="oneWay">${{selectedOutgoing.cost+selectedReturn.cost}}</span>
+      <span ng-show="oneWay">${{selectedOutgoing.cost}}</span>
+    </h3>
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <td>
+            <div class="row flight-number">
+              {{selectedOutgoing.flightNumber}}
+            </div>
+            <div class="row">
+              {{selectedOutgoing.origin}} - {{selectedOutgoing.destination}}
+            </div>
+            <div class="row">
+              {{selectedOutgoing.departureTime}} - {{selectedOutgoing.arrivalTime}}
+            </div>
+          </td>
+          <td>${{selectedOutgoing.cost}}</td>
+        </tr>
+        <tr ng-hide="oneWay">
+          <td>
+            <div class="row flight-number">
+              {{selectedReturn.flightNumber}}
+            </div>
+            <div class="row">
+              {{selectedReturn.origin}} - {{selectedReturn.destination}}
+            </div>
+            <div class="row">
+              {{selectedReturn.departureTime}} - {{selectedReturn.arrivalTime}}
+            </div>
+          </td>
+          <td>${{selectedReturn.cost}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <a class="checkout hvr-pulse" href="" ng-click="Continue()">Checkout</a>
+  </div>
+</div>
+<script src="js/cart-scroll.js"></script>
