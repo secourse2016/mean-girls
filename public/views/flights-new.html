@@ -25,7 +25,7 @@
               {{outgoingFlight.flightNumber}}
             </div>
             <div class="row">
-              {{outgoingFlight.departureDateTime | date :  "short"}} - {{outgoingFlight.arrivalDateTime | date :  "short"}}
+              {{outgoingFlight.departureDateTime | date :  "shortTime"}} - {{outgoingFlight.arrivalDateTime | date :  "shortTime"}}
             </div>
             <div class="row">
               {{outgoingFlight.aircraftType}} {{outgoingFlight.aircraftModel}}
@@ -33,8 +33,8 @@
           </td>
           <td>
             <fieldset >
-              <input type="radio" class="class" id="outgoingCost" name="outgoingCost" ng-model="$parent.selectedOutgoing" ng-value="{{outgoingFlight}}"/>
-              <label for="outgoingCost">{{outgoingFlight.cost}} {{outgoingFlight.currency}}</label>
+              <input type="radio" class="class" id="outgoing{{$index}}" name="outgoingCost" ng-model="$parent.selectedOutgoing" ng-value="{{outgoingFlight}}"/>
+              <label for="outgoing{{$index}}">{{outgoingFlight.cost}} {{outgoingFlight.currency}}</label>
             </fieldset>
           </td>
           <td ng-show="otherAirlines===1">
@@ -67,7 +67,7 @@
               {{returnFlight.flightNumber}}
             </div>
             <div class="row">
-              {{returnFlight.departureDateTime | date :  "short"}} - {{returnFlight.arrivalDateTime | date :  "short"}}
+              {{returnFlight.departureDateTime | date :  "shortTime"}} - {{returnFlight.arrivalDateTime | date :  "shortTime"}}
             </div>
             <div class="row">
               {{returnFlight.aircraftType}} {{returnFlight.aircraftModel}}
@@ -75,8 +75,8 @@
           </td>
           <td>
             <fieldset >
-              <input type="radio" class="class"  id="returnCost" name="returnCost" ng-model="$parent.selectedReturn" ng-value="{{returnFlight}}"/>
-              <label for="returnCost">{{returnFlight.cost}} {{returnFlight.currency}}</label>
+              <input type="radio" class="class"  id="return{{$index}}" name="returnCost" ng-model="$parent.selectedReturn" ng-value="{{returnFlight}}"/>
+              <label for="return{{$index}}">{{returnFlight.cost}} {{returnFlight.currency}}</label>
             </fieldset>
           </td>
           <td ng-show="otherAirlines===1">
@@ -91,12 +91,12 @@
 
   <div class="plan">
     <h3>Shopping Cart
-      <span ng-hide="oneWay">{{selectedOutgoing.cost + selectedReturn.cost | currency}}</span>
-      <span ng-show="oneWay">{{selectedOutgoing.cost | currency}}</span>
+      <span ng-hide="oneWay || !selectedOutgoing || !selectedReturn ">{{parseInt(selectedOutgoing.cost) + parseInt(selectedReturn.cost) | currency}}</span>
+      <span ng-hide="!oneWay">{{selectedOutgoing.cost | currency}}</span>
     </h3>
     <table class="table table-hover">
       <tbody>
-        <tr>
+        <tr ng-hide="!selectedOutgoing">
           <td>
             <div class="row flight-number">
               {{selectedOutgoing.flightNumber}}
@@ -105,12 +105,12 @@
               {{selectedOutgoing.origin}} - {{selectedOutgoing.destination}}
             </div>
             <div class="row">
-              {{selectedOutgoing.departureTime}} - {{selectedOutgoing.arrivalTime}}
+              {{selectedOutgoing.departureDateTime | date :  "shortTime"}} - {{selectedOutgoing.arrivalDateTime | date :  "shortTime"}}
             </div>
           </td>
-          <td>${{selectedOutgoing.cost}}</td>
+          <td>{{selectedOutgoing.cost | currency}}</td>
         </tr>
-        <tr ng-hide="oneWay">
+        <tr ng-hide="oneWay || !selectedReturn">
           <td>
             <div class="row flight-number">
               {{selectedReturn.flightNumber}}
@@ -119,10 +119,10 @@
               {{selectedReturn.origin}} - {{selectedReturn.destination}}
             </div>
             <div class="row">
-              {{selectedReturn.departureTime}} - {{selectedReturn.arrivalTime}}
+              {{selectedReturn.departureDateTime | date :  "shortTime"}} - {{selectedReturn.arrivalDateTime | date :  "shortTime"}}
             </div>
           </td>
-          <td>${{selectedReturn.cost}}</td>
+          <td>{{selectedReturn.cost | currency}}</td>
         </tr>
       </tbody>
     </table>

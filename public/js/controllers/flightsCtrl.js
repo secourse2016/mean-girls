@@ -1,6 +1,7 @@
 
 angular.module('alaska').
 controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrvc){
+	$scope.parseInt = parseInt;
 	$scope.outgoingFlights =angular.copy(flightsSrvc.outgoingFlights);
 	$scope.returnFlights =angular.copy(flightsSrvc.returnFlights);
 	var oneWay= flightsSrvc.oneWay;

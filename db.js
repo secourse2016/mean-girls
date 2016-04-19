@@ -22,18 +22,18 @@ exports.db = function() {
 
 
 function seedFlights(cb){
-  // DB.collection('flights').find().toArray(function (err, docs) {
-  //   if (err) return cb(err);
-  //   if (docs.length > 0)
-  //   cb(false);
-  //   else{
+  DB.collection('flights').find().toArray(function (err, docs) {
+    if (err) return cb(err);
+    if (docs.length > 0)
+    cb(false);
+    else{
       outGoingFlightsSeed(function(){
         returnFlightSeed(function(){
           cb();
         })
       });
-  //   }
-  // });
+    }
+  });
 }
 
 function outGoingFlightsSeed(cb){
