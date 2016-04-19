@@ -8,4 +8,3 @@ db.connect(function(){
 		console.log("Server up & listening on 3000");
 	});
 });
-
