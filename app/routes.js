@@ -26,6 +26,17 @@ var routes = function(app) {
 		});
 	});
 
+
+
+
+	app.get('/db/delete', function(req, res) {
+   		db.clearDB(function(err){
+   			if (err) return res.send(err);
+   			res.send("db cleared !")
+   		});
+   });
+
+
 	app.get('/db/seed', function(req, res) {
 		db.seedFlights(function(err){
         	if(err) return res.send(err);
