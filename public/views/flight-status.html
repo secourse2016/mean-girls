@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="css/flight-status.css">
+<div id="statusContainer">
+  <div class="info-header container-fluid">
+    <h2> {{flight.origin}} - {{flight.destination}}</h2>
+  </div>
+  <div class="flightNo">
+    <h2> {{flight.flightNumber}} </h2>
+    <div class="line"></div>
+  </div>
+  <div class="status">
+    <h1>{{status}}</h1>
+  </div>
+  <div  ng-show="status==='departed'" class="statusIcon">
+    <i class="material-icons">flight_takeoff</i>
+  </div>
+  <div  ng-show="status==='landed'"  class="statusIcon">
+    <i class="material-icons">flight_land</i>
+  </div>
+  <div  ng-show="status==='scheduled'"  class="statusIcon">
+    <i class="material-icons">event</i>
+  </div>
+  <div class="button-wrapper">
+    <div class="layer"></div>
+    <button class="main-button fa fa-info">
+      <div class="ripple"></div>
+    </button>
+  </div>
+
+  <div class="layered-content">
+    <button class="close-button fa fa-times"></button>
+    <div class="content">
+      <h2>{{flight.flightNumber}}</h2>
+      <div class="airports">
+        {{getAirportName(flight.origin)}}
+        <i class="material-icons">keyboard_arrow_right</i>
+        {{getAirportName(flight.destination)}}
+      </div>
+      <h3>  {{flight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}} - {{flight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}</h3>
+      <div class="airplane">
+        <h3>{{flight.aircraftType}} {{flight.aircraftModel}}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/flight-status.js"></script>
