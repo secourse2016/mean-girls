@@ -232,11 +232,11 @@ function searchRoundTripFlight (requiredFlight, cb){
     if (err) return cb(err);
     for(var i =0;i<flights.length;i++){
       var temp = flights[i];
-      var date = moment(requiredFlight.departingDate).format('YYYY-MM-DD');
+      var date = moment(parseInt(requiredFlight.departingDate)).format('YYYY-MM-DD');
       console.log(date);
-      console.log(temp.departureDateTime);
       var currdate=moment(temp.departureDateTime).format('YYYY-MM-DD');
       console.log(currdate);
+      console.log(date == currdate);
       if (date == currdate)
       filteredFlights.push(temp);
     }
@@ -259,7 +259,7 @@ function searchOtherWayAround(classString,chosenFlights, requiredFlight, cb) {
 
     for(var i =0;i<flights.length;i++){
       var temp = flights[i];
-      var date = moment(requiredFlight.returningDate).format('YYYY-MM-DD');
+      var date = moment(parseInt(requiredFlight.returningDate)).format('YYYY-MM-DD');
       var currdate=moment(temp.arrivalDateTime).format('YYYY-MM-DD');
       if (date == currdate)
       filteredFlights.push(temp);
