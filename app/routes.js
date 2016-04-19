@@ -200,10 +200,17 @@ app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class', 
 	const async = require('async');
 	const request = require('request');
 	var result=[];
+	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
+	var originValue = req1.params['origin'];
+	var destinationValue = req1.params['destination'];
+	var departingDateValue = req1.params['departingDate'];
+	var classValue = req1.params['class'];
 
 	function httpGet(url, callback) {
 		const options = {
-			url :  url + '/api/flights/search/:origin/:destination/:departingDate/:class'
+
+			header: { 'x-access-token': token },
+			url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue
 		};
 		request(options, function(err, res, body) {
 			callback(err, body);
@@ -214,44 +221,50 @@ app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class', 
 
 	async.map(urls, httpGet, function (err, res){
 		result.push(res.outgoingFlights);
-		// res1.send(//the result);
+		var Finalresult={ "outgoingFlights" : result};
+		res1.send( Finalresult);
+		// result.push(res);
+		// res1.send(res);
 	});
-	var Finalresult={ "outgoingFlights" : result};
-	res1.send( Finalresult);
+
+	//res1.send(result);
+	// res1.send(//the result);
 });
-
-
 app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req1,res1){
 
-	const async = require('async');
-	const request = require('request');
-	var outgoing=[];
-	var returning=[];
-	function httpGet(url, callback) {
-		const options = {
-			url :  url + '/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class'
-		};
-		request(options, function(err, res, body) {
-			callback(err, body);
-		});
-	}
+       const async = require('async');
+       const request = require('request');
+       var outgoing=[];
+       var returning=[];
+        var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
+       var originValue = req1.params['origin'];
+       var destinationValue = req1.params['destination'];
+       var departingDateValue = req1.params['departingDate'];
+        var returningDateValue = req1.params['returningDate'];
+       var classValue = req1.params['class'];
+       function httpGet(url, callback) {
+         const options = {
+           header: { 'x-access-token': token },
+           url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue
+           };
+         request(options, function(err, res, body) {
+           callback(err, body);
+         });
+       }
 
-	const urls= require('../json/otherAirlines.json');
+        const urls= require('../json/otherAirlines.json');
 
-	async.map(urls, httpGet, function (err, res){
-		outgoing.push(res.outgoingFlights);
-		returning.push(res.returnFlights);
-		// res1.send(//the result);
-	});
+        async.map(urls, httpGet, function (err, res){
+        outgoing.push(res.outgoingFlights);
+        returning.push(res.returnFlights);
+        var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
+        res1.send( Finalresult);
+      // res1.send(//the result);
+   });
 
-	var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
-	res1.send( Finalresult);
-});
+ });
 
-
-};
-
-
+}
 
 // var routes = function(app) {
 // 	app.get('/', function(req, res){
