@@ -11,7 +11,7 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 		var origin= $scope.origin;
 		var destination= $scope.destination;
 		var departingDate=new Date($scope.departingDate).getTime();
-		console.log(departingDate);
+		console.log($scope.departingDate);
 		var seatClass= $scope.class;
 		var otherAirlines=$scope.otherAirlines;
 		var oneWay=$scope.oneWay;
@@ -50,6 +50,7 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 		/*round trip*/
 		else{
 			var returningDate=new Date($scope.returningDate).getTime();
+			console.log('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass);
 			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(flights){
 				flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
 				flightsSrvc.returnFlights.concat(flights.returnFlights);

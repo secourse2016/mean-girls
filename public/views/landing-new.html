@@ -20,12 +20,12 @@
     <div id="route" class="input-group">
       <div class="form-item">
         <label>From</label>
-        <input type="text" id="origin" name="origin" placeholder="Select origin" ng-model="origin" uib-typeahead="airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull | limitTo:5" class="input-sm form-control"/>
+        <input type="text" id="origin" name="origin" placeholder="Select origin" ng-model="origin" uib-typeahead="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull | limitTo:5" class="input-sm form-control"/>
         <i class="fa fa-location-arrow" aria-hidden="true"></i>
       </div>
       <div class="form-item">
         <label>To</label>
-        <input type="text" id="destination" name="destination" placeholder="Select destination" class="input-sm form-control" ng-model="destination" uib-typeahead="airport.iata for airport in airports | filter:{'iata':$viewValue} | filter:notNull | limitTo:5"/>
+        <input type="text" id="destination" name="destination" placeholder="Select destination" class="input-sm form-control" ng-model="destination" uib-typeahead="airport.iata as airport.iata for airport in airports | filter:{'iata':$viewValue} | filter:notNull | limitTo:5"/>
         <i class="fa fa-location-arrow" aria-hidden="true"></i>
       </div>
     </div>

@@ -76,8 +76,8 @@ function seedAFlight (reverseFlag, cb){
       flightToBeInserted.availableEconomySeats = 20;
       flightToBeInserted.availableBusinessSeats = 40;
       // flightToBeInserted.status = flight.status;
-      flightToBeInserted.departureDateTime = moment('2016-04-13 12:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('LLL');
-      flightToBeInserted.arrivalDateTime = moment('2016-04-13 15:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('LLL');
+      flightToBeInserted.departureDateTime = moment('2016-04-13 12:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('YYYY-MM-DD hh:mm A');
+      flightToBeInserted.arrivalDateTime = moment('2016-04-13 15:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('YYYY-MM-DD hh:mm A');
       for(var j=1 ; j<11 ; j++){
         var seat = {};
         seat.seatNumber = "A"+j
@@ -180,7 +180,7 @@ function filteringClass(flights,i){
     }
 
     var filteredFlights2 = filteredFlights.filter(function(flight){
-            return moment(moment(flight.departureDateTime).format('YYYY-MM-DD')).toDate().getTime()==i.departureDateTime;
+            return moment(flight.departureDateTime).format('YYYY-MM-DD')==moment(i.departureDateTime).format('YYYY-MM-DD');
         });
 
     for(var x=0;x<filteredFlights2.length;x++)
@@ -233,8 +233,11 @@ function searchRoundTripFlight (requiredFlight, cb){
     for(var i =0;i<flights.length;i++){
       var temp = flights[i];
       var date = moment(requiredFlight.departingDate).format('YYYY-MM-DD');
-
-      if (date == temp.departureDateTime)
+      console.log(date);
+      console.log(temp.departureDateTime);
+      var currdate=moment(temp.departureDateTime).format('YYYY-MM-DD');
+      console.log(currdate);
+      if (date == currdate)
       filteredFlights.push(temp);
     }
     chosenFlights.outgoingFlights = filteredFlights;
@@ -257,8 +260,8 @@ function searchOtherWayAround(classString,chosenFlights, requiredFlight, cb) {
     for(var i =0;i<flights.length;i++){
       var temp = flights[i];
       var date = moment(requiredFlight.returningDate).format('YYYY-MM-DD');
-
-      if (date == temp.arrivalDateTime)
+      var currdate=moment(temp.arrivalDateTime).format('YYYY-MM-DD');
+      if (date == currdate)
       filteredFlights.push(temp);
     }
     chosenFlights.returnFlights = filteredFlights;
@@ -316,8 +319,10 @@ function formatData(beforeFormattingData,reqClass,cb) {
 }
 
 exports.seed= function (cb) {
-  seedAirports(function(){
-    seedFlights(cb);
+  seedFlights(function(err){
+    seedAirports(function(err,seeded){
+      if(!err) cb();
+    });
   });
 }
 
