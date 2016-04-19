@@ -19,20 +19,7 @@ module.exports = function(app) {
 	// 		return null;
 	// 	}
 	// }));
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
-		var params = {};
-		var reqClass = req.params['class'];
-		params.origin = req.params['origin'];
-		params.destination = req.params['destination'];
-		params.departingDate = req.params['departingDate']
-		params.returningDate = req.params['returningDate']
-		params.class = req.params['class'];
-		db.searchRoundTripFlight(params,function(result){
-			db.formatData(result,reqClass,function(finalresult){
-				res.send(finalresult);
-			});
-		});
-	});
+
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public', 'index.html'));
 	});
@@ -88,11 +75,27 @@ module.exports = function(app) {
 	});
 
 
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+		var params = {};
+		var reqClass = req.params['class'];
+		params.origin = req.params['origin'];
+		params.destination = req.params['destination'];
+		params.departingDate = req.params['departingDate']
+		params.returningDate = req.params['returningDate']
+		params.class = req.params['class'];
+		db.searchRoundTripFlight(params,function(result){
+			db.formatData(result,reqClass,function(finalresult){
+				res.send(finalresult);
+			});
+		});
+	});
 
 	app.post('/api/addbooking',function(req,res){
-		var information = req.payload;
+		var information = req.body;
+		console.log(information);
 		db.addBooking(information,function(err,booking){
 			if (err) return (err);
+			console.log(booking);
 			res.send(booking);
 		});
 	});
@@ -121,11 +124,13 @@ module.exports = function(app) {
 			db.searchFlight(outFlight,function(err,Outflight){
 				booking[0].outgoingFlight=Outflight[0];
 				var resvID=booking[0].reservationID;
-				var seatMap=outgoingFlight[0].seatmap;
+				var seatMap=Outflight[0].seatmap;
+				console.log(seatMap);
 				var outSeat;
-				for (var i = seatMap.length - 1; i >= 0; i--) {
+				for (var i = 0; i < seatMap.length; i++) {
 					if(seatMap[i].reservationID===resvID){
 						outSeat=seatMap[i];
+						console.log("found it");
 						break;
 					}
 				}

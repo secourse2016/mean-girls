@@ -337,11 +337,27 @@ exports.seed= function (cb) {
 
 
 
+//Find flight from DB when given flight number
+exports.searchFlight = function(flightNo,cb){
+  DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
+    cursor.toArray(cb);
+    // cb(err,flight);
+  });
+};
+
+
+//Find booking from DB when given booking reference number
+exports.searchBooking = function(bookingRef,cb){
+  DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
+    cursor.toArray(cb);
+  });
+};
+
+
 exports.addBooking=function(i,cb){
   var resIDToBe;
   var booking = {};
-  // var result;
-  // var seatNo;
+
   DB.collection('bookings').insert({
 
     "passenger": {
@@ -372,20 +388,22 @@ exports.addBooking=function(i,cb){
 
   },function (err){
     if (err) return err;
-    DB.collection('bookings').find({"passenger.passportNo":i.passenger.passportNo}).toArray(function (err,doc){
+    DB.collection('bookings').find().sort({_id:-1}).toArray(function (err,doc){
+      //console.log("test"+ doc[0]._id);
+
       if (err) return err;
-      resIDToBe = " "+doc[0]._id;
+      resIDToBe = ""+doc[0]._id;
       var bookRef = resIDToBe.substr(0, 7);
-      DB.collection('bookings').update({ "passenger.passportNo":i.passenger.passportNo }, {$set: { reservationID: resIDToBe , bookingRefNo: bookRef }}, function (err) {
+      DB.collection('bookings').update({ _id: doc[0]._id }, {$set: { reservationID: resIDToBe , bookingRefNo: bookRef }}, function (err) {
         if (err) return err;
-        DB.collection('bookings').find({ "passenger.passportNo":i.passenger.passportNo }).toArray(function (err,returnedBooking){
-          booking = returnedBooking;
+        DB.collection('bookings').find({ _id: doc[0]._id }).toArray(function (err,returnedBooking){
+          booking = returnedBooking[0];
           // DB.collection('bookings').find({"passenger.passportNo":i.passenger.passportNo}).toArray(function (err,doc){
           // if (err) return err;
-          if(i.cabin === "economy"){
+          if(i.class === "economy"){
             DB.collection('flights').update(
               {
-                flightNumber:i.flightNumber ,
+                flightNumber:i.outgoingFlight ,
                 seatmap:{
                   $elemMatch : {
                     cabin : "economy",
@@ -397,89 +415,96 @@ exports.addBooking=function(i,cb){
                   $inc:{availableSeats:-1,availableEconomySeats:-1}
                 },function(err,results){
                   if(err) return err;
-                  cb(null,booking);
-                }
-              );
-            }
-            else{
-              if(i.cabin=="business"){
-                DB.collection('flights').update(
-                  {
-                    flightNumber:i.flightNumber ,
-                    seatmap:{
-                      $elemMatch : {
-                        cabin : "business",
-                        reservationID : null }
-                      }
-                    },
+                  DB.collection('flights').update(
                     {
-                      $set:{"seatmap.$.reservationID":resIDToBe},
-                      $inc:{availableSeats:-1,availableBusinessSeats:-1}
-                    },function(err,results){
-                      if(err) return err;
-                      cb(null,booking);
-                    }
-                  );
-
-                }
+                      flightNumber:i.returnFlight ,
+                      seatmap:{
+                        $elemMatch : {
+                          cabin : "economy",
+                          reservationID : null }
+                        }
+                      },
+                      {
+                        $set:{"seatmap.$.reservationID":resIDToBe},
+                        $inc:{availableSeats:-1,availableEconomySeats:-1}
+                      },function(err,results){
+                        if(err) return err;
+                        cb(null,booking);
+                      }
+                    );
+                  }
+                );
               }
+              else{
+                if(i.class=="business"){
+                  DB.collection('flights').update(
+                    {
+                      flightNumber:i.outgoingFlight ,
+                      seatmap:{
+                        $elemMatch : {
+                          cabin : "business",
+                          reservationID : null }
+                        }
+                      },
+                      {
+                        $set:{"seatmap.$.reservationID":resIDToBe},
+                        $inc:{availableSeats:-1,availableBusinessSeats:-1}
+                      },function(err,results){
+                        if(err) return err;
+                        DB.collection('flights').update(
+                          {
+                            flightNumber:i.returnFlight ,
+                            seatmap:{
+                              $elemMatch : {
+                                cabin : "business",
+                                reservationID : null }
+                              }
+                            },
+                            {
+                              $set:{"seatmap.$.reservationID":resIDToBe},
+                              $inc:{availableSeats:-1,availableBusinessSeats:-1}
+                            },function(err,results){
+                              if(err) return err;
+                              cb(null,booking);
+                            }
+                          );
+                        }
+                      );
 
-              // });
+                    }
+                  }
+
+
+                })
+              })
             })
           })
-        })
-      })
-    }
+        }
+
+        exports.getAirports = function(cb){
+          //fixed Db typo
+          DB.collection('airports').find().toArray(function(err,airports){
+            cb(err,airports);
+          });
+        };
 
 
 
+        exports.clearDB=function (done) {
+          DB.listCollections().toArray().then(function (collections) {
+            collections.forEach(function (c) {
+              DB.collection(c.name).removeMany();
+            });
+            done();
+          }).catch(done);
+        };
 
-
-
-    //Find flight from DB when given flight number
-    exports.searchFlight = function(flightNo,cb){
-      DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
-        cursor.toArray(cb);
-        // cb(err,flight);
-      });
-    };
-
-
-    //Find booking from DB when given booking reference number
-    exports.searchBooking = function(bookingRef,cb){
-      DB.collection('bookings').find({"bookingRefNo":bookingRef},function(err,cursor){
-        cursor.toArray(cb);
-      });
-    };
-
-
-
-    // }// };
-
-    exports.getAirports = function(cb){
-      //fixed Db typo
-      DB.collection('airports').find().toArray(function(err,airports){
-        cb(err,airports);
-      });
-    };
-
-
-
-    exports.clearDB=function (done) {
-      DB.listCollections().toArray().then(function (collections) {
-        collections.forEach(function (c) {
-          DB.collection(c.name).removeMany();
-        });
-        done();
-      }).catch(done);
-    };
-
-    function firstToUpperCase(string) {
-      return string.substr(0, 1).toUpperCase() + string.substr(1);
-    }
-    exports.seedAirports = seedAirports;
-    exports.seedFlights = seedFlights;
-    exports.searchRoundTripFlight = searchRoundTripFlight;
-    exports.formatData = formatData;
-    exports.searchFlightsOneWay=searchFlightsOneWay;
-    exports.filteringClass=filteringClass;
+        function firstToUpperCase(string) {
+          return string.substr(0, 1).toUpperCase() + string.substr(1);
+        }
+        exports.seedAirports = seedAirports;
+        exports.seedFlights = seedFlights;
+        exports.searchRoundTripFlight = searchRoundTripFlight;
+        exports.formatData = formatData;
+        exports.searchFlightsOneWay=searchFlightsOneWay;
+        exports.filteringClass=filteringClass;

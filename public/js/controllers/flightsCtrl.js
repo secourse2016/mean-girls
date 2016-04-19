@@ -20,17 +20,17 @@ controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrv
 		masterSrvc.oneWay=flightsSrvc.oneWay;
 		masterSrvc.seatClass=flightsSrvc.seatClass;
 
-		masterSrvc.outgoingFlight=$scope.selectedOutgoing;
-
+		masterSrvc.outgoingFlight=angular.copy($scope.outgoingFlights[$scope.selectedOutgoing]);
+		console.log("scope's" + $scope.outgoingFlights[$scope.selectedOutgoing]);
 		var oneWay=$scope.oneWay;
-		var total=$scope.selectedOutgoing.cost;
+		var total=$scope.outgoingFlights[$scope.selectedOutgoing].cost;
 
 		if(oneWay!==1){
-			masterSrvc.returnFlight=$scope.selectedReturn;
-			total+=$scope.selectedReturn.cost;
+			masterSrvc.returnFlight=angular.copy($scope.returnFlights[$scope.selectedReturn]);
+			total+=$scope.returnFlights[$scope.selectedReturn].cost;
 		}
 
-		masterSrvc.payment.amount=total;
+		masterSrvc.amount=total;
 
 		$location.url('/passenger-info');
 	}

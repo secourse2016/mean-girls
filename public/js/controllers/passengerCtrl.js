@@ -1,7 +1,9 @@
 angular.module('alaska')
 .controller("passengerCtrl", function($scope,$location,masterSrvc){
-
-  $scope.passenger.SubmitInfo = function() {
+  $scope.passenger={};
+  masterSrvc.passenger={};
+  masterSrvc.payment={};
+  $scope.SubmitInfo = function() {
 
     var firstName=$scope.passenger.firstName;
     masterSrvc.passenger.firstName=firstName;
