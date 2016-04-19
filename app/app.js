@@ -1,22 +1,25 @@
-var express = require('express');
 
-var app = express();
-var path = require('path');
+
+var express       = require('express');
+var bodyParser    = require('body-parser');
+var app           = express();
+var path          = require('path');
+var moment        = require('moment');
+
 
 
 app.use(express.static(path.join(__dirname + '/../public')));
 
-require("./routes.js")(app);
+
+require('./routes')(app);
 
 app.use('/*', function(req, res){
-	res.redirect('/404');
-});
-// app.use('/*', function(req, res){
-//        res.sendFile(path.join(__dirname+'/../public/404.html'));
-// });
+       res.sendFile(path.join(__dirname+'/../public/404.html'));
+    });
 
-module.exports = app;
 
+
+module.exports=app;
 
 
 
