@@ -1,4 +1,5 @@
-angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$http,masterSrvc,flightsSrvc,bookingSrvc,flightInfoSrvc){
+
+angular.module('alaska').controller('landingCtrl',function ($scope,$location,$http,masterSrvc,flightsSrvc,bookingSrvc,flightInfoSrvc){
 
 	$http.get('/api/airports').success(function(data) {
 		$scope.airports = data;
@@ -10,6 +11,7 @@ angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$h
 		var origin= $scope.origin;
 		var destination= $scope.destination;
 		var departingDate=new Date($scope.departingDate).getTime();
+		console.log($scope.departingDate);
 		var seatClass= $scope.class;
 		var otherAirlines=$scope.otherAirlines;
 		var oneWay=$scope.oneWay;
@@ -21,17 +23,26 @@ angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$h
 		flightsSrvc.origin=origin;
 		flightsSrvc.destination=destination;
 
+		flightsSrvc.outgoingFlights=[];
+		flightsSrvc.returnFlights=[];
+
 		/*one way trip*/
 		if(oneWay===1){
 			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(flights){
-				flightsSrvc.outgoingFlights.push(angular.copy(flights));
+				flightsSrvc.outgoingFlights.concat(flights);
 				if(otherAirlines===1){
 					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(othersFlights){
-						flightsSrvc.outgoingFlights.push(angular.copy(othersFlights.outgoingFlights));
+						flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
+						if(flightsSrvc.outgoingFlights.length===0){
+							flightsSrvc.foundFlights=0;
+						}
 						$location.url('/flights');
 					});
 				}
 				else{
+					if(flightsSrvc.outgoingFlights.length===0){
+						flightsSrvc.foundFlights=0;
+					}
 					$location.url('/flights');
 				}
 			});
@@ -39,17 +50,24 @@ angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$h
 		/*round trip*/
 		else{
 			var returningDate=new Date($scope.returningDate).getTime();
+			console.log('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass);
 			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(flights){
-				flightsSrvc.outgoingFlights.push(angular.copy(flights.outgoingFlights));
-				flightsSrvc.returnFlights.push(angular.copy(flights.returnFlights));
+				flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
+				flightsSrvc.returnFlights.concat(flights.returnFlights);
 				if(otherAirlines===1){
 					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(othersFlights){
-						flightsSrvc.outgoingFlights.push(angular.copy(othersFlights.outgoingFlights));
-						flightsSrvc.returnFlights.push(angular.copy(othersFlights.returnFlights));
+						flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
+						flightsSrvc.returnFlights.concat(othersFlights.returnFlights);
 						$location.url('/flights');
+						if(flightsSrvc.outgoingFlights.length===0 || flightsSrvc.returnFlights.length===0){
+							flightsSrvc.foundFlights=0;
+						}
 					});
 				}
 				else{
+					if(flightsSrvc.outgoingFlights.length===0 || flightsSrvc.returnFlights.length===0){
+						flightsSrvc.foundFlights=0;
+					}
 					$location.url('/flights');
 				}
 			});
@@ -70,6 +88,8 @@ angular.module('alaska').controller('landingCtrl',function ($scope,,$location,$h
 		$http.get('/api/flight/'+flightNo).success(function(flight){
 			flightInfoSrvc.flight=angular.copy(flight);
 			$location.url('/flight-info');
+		}).error(function(err){
+			console.log(err);
 		});
 	};
 

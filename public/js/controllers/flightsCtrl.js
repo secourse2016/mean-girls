@@ -10,8 +10,7 @@ controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrv
 	$scope.selectedReturn={index:null};
 	$scope.origin=flightsSrvc.origin;
 	$scope.destination=flightsSrvc.destination;
-	$scope.seatClass=flightsSrvc.class;
-
+	$scope.seatClass=flightsSrvc.seatClass;
 	//get time from dateTime of flights
 	//outgoingFlights
 	for(i = 0; i < $scope.outgoingFlights.length; i++){
