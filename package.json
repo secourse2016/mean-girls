@@ -4,18 +4,37 @@
   "description": "alaskas reservation system.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha",
+    "cover": "istanbul cover _mocha"
   },
   "author": "MEAN Girls",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.0.0-rc.3",
     "body-parser": "^1.15.0",
+    "chai": "latest",
+    "dotenv": "^2.0.0",
     "express": "^4.13.4",
+    "express-jwt": "^3.3.0",
     "hover.css": "^2.0.2",
+    "jsonwebtoken": "^5.7.0",
+    "jwt-express": "^1.1.0",
+    "jwt-simple": "^0.5.0",
     "method-override": "^2.3.5",
+    "mocha": "latest",
+    "moment": "^2.12.0",
     "mongodb": "^2.1.14",
     "mongoose": "^4.4.10",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+<<<<<<< HEAD
+    "request": "^2.72.0",
+    "supertest": "latest"
+=======
+    "mocha": "latest",
+    "chai": "latest",
+    "supertest": "latest",
+    "moment" : "2.13.0"
+>>>>>>> 9e5b1916f4dce1f22d301bb139eab27063d1ced7
   }
 }
