@@ -2,10 +2,11 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
   return {
     Confirm : function(){
       var data={};
-      data.payment=this.amount;
       data.payment=angular.copy(this.payment);
+      data.payment.amount=this.amount;
       data.passenger=angular.copy(this.passenger);
       data.class=this.seatClass;
+      data.oneWay=this.oneWay;
       data.outgoingFlight=angular.copy(this.outgoingFlight.flightNumber);
       var oneWay=data.oneWay=angular.copy(this.oneWay);
       if(oneWay!==1){

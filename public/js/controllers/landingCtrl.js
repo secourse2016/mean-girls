@@ -28,10 +28,11 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 		/*one way trip*/
 		if(oneWay===1){
 			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(flights){
-				flightsSrvc.outgoingFlights.concat(flights);
+				flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
+				console.log("HAI"+flightsSrvc.outgoingFlights);
 				if(otherAirlines===1){
 					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(othersFlights){
-						flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
+						flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
 						if(flightsSrvc.outgoingFlights.length===0){
 							flightsSrvc.foundFlights=0;
 						}
@@ -56,8 +57,8 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 				console.log(flightsSrvc.outgoingFlights);
 				if(otherAirlines===1){
 					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(othersFlights){
-						flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
-						flightsSrvc.returnFlights.concat(othersFlights.returnFlights);
+						flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
+						flightsSrvc.returnFlights=flightsSrvc.returnFlights.concat(othersFlights.returnFlights);
 						if(flightsSrvc.outgoingFlights.length===0 || flightsSrvc.returnFlights.length===0){
 							flightsSrvc.foundFlights=0;
 						}
@@ -78,18 +79,14 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 
 	$scope.showBooking = function() {
 		var bookingRef=$scope.bookingRef;
-		$http.get('/api/booking/'+bookingRef).success(function(booking){
-			bookingSrvc.booking=angular.copy(booking);
-			$location.url('/booking');
-		});
+		bookingSrvc.bookingRefNo=bookingRef;
+		$location.url('/booking');
 	};
 	$scope.checkFlight = function() {
 		var flightNo=$scope.flightNo;
 		$http.get('/api/flight/'+flightNo).success(function(flight){
 			flightInfoSrvc.flight=angular.copy(flight);
 			$location.url('/flight-info');
-		}).error(function(err){
-			console.log(err);
 		});
 	};
 

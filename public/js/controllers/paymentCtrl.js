@@ -10,8 +10,7 @@ angular.module('alaska')
     var expiryDate=""+$scope.expiryMonth+"-"+$scope.expiryYear; //mm-yy
     masterSrvc.payment.expiryDate=expiryDate;
 
-    var cardHolder=$scope.cardHolder;
-    masterSrvc.payment.cardHolder=cardHolder;
+    masterSrvc.payment.cardHolder=$scope.cardHolder;
 
     var ccv=$scope.ccv;
     masterSrvc.payment.ccv=ccv;

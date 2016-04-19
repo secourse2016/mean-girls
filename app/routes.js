@@ -49,72 +49,6 @@ module.exports = function(app) {
 		});
 	});
 
-
-	app.use(function(req, res, next) {
-
-		// check header or url parameters or post parameters for token
-		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
-
-		console.log("{{{{ TOKEN }}}} => ", token);
-
-		var jwtSecret = 'CSEN603ROCKSi<8SE';
-
-		// Get JWT contents:
-		try
-		{
-			var payload = jwt.verify(token, jwtSecret);
-			req.payload = payload;
-			next();
-		}
-		catch (err)
-		{
-			console.error('[ERROR]: JWT Error reason:', err);
-			res.status(403).sendFile(path.join(__dirname, '../public', '403.html'));
-		}
-
-	});
-
-
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
-		var params = {};
-		var reqClass = req.params['class'];
-		params.origin = req.params['origin'];
-		params.destination = req.params['destination'];
-		params.departingDate = req.params['departingDate']
-		params.returningDate = req.params['returningDate']
-		params.class = req.params['class'];
-		db.searchRoundTripFlight(params,function(result){
-			db.formatData(result,reqClass,function(finalresult){
-				res.send(finalresult);
-			});
-		});
-	});
-
-	app.post('/api/addbooking',function(req,res){
-		var information = req.body;
-		console.log(information);
-		db.addBooking(information,function(err,booking){
-			if (err) return (err);
-			console.log(booking);
-			res.send(booking);
-		});
-	});
-
-	app.get('/api/airports', function(req,res){
-		db.getAirports(function(err, airports){
-			res.send(airports);
-		});
-	});
-
-	app.get('/api/flight/:flightNo', function(req,res){
-		var flightNumber = req.params['flightNo'];
-		db.searchFlight(flightNumber,function(err,flight){
-			res.send(flight[0]);
-		});
-
-	});
-
-
 	app.get('/api/booking/:bookingRef', function(req,res){
 		var bookingRefNo = req.params['bookingRef'];
 		db.searchBooking(bookingRefNo,function(err,booking){
@@ -177,97 +111,164 @@ module.exports = function(app) {
 
 	});
 
+	app.use(function(req, res, next) {
 
+		// check header or url parameters or post parameters for token
+		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
 
+		console.log("{{{{ TOKEN }}}} => ", token);
 
+		var jwtSecret = 'CSEN603ROCKSi<8SE';
+
+		// Get JWT contents:
+		try
+		{
+			var payload = jwt.verify(token, jwtSecret);
+			req.payload = payload;
+			next();
+		}
+		catch (err)
+		{
+			console.error('[ERROR]: JWT Error reason:', err);
+			res.status(403).sendFile(path.join(__dirname, '../public', '403.html'));
+		}
+
+	});
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:class', function(req, res) {
 		var originValue = req.params['origin'];
 		var destinationValue = req.params['destination'];
 		var departingDateValue = req.params['departingDate'];
 		var classValue = req.params['class'];
 
-		var info={ "origin"        : originValue ,
-		"destination"   : destinationValue ,
-		"departureDate" : departingDateValue ,
-		"class"         : classValue
-	};
-
-	db.searchFlightsOneWay(info, function (err, flights) {
-		if (err) return next(err);
-		res.send(flights);
-	});
-
-});
-
-//new code other airlines
-
-app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class', function(req1,res1){
-	const async = require('async');
-	const request = require('request');
-	var result=[];
-	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
-	var originValue = req1.params['origin'];
-	var destinationValue = req1.params['destination'];
-	var departingDateValue = req1.params['departingDate'];
-	var classValue = req1.params['class'];
-
-	function httpGet(url, callback) {
-		const options = {
-
-			header: { 'x-access-token': token },
-			url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue
+		var info={
+			"origin"        : originValue ,
+			"destination"   : destinationValue ,
+			"departureDate" : departingDateValue ,
+			"class"         : classValue
 		};
-		request(options, function(err, res, body) {
-			callback(err, body);
+
+		db.searchFlightsOneWay(info, function (err, flights) {
+			if (err) return next(err);
+			res.send(flights);
 		});
-	}
 
-	const urls= require('../json/otherAirlines.json');
-
-	async.map(urls, httpGet, function (err, res){
-		result.push(res.outgoingFlights);
-		var Finalresult={ "outgoingFlights" : result};
-		res1.send( Finalresult);
-		// result.push(res);
-		// res1.send(res);
 	});
 
-	//res1.send(result);
-	// res1.send(//the result);
-});
-app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req1,res1){
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+		var params = {};
+		var reqClass = req.params['class'];
+		params.origin = req.params['origin'];
+		params.destination = req.params['destination'];
+		params.departingDate = req.params['departingDate']
+		params.returningDate = req.params['returningDate']
+		params.class = req.params['class'];
+		db.searchRoundTripFlight(params,function(result){
+			db.formatData(result,reqClass,function(finalresult){
+				res.send(finalresult);
+			});
+		});
+	});
 
-       const async = require('async');
-       const request = require('request');
-       var outgoing=[];
-       var returning=[];
-        var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
-       var originValue = req1.params['origin'];
-       var destinationValue = req1.params['destination'];
-       var departingDateValue = req1.params['departingDate'];
-        var returningDateValue = req1.params['returningDate'];
-       var classValue = req1.params['class'];
-       function httpGet(url, callback) {
-         const options = {
-           header: { 'x-access-token': token },
-           url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue
-           };
-         request(options, function(err, res, body) {
-           callback(err, body);
-         });
-       }
+	app.post('/api/addbooking',function(req,res){
+		var information = req.body;
+		console.log(information);
+		db.addBooking(information,function(err,booking){
+			if (err) return (err);
+			console.log(booking);
+			res.send(booking);
+		});
+	});
 
-        const urls= require('../json/otherAirlines.json');
+	app.get('/api/airports', function(req,res){
+		db.getAirports(function(err, airports){
+			res.send(airports);
+		});
+	});
 
-        async.map(urls, httpGet, function (err, res){
-        outgoing.push(res.outgoingFlights);
-        returning.push(res.returnFlights);
-        var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
-        res1.send( Finalresult);
-      // res1.send(//the result);
-   });
+	app.get('/api/flight/:flightNo', function(req,res){
+		var flightNumber = req.params['flightNo'];
+		db.searchFlight(flightNumber,function(err,flight){
+			res.send(flight[0]);
+		});
 
- });
+	});
+
+
+
+
+
+
+
+
+	//new code other airlines
+
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class', function(req1,res1){
+		const async = require('async');
+		const request = require('request');
+		var result=[];
+		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
+		var originValue = req1.params['origin'];
+		var destinationValue = req1.params['destination'];
+		var departingDateValue = req1.params['departingDate'];
+		var classValue = req1.params['class'];
+
+		function httpGet(url, callback) {
+			const options = {
+
+				header: { 'x-access-token': token },
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue
+			};
+			request(options, function(err, res, body) {
+				callback(err, body);
+			});
+		}
+
+		const urls= require('../json/otherAirlines.json');
+
+		async.map(urls, httpGet, function (err, res){
+			result.push(res.outgoingFlights);
+			var Finalresult={ "outgoingFlights" : result};
+			res1.send( Finalresult);
+			// result.push(res);
+			// res1.send(res);
+		});
+
+		//res1.send(result);
+		// res1.send(//the result);
+	});
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req1,res1){
+
+		const async = require('async');
+		const request = require('request');
+		var outgoing=[];
+		var returning=[];
+		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
+		var originValue = req1.params['origin'];
+		var destinationValue = req1.params['destination'];
+		var departingDateValue = req1.params['departingDate'];
+		var returningDateValue = req1.params['returningDate'];
+		var classValue = req1.params['class'];
+		function httpGet(url, callback) {
+			const options = {
+				header: { 'x-access-token': token },
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue
+			};
+			request(options, function(err, res, body) {
+				callback(err, body);
+			});
+		}
+
+		const urls= require('../json/otherAirlines.json');
+
+		async.map(urls, httpGet, function (err, res){
+			outgoing.push(res.outgoingFlights);
+			returning.push(res.returnFlights);
+			var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
+			res1.send( Finalresult);
+			// res1.send(//the result);
+		});
+
+	});
 
 }
 
