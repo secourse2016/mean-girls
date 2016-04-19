@@ -17,31 +17,43 @@ module.exports = function(app) {
 
 app.post('/api/addbooking',function(req,res){
 
-  var information={ "flightNumber":"AB123",
-                    "cabin":"economy",
-                    "reservationID":"XH600",
-                    "firstName" : "Hadeel",
-		            "lastname":"Ahmed",
-		            "birthDate":"17-07-1995",
-		            "gender":"FEMALE",
-		            "passportCountry":"Egypt",
-		            "passportNo": 0382,
-		            "issueDate":"03-03-2013",
-		            "expiryDate":"05-06-2018",
-		            "cardType":"Visa",
-		            "cardNo":1235654326457,
-		            "expiryDate":"04-05-2018",
-		            "amount":220
+  var information = req.payload;
+   
+    // var information={ 
+    //          "passenger":{"firstName":"hadeel",
+    //          "lastname":"Ahmed",
+    //          "birthDate":"17/7",
+    //          "gender":"FEMALE",
+    //          "passportCountry":"Egypt",
+    //          "passportNo":"12345675765656778",
+    //          "issueDate":"177-353",
+    //          "expiryDate":"15/3/2018"
+    //      },
+    //      "payment" : { "cardType":"visa",
+    //          "cardNo":"1234567",
+    //          "expiryDate":"18/6/2015",
+    //          "amount":"1200",
+    //          "ccv":"200",
+    //          "cardHolder":"dfdfgdf"
+    //     },
+    //      "flightNumber":"AB132",
+    //       "outgoingFlight":"BOM",
+    //       "returnFlight":"DEL",
+    //       "oneWay":0 , 
+    //       "cabin" : "business"
+    // };
 
-  };
 
+    db.addBooking(information,function(err,booking){
+      if (err) return (err);
+      res.send(booking);
+     });
 
-  db.addBooking(information,function(err,flights){
-  	if (err) return next(err);
-  	res.json(flights);
-  });
-
-});
-
+  }); 
 }
+
+
+
+
+
 
