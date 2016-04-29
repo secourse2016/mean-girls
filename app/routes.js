@@ -20,6 +20,16 @@ module.exports = function(app) {
 	// 	}
 	// }));
 
+	// CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
+	app.all('*', function(req, res, next) {
+	    res.header("Access-Control-Allow-Origin", "*");
+	    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	    next();
+	});
+
+
+
+
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public', 'index.html'));
 	});
@@ -266,15 +276,11 @@ app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returnin
 
 }
 
-// var routes = function(app) {
-// 	app.get('/', function(req, res){
-// 		res.sendFile(path.join(__dirname + '/../public/index.html'));
-// 	});
+/**
+ * App routes:
+ */
+module.exports = function(app) {
 
-// 	app.get('/404', function(req, res){
-// 		res.sendFile(path.join(__dirname + '/../public/404.html'));
-// 	});
 
-// }
 
-// module.exports = routes;
+};
