@@ -26,18 +26,26 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
 
 
 	$scope.findFlights = function() {
-		alert("working hello");
 		var origin= $scope.origin;
 		var destination= $scope.destination;
 		var departingDate=new Date($scope.departingDate).getTime();
-		console.log($scope.departingDate);
+		// console.log($scope.departingDate);
 		var seatClass= $scope.class;
 		var otherAirlines=$scope.otherAirlines;
 		var oneWay=$scope.oneWay;
-
-		console.log("one way"+oneWay);
-		console.log(oneWay+ " "+destination+ " "+departingDate+ " "+seatClass+ " "+otherAirlines+ " "+oneWay);
-		$state.go('flights');
+        
+        if(oneWay===0){
+            var returnDate=new Date($scope.returningDate).getTime();
+        }
+        
+		// console.log("one way:"+oneWay);
+        // console.log("destination:"+destination);
+        // console.log("departingDate:"+departingDate);
+        // console.log("seatClass:"+seatClass);
+        // console.log("otherAirlines:"+otherAirlines);
+        // console.log("origin:"+origin);
+		// console.log(oneWay+ " "+destination+ " "+departingDate+ " "+seatClass+ " "+otherAirlines+ " "+oneWay);
+		$state.go('tabsController.findFlights.flights');
 
 	};
 

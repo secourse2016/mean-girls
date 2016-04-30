@@ -1,35 +1,35 @@
-<ion-view view-title="Find Flights" hide-nav-bar="true" id="findFlights" hide-back-button="true">
+<ion-view view-title="Find Flights"  id="findFlights" hide-back-button="true">
     <ion-content padding="true" class="manual-ios-statusbar-padding">
         <form class="list">
             <div class="spacer" style="width: 300px; height: 13px;"></div>
 
-            <ion-toggle toggle-class="toggle-calm" id="otherAirlines" name="otherAirlines" ng-model="otherAirlines" ng-true-value="1" ng-false-value="0" >Search other Airlines</ion-toggle>
+            <ion-toggle toggle-class="toggle-calm" id="otherAirlines" name="otherAirlines" ng-model="$parent.otherAirlines" ng-true-value="1" ng-false-value="0" >Search other Airlines</ion-toggle>
 
-            <ion-toggle toggle-class="toggle-calm" id="direction" name="direction" ng-model="oneWay"  ng-true-value="1" ng-false-value="0" >One Way</ion-toggle>
+            <ion-toggle toggle-class="toggle-calm" id="direction" name="direction" ng-model="$parent.oneWay"  ng-true-value="1" ng-false-value="0" >One Way</ion-toggle>
 
             <label class="item item-input">
                 <span class="input-label">From</span>
-                <input type="text"  id="origin" name="origin" placeholder="Select origin" ng-model="origin" uib-typeahead="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull | limitTo:5">
+                <input type="text"  id="origin" name="origin" placeholder="Select origin" ng-model="$parent.origin" ionic-autocomplet="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull | limitTo:5">
             </label>
 
             <label class="item item-input">
                 <span class="input-label">To</span>
-                <input type="text" id="destination" name="destination" placeholder="Select destination"  ng-model="destination" uib-typeahead="airport.iata as airport.iata for airport in airports | filter:{'iata':$viewValue} | filter:notNull | limitTo:5">
+                <input type="text" id="destination" name="destination" placeholder="Select destination"  ng-model="$parent.destination" ionic-autocomplet="airport.iata as airport.iata for airport in airports | filter:{'iata':$viewValue} | filter:notNull | limitTo:5">
             </label>
 
             <label class="item item-input">
                 <span class="input-label">Depart Date</span>
-                <input type="date" placeholder="" id="start-date" name="start" ng-model="departingDate">
+                <input type="date" placeholder="" id="start-date" name="start" ng-model="$parent.departingDate">
             </label>
 
             <label class="item item-input" ng-hide="oneWay">
                 <span class="input-label">Return Date</span>
-                <input type="date" placeholder="" id="end-date" name="end" ng-model="returningDate">
+                <input type="date" placeholder="" id="end-date" name="end" ng-model="$parent.returningDate">
             </label>
             
             <label class="item item-select">
                 <span class="input-label">Class</span>
-                <select id="class" ng-model="class">
+                <select id="class" ng-model="$parent.class">
                     <option>Economy</option>
                     <option>Business</option>
                 </select>
