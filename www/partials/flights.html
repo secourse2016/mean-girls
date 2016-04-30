@@ -1,5 +1,18 @@
 <ion-view view-title="Flights" >
   <ion-content>
-    <h1>Flights !!!</h1>
+	<div class="card" ng-repeat="outgoingFlight in outgoingFlights">
+		<div class="item item-divider">
+			Flight Number: {{outgoingFlight.flightNumber}}
+		</div>
+		<div class="item item-text-wrap">
+			{{outgoingFlight.aircraftModel}}
+		</div>
+		<div class="item item-text-wrap">
+			{{outgoingFlight.departureDateTime}}
+		</div>
+		<div class="item item-text-wrap">
+			{{outgoingFlight.arrivalDateTime}}
+		</div>
+	</div>
   </ion-content>
 </ion-view>
