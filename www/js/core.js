@@ -11,8 +11,8 @@ angular.module('alaskaIonic.routes', ['ionic','ionicUIRouter'])
     url: '/',
     views: {
       'findFlights': {
-        templateUrl: './partials/findFlights.html'
-        // controller: 'findFlightsCtrl'
+        templateUrl: './partials/findFlights.html',
+        controller: 'findFlightsCtrl'
       }
     }
   })
@@ -36,6 +36,8 @@ angular.module('alaskaIonic.routes', ['ionic','ionicUIRouter'])
       }
     }
   })
+
+
 
 
 

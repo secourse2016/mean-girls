@@ -1,9 +1,5 @@
 angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$state){
 
-	// $http.get('/api/airports').success(function(data) {
-	// 	$scope.airports = data;
-	// 	masterSrvc.airports=data;
-	// });
 	$scope.airports=[
     {
         "iata": "HDF",
@@ -28,8 +24,9 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
         "size": "small"
     }];
 
+
 	$scope.findFlights = function() {
-		/*bind data*/
+		alert("working hello");
 		var origin= $scope.origin;
 		var destination= $scope.destination;
 		var departingDate=new Date($scope.departingDate).getTime();
@@ -38,9 +35,9 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
 		var otherAirlines=$scope.otherAirlines;
 		var oneWay=$scope.oneWay;
 
-
-		console.log(oneway+ " "+destination+ " "+departingDate+ " "+seatClass+ " "+otherAirlines+ " "+oneWay);
-		$state.go('flightStatusSearch');
+		console.log("one way"+oneWay);
+		console.log(oneWay+ " "+destination+ " "+departingDate+ " "+seatClass+ " "+otherAirlines+ " "+oneWay);
+		$state.go('flights');
 
 	};
 
