@@ -1,6 +1,6 @@
 
 angular.module('alaska').
-controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrvc){
+controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc){
 	$scope.outgoingFlights =angular.copy(flightsSrvc.outgoingFlights);
 	$scope.returnFlights =angular.copy(flightsSrvc.returnFlights);
 
@@ -31,26 +31,26 @@ controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrv
 		}
 	}
 
-	$scope.Continue = function (){
+	// $scope.Continue = function (){
 
-		masterSrvc.oneWay=flightsSrvc.oneWay;
-		masterSrvc.seatClass=flightsSrvc.seatClass;
+	// 	masterSrvc.oneWay=flightsSrvc.oneWay;
+	// 	masterSrvc.seatClass=flightsSrvc.seatClass;
 
-		var selectedOutgoing=$scope.outgoingFlights[$scope.selectedOutgoing.index];
-		masterSrvc.outgoingFlight=selectedOutgoing;
+	// 	var selectedOutgoing=$scope.outgoingFlights[$scope.selectedOutgoing.index];
+	// 	masterSrvc.outgoingFlight=selectedOutgoing;
 
-		var oneWay=$scope.oneWay;
-		var total=$scope.selectedOutgoing.cost;
+	// 	var oneWay=$scope.oneWay;
+	// 	var total=$scope.selectedOutgoing.cost;
 
-		if(oneWay!==1){
-			var selectedOutgoing=$scope.returnFlights[$scope.selectedReturn.index];
-			masterSrvc.returnFlight=selectedReturn;
-			total+=$scope.selectedReturn.cost;
-		}
+	// 	if(oneWay!==1){
+	// 		var selectedOutgoing=$scope.returnFlights[$scope.selectedReturn.index];
+	// 		masterSrvc.returnFlight=selectedReturn;
+	// 		total+=$scope.selectedReturn.cost;
+	// 	}
 
-		masterSrvc.payment.amount=total;
+	// 	masterSrvc.payment.amount=total;
 
-		$location.url('/passenger-info');
-	}
+	// 	$location.url('/passenger-info');
+	// }
 
 });
