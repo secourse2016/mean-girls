@@ -1,18 +1,61 @@
 <ion-view view-title="Flights" >
   <ion-content>
-	<div class="card" ng-repeat="outgoingFlight in outgoingFlights">
-		<div class="item item-divider">
-			Flight Number: {{outgoingFlight.flightNumber}}
+  	<ion-list>
+		<div class="card" ng-repeat="outgoingFlight in outgoingFlights">
+			<div class="row">
+				<div class="item item-divider col col-75">
+					Flight Number: {{outgoingFlight.flightNumber}}
+				</div>
+				<ion-radio class="col" ng-model="selectedOutgoing.index" ng-value="{{$index}}">add to cart</ion-radio>
+			</div>
+
+			<div class="row">
+				<div class="item item-text-wrap col col-50">
+					{{outgoingFlight.seatClass}}
+				</div>
+				<div class="item item-text-wrap col col-50">
+					{{outgoingFlight.cost}} {{outgoingFlight.currency}}
+				</div>
+			</div>
+
+			<div class="item item-text-wrap row">
+				{{outgoingFlight.departureTime}} - {{outgoingFlight.arrivalTime}}
+			</div>
+
+			<div class="item item-text-wrap">
+				Aircraft: {{outgoingFlight.aircraftType}} {{outgoingFlight.aircraftModel}}
+			</div>
 		</div>
-		<div class="item item-text-wrap">
-			{{outgoingFlight.aircraftModel}}
+	</ion-list>
+
+	
+	<ion-list ng-hide="oneWay">
+		<div class="card" ng-repeat="returnFlight in returnFlights">
+			<div class="row">
+				<div class="item item-divider col col-75">
+					Flight Number: {{returnFlight.flightNumber}}
+				</div>
+				<ion-radio class="col" ng-model="selectedReturn.index" ng-value="{{$index}}">add to cart</ion-radio>
+			</div>
+
+			<div class="row">
+				<div class="item item-text-wrap col col-50">
+					{{returnFlight.seatClass}}
+				</div>
+				<div class="item item-text-wrap col col-50">
+					{{returnFlight.cost}} {{returnFlight.currency}}
+				</div>
+			</div>
+
+			<div class="item item-text-wrap row">
+				{{returnFlight.departureTime}} - {{returnFlight.arrivalTime}}
+			</div>
+
+			<div class="item item-text-wrap">
+				Aircraft: {{returnFlight.aircraftType}} {{returnFlight.aircraftModel}}
+			</div>
 		</div>
-		<div class="item item-text-wrap">
-			{{outgoingFlight.departureDateTime}}
-		</div>
-		<div class="item item-text-wrap">
-			{{outgoingFlight.arrivalDateTime}}
-		</div>
-	</div>
+	</ion-list>
+
   </ion-content>
 </ion-view>
