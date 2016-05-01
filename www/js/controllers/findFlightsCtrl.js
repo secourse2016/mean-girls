@@ -1,4 +1,4 @@
-angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$state){
+angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$state,flightsSrvc,$http){
 
 	$scope.airports=[
     {
@@ -33,11 +33,66 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
 		var seatClass= $scope.class;
 		var otherAirlines=$scope.otherAirlines;
 		var oneWay=$scope.oneWay;
+
+                /* set service variables*/
+        flightsSrvc.oneWay=oneWay
+        flightsSrvc.otherAirlines=otherAirlines;
+        flightsSrvc.seatClass=seatClass;
+        flightsSrvc.origin=origin;
+        flightsSrvc.destination=destination;
+
+        flightsSrvc.outgoingFlights=[];
+        flightsSrvc.returnFlights=[];
         
         if(oneWay===0){
             var returnDate=new Date($scope.returningDate).getTime();
         }
-        
+                /*one way trip*/
+        if(oneWay===1){
+            $http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(flights){
+                flightsSrvc.outgoingFlights.concat(flights);
+                if(otherAirlines===1){
+                    $http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(othersFlights){
+                        flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
+                        if(flightsSrvc.outgoingFlights.length===0){
+                            flightsSrvc.foundFlights=0;
+                        }
+                        $state.go('tabsController.findFlights.flights');
+                    });
+                }
+                else{
+                    if(flightsSrvc.outgoingFlights.length===0){
+                        flightsSrvc.foundFlights=0;
+                    }
+                    $state.go('tabsController.findFlights.flights');
+                }
+            });
+        }
+        /*round trip*/
+        else{
+            var returningDate=new Date($scope.returningDate).getTime();
+            console.log('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass);
+            $http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(flights){
+                flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
+                flightsSrvc.returnFlights.concat(flights.returnFlights);
+                if(otherAirlines===1){
+                    $http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(othersFlights){
+                        flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
+                        flightsSrvc.returnFlights.concat(othersFlights.returnFlights);
+                        $state.go('tabsController.findFlights.flights');
+                        if(flightsSrvc.outgoingFlights.length===0 || flightsSrvc.returnFlights.length===0){
+                            flightsSrvc.foundFlights=0;
+                        }
+                    });
+                }
+                else{
+                    if(flightsSrvc.outgoingFlights.length===0 || flightsSrvc.returnFlights.length===0){
+                        flightsSrvc.foundFlights=0;
+                    }
+                    $state.go('tabsController.findFlights.flights');
+                }
+            });
+        }
 		// console.log("one way:"+oneWay);
         // console.log("destination:"+destination);
         // console.log("departingDate:"+departingDate);
@@ -45,7 +100,7 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
         // console.log("otherAirlines:"+otherAirlines);
         // console.log("origin:"+origin);
 		// console.log(oneWay+ " "+destination+ " "+departingDate+ " "+seatClass+ " "+otherAirlines+ " "+oneWay);
-		$state.go('tabsController.findFlights.flights');
+		// $state.go('tabsController.findFlights.flights');
 
 	};
 
