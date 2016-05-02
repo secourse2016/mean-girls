@@ -1,21 +1,20 @@
 
 .flights-wrapper table{
-  table-layout: fixed;
   width: 100%;
   background-color: rgba(255,255,255,0);
   margin-left: 20px;
   margin-top: 10px;
-  position: relative;
-  overflow: scroll;
-
 }
+
 .outFlights, .returnFlights{
   background-color: rgba(255,255,255,0.9);
   border-radius: 15px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   padding-bottom: 20px;
   margin-top: 20px;
-
+  max-height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 
@@ -26,7 +25,7 @@
   margin: 120px  30px;
   background-color: rgba(255,255,255,0);
   border-radius: 15px;
-  height: 850px;
+  height: 1200px;
   overflow: hidden;
 
 }
@@ -120,7 +119,6 @@
 }
 
 #pricing-table .plan {
-  font: 12px 'Lucida Sans', 'trebuchet MS', Arial, Helvetica;
   text-shadow: 0 1px rgba(255,255,255,.8);
   background: #fff;
   border: 1px solid #ddd;
@@ -130,6 +128,7 @@
   border-radius: 5px;
   height: 100%;
   display: block;
+  font-size: 12px;
 }
 
 
