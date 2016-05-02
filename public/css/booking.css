@@ -6,13 +6,13 @@
   margin-bottom: 50px;
   /*background: -webkit-linear-gradient(315deg, #C7767B 0%, #77A2E0 100%);
   background: linear-gradient(135deg, #C7767B 0%, #77A2E0 100%);*/
-  background: linear-gradient(135deg, #bd6772, #53223f);
-  border-radius: 15px;
+  /*background: linear-gradient(135deg, #bd6772, #53223f);*/
+  background: rgba(255,255,255,0.9);
   padding-top: 10px;
   width: 70%;
   box-sizing: border-box;
-  box-shadow: 0px 2px 4px black;
-  border-radius: 5px;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
+  border-radius: 10px;
 }
 
 .date {
@@ -129,7 +129,7 @@
 .tickets:hover .ticket:last-of-type {
   margin-top: 10px;
   -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 .tickets .ticket {
   padding: 20px;
@@ -147,7 +147,7 @@
 .tickets .ticket:last-of-type {
   margin-top: -35px;
   -webkit-transform: rotate(1deg);
-          transform: rotate(1deg);
+  transform: rotate(1deg);
 }
 .ticket .name {
   font-weight: 500;
@@ -218,20 +218,18 @@
   padding: 5px 20px;
 }
 
-.depart {
-  border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
-}
+
 
 .half:first-of-type {
   border-right: 1px dotted rgba(255, 255, 255, 0.3);
 }
 
 .flight-details {
-  color: white;
-  text-shadow: 0 1px 2px black;
+  color: #01426a;
   margin-top: 50px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
+
 }
 
 .route {
@@ -248,7 +246,6 @@
 
 .return, .depart {
   padding: 10px 10px 20px 10px;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 
@@ -330,4 +327,8 @@
 .title-b{
   font-size: 0.7em;
   opacity: 0.5;
+}
+.flight-details .flights{
+  background: linear-gradient(50deg, #bd6772, #01426a);
+  color: #fff;
 }

@@ -28,29 +28,31 @@
       <span class="title title-b">Booking Ref. </span>
       <span class="title">{{booking.bookingRefNo}}</span>
     </div>
-    <div class="depart">
-      <span class="title">Outbound</span>
-      <div class="half">
-        <span class="way">Departing</span>
-        {{booking.outgoingFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
-      </div><!--
-      -->
-      <div class="half">
-        <span class="way">Arriving</span>
-        {{booking.outgoingFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+    <div class="flights">
+      <div class="depart">
+        <span class="title">Outbound</span>
+        <div class="half">
+          <span class="way">Departing</span>
+          {{booking.outgoingFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div><!--
+        -->
+        <div class="half">
+          <span class="way">Arriving</span>
+          {{booking.outgoingFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div>
       </div>
-    </div>
 
-    <div class="return" ng-hide="booking.oneWay">
-      <span class="title">Return</span>
-      <div class="half">
-        <span class="way">Departing</span>
-        {{booking.returnFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
-      </div><!--
-      -->
-      <div class="half">
-        <span class="way">Arriving</span>
-        {{booking.returnFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+      <div class="return" ng-hide="booking.oneWay">
+        <span class="title">Return</span>
+        <div class="half">
+          <span class="way">Departing</span>
+          {{booking.returnFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div><!--
+        -->
+        <div class="half">
+          <span class="way">Arriving</span>
+          {{booking.returnFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div>
       </div>
     </div>
   </div>
