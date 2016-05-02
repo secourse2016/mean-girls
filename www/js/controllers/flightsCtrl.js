@@ -29,6 +29,7 @@ controller('flightsCtrl',function($scope, $http,$state ,flightsSrvc,masterSrvc){
 			$scope.returnFlights[i].arrivalTime   = arrivalTime.getHours()+':'+arrivalTime.getMinutes();
 		}
 	}
+	
 
 	// $scope.Continue = function (){
 

@@ -56,6 +56,24 @@ angular.module('alaskaIonic.routes', ['ionic','ionicUIRouter'])
     }
   })
 
+  .state('tabsController.findFlights.flights.passengerInfo', {
+    url: '/passengerInfo',
+    views: {
+      'findFlights@tabsController': {
+        templateUrl: 'partials/passengerInfo.html'
+      }
+    }
+  })
+  
+  .state('tabsController.findFlights.flights.passengerInfo.payment', {
+    url: '/payment',
+    views: {
+      'findFlights@tabsController': {
+        templateUrl: 'partials/payment.html'
+      }
+    }
+  })
+
 $urlRouterProvider.otherwise('/tab/findFlights')
 
   
