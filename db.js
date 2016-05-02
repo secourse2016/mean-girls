@@ -239,7 +239,7 @@ function searchRoundTripFlight (requiredFlight, cb){
     origin:requiredFlight.origin,
     destination:requiredFlight.destination
   };
-  query["available"+classString+"Seats"] = { $gt: 0 };
+  query["available"+classString+"Seats"] = { $gt: requiredFlight.seats };
   DB.collection('flights').find(query).toArray(function(err,flights) {
     if (err) return cb(err);
     for(var i =0;i<flights.length;i++){
@@ -262,7 +262,7 @@ function searchOtherWayAround(classString,chosenFlights, requiredFlight, cb) {
     origin:requiredFlight.destination,
     destination:requiredFlight.origin
   };
-  query["available"+classString+"Seats"] = { $gt: 0 };
+  query["available"+classString+"Seats"] = { $gt: requiredFlight.seats };
   DB.collection('flights').find(query).toArray(function(err,flights) {
     if (err) return err;
 
@@ -300,6 +300,7 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.origin=beforeFormattingData.outgoingFlights[i].origin
     temp.destination=beforeFormattingData.outgoingFlights[i].destination
     temp.cost=beforeFormattingData.outgoingFlights[i][costOfClass]
+    temp.flightId=beforeFormattingData.outgoingFlights[i]._id
     temp.currency="USD";
     temp.class=firstToLowerCase(reqClass);
     temp.Airline="Alaska";
@@ -316,6 +317,7 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.origin=beforeFormattingData.returnFlights[i].origin
     temp.destination=beforeFormattingData.returnFlights[i].destination
     temp.cost=beforeFormattingData.returnFlights[i][costOfClass]
+    temp.flightId=beforeFormattingData.returnFlights[i]._id
     temp.currency="USD"
     temp.class=firstToLowerCase(reqClass)
     temp.Airline="Alaska"
