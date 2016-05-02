@@ -7,13 +7,14 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
       data.passenger=angular.copy(this.passenger);
       data.class=this.seatClass;
       data.oneWay=this.oneWay;
-      data.outgoingFlight=angular.copy(this.outgoingFlight.flightNumber);
+      data.outgoingFlightId=angular.copy(this.outgoingFlight.flightNumber);
+      data.paymentToken = this.paymentToken;
       var oneWay=data.oneWay=angular.copy(this.oneWay);
       if(oneWay!==1){
-        data.returnFlight=angular.copy(this.returnFlight.flightNumber);
+        data.returnFlightId=angular.copy(this.returnFlight.flightNumber);
       }
       else{
-        data.returnFlight=null;
+        data.returnFlightId=null;
       }
       $http.post('/api/booking',data).success(function(booking){
           var bookingRef = booking.bookingRefNo;

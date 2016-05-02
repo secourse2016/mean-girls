@@ -30659,7 +30659,7 @@
         "size": "small"
     },
     {
-        "iata": "CCV",
+        "iata": "cvc",
         "lon": "167.5",
         "iso": "VU",
         "status": 1,

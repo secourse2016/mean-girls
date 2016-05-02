@@ -22,9 +22,10 @@ app.use(express.static(path.join(__dirname + '/../public')));
 require('./routes')(app);
 
 app.use('/*', function(req, res){
-       res.sendFile(path.join(__dirname+'/../public/404.html'));
-    });
+  res.sendFile(path.join(__dirname+'/../public/404.html'));
+});
 
 
+var stripe = require('stripe')('sk_test_Jac7wnEea4OaV9T29UOPDyMd');
 
 module.exports=app;

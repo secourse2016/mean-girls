@@ -15,8 +15,8 @@
       </div>
       <div class="back">
         <div class="strip"></div>
-        <div class="ccv">
-          <label>CCV</label>
+        <div class="cvc">
+          <label>cvc</label>
           <div></div>
         </div>
       </div>
@@ -79,9 +79,9 @@
         </select>
       </div>
     </fieldset>
-    <fieldset class="fieldset-ccv">
-      <label for="card-ccv">CCV</label>
-      <input required type="text" id="card-ccv" maxlength="3" ng-model="ccv" />
+    <fieldset class="fieldset-cvc">
+      <label for="card-cvc">cvc</label>
+      <input required type="text" id="card-cvc" maxlength="3" ng-model="cvc" />
     </fieldset>
     <div ng-show="clicked" class="invalid">*Please fill in all fields.</div>
     <button class="confirm hvr-pulse" ng-click="validateForm() && SubmitPayment()"><i class="fa fa-lock"></i> confirm</button>

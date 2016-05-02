@@ -61,6 +61,9 @@ module.exports = function(app) {
 
 	});
 
+	app.get('/stripe/pubkey', function (req,res) {
+		res.send('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
+	});
 	app.post('/api/contact', function(req,res){
 		var contact=req.body;
 		db.contact(contact,function(err){

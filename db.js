@@ -376,7 +376,7 @@ exports.addBooking=function(i,cb){
       "cardNo":i.payment.cardNo,
       "expiryDate":i.payment.expiryDate,
       "amount":i.payment.amount,
-      "ccv":i.payment.ccv,
+      "cvc":i.payment.cvc,
       "cardHolder":i.cardHolder
     },
 
