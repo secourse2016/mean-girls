@@ -19,8 +19,12 @@ exports.db = function() {
   if (DB === null) throw Error('DB Object has not yet been initialized');
   return DB;
 };
-
-
+exports.contact= function(contact,cb){
+  DB.collection('contactUs').insert(contact, function(err){
+    if(err)
+    cb(err);
+  });
+}
 function seedFlights(cb){
   DB.collection('flights').find().toArray(function (err, docs) {
     if (err) return cb(err);

@@ -60,6 +60,15 @@ module.exports = function(app) {
 		}
 
 	});
+
+	app.post('/api/contact', function(req,res){
+		var contact=req.body;
+		db.contact(contact,function(err){
+			if(err)
+				console.log(err);
+		})
+	});
+
 	app.get('/api/booking/:bookingRef', function(req,res){
 		var bookingRefNo = req.params['bookingRef'];
 		db.searchBooking(bookingRefNo,function(err,booking){
@@ -320,6 +329,7 @@ module.exports = function(app) {
 	});
 
 }
+
 
 // var routes = function(app) {
 // 	app.get('/', function(req, res){
