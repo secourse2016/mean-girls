@@ -6,7 +6,7 @@
 				<div class="item item-divider col col-75">
 					Flight Number: {{outgoingFlight.flightNumber}}
 				</div>
-				<ion-radio class="col" ng-model="selectedOutgoing.index" ng-value="{{$index}}">add to cart</ion-radio>
+				<ion-radio class="col" name="selectedOutgoing" ng-model="selectedOutgoing.index" ng-value="{{$index}}"></ion-radio>
 			</div>
 
 			<div class="row">
@@ -28,14 +28,14 @@
 		</div>
 	</ion-list>
 
-	
+
 	<ion-list ng-hide="oneWay">
 		<div class="card" ng-repeat="returnFlight in returnFlights">
 			<div class="row">
 				<div class="item item-divider col col-75">
 					Flight Number: {{returnFlight.flightNumber}}
 				</div>
-				<ion-radio class="col" ng-model="selectedReturn.index" ng-value="{{$index}}">add to cart</ion-radio>
+				<ion-radio class="col" name="selectedReturn"ng-model="selectedReturn.index" ng-value="{{$index}}"></ion-radio>
 			</div>
 
 			<div class="row">
