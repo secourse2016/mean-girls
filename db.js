@@ -39,7 +39,6 @@ function seedFlights(cb){
 function outGoingFlightsSeed(cb){
   seedAFlight(false,function(err){
     if (err) return err;
-    console.log("7alo ya 7alo")
     cb();
   });
 }
@@ -47,7 +46,6 @@ function outGoingFlightsSeed(cb){
 function returnFlightSeed(cb){
   seedAFlight(true,function(err){
     if (err) return err;
-    console.log("Done");
     cb();
   });
 }

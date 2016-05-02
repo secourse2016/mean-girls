@@ -83,9 +83,8 @@
             <img class="chip" src="https://www.bethpagefcu.com/~/media/Images/bethpage/Page-Content/CC_chip.ashx?la=en">
             <span class="payment-title">Payment Details</span>
             <div class="field" id="number">{{booking.payment.cardNo}}</div>
-            <div class="field" id="name"> {{booking.payment.cardHolder}}</div>
-            <div class="field" id="date"> {{booking.payment.expiryDate}}</div>
-            <div class="field" id="total"> {{booking.payment.amount}}</div>
+            <div class="field" id="date">{{booking.payment.expiryDate}}</div>
+            <div class="field" id="total">${{booking.payment.amount}}</div>
           </div>
         </div>
       </div>

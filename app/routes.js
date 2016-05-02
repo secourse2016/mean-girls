@@ -17,15 +17,12 @@ module.exports = function(app) {
 	app.get('/db/seed', function(req, res) {
 		db.seedFlights(function(err){
 			if(err) return res.send(err);
-			console.log("flights seeded");
 			db.seedAirports(function(err,seeded){
 				if (err) return res.send(err);
 				if(seeded) {
-					console.log("seeded yay");
 					res.send("Success");
 				}
 				else {
-					console.log("already seeded !");
 					res.send("Seeded");
 				}
 			});
@@ -81,7 +78,6 @@ module.exports = function(app) {
 				for (var i = 0; i < seatMap.length; i++) {
 					if(seatMap[i].reservationID===resvID){
 						outSeat=seatMap[i];
-						console.log("found it");
 						break;
 					}
 				}
@@ -162,12 +158,10 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/api/addbooking',function(req,res){
+	app.post('/api/booking',function(req,res){
 		var information = req.body;
-		console.log(information);
 		db.addBooking(information,function(err,booking){
 			if (err) return (err);
-			console.log(booking);
 			res.send(booking);
 		});
 	});
@@ -208,9 +202,7 @@ module.exports = function(app) {
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
 			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
-			console.log(token);
 			var decoded = jwt.verify(token, 'CSEN603ROCKSi<8SE!');
-			console.log(decoded)
 
 			const options = {
 				port:80,
@@ -251,13 +243,12 @@ module.exports = function(app) {
 
 		async.map(urls, httpGet, function (err, res){
 
-			console.log( res);
-			console.log("res length"+res.length);
+
 			// for(var i=0;i<res.length;i++)
 			// {
 			//   result.push(res[i].outgoingFlights);
 			// }
-			console.log("the out going "+res[0].outgoingFlights);
+
 
 			res1.send(res);
 
@@ -279,9 +270,7 @@ module.exports = function(app) {
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
 			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
-			console.log(token);
 			var decoded = jwt.verify(token, 'CSEN603ROCKSi<8SE!');
-			console.log(decoded) ;
 			const options = {
 				port:80,
 				method:'GET',
@@ -319,7 +308,6 @@ module.exports = function(app) {
 		];
 
 		async.map(urls, httpGet, function (err, res){
-			console.log(res);
 			// outgoing.push(res.outgoingFlights);
 			// returning.push(res.returnFlights);
 			// var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
