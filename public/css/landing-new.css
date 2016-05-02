@@ -71,6 +71,7 @@
 #route .form-item {
   position: relative;
   margin: 12px 24px 12px;
+  margin-right: 100px;
 }
 
 #flight-datepicker label, #searchWrapper #route label, #searchWrapper .class label
@@ -85,7 +86,7 @@
   margin-bottom: 8px;
   padding-bottom: 6px;
   width: 100%;
-  font-size: 22px;
+  font-size: 1.5em;
   font-weight: bold;
   text-align: left;
   color: #6d6e70;
@@ -275,7 +276,6 @@
   font-size: 24px;
 }
 #searchWrapper .fa-search{
-
   margin-right: 6px;
   font-size: 1em;
 }
@@ -345,7 +345,6 @@
   padding: 15px 15px;
   border-radius: 10px;
   background: #01426a;
-  width: 150px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1.5em;
@@ -416,6 +415,9 @@
   width:20%;
 }
 #searchWrapper .checks{
+  display: block;
+}
+#searchWrapper .checks fieldset{
   display: inline-flex;
 }
 .find {
@@ -434,31 +436,30 @@
   margin-bottom: 35px;
   position: relative;
   vertical-align: middle;
-  min-height: 80px;
-  text-align: center;
+  min-height: 100px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.1);
   font-size: 2em;
   width: 70%;
 }
 .search-holder button{
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
   vertical-align: middle;
-  display: inline-block;
-
+  float: right;
 }
 
 .search-holder input{
   display: inline-block;
   border: none;
-  padding: 0px 0px 0 20px;
-  border: none;
+  padding: 0px;
   outline: none;
   font-weight: 400;
   vertical-align: middle;
   background: none;
+  min-height: 100%;
+  margin-left: 20px;
 }
 .hvr-fade {
   display: inline-block;
@@ -481,4 +482,9 @@
 }
 .class{
   padding-bottom: 0px;
+}
+#searchWrapper .invalid{
+  padding-left: 15px;
+  color: #4987a5;
+  font-size: 1.25em;
 }

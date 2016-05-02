@@ -1,5 +1,7 @@
 
 angular.module('alaska').controller('landingCtrl',function ($scope,$location,$http,masterSrvc,flightsSrvc,bookingSrvc,flightInfoSrvc){
+	$scope.clicked=false;
+	
 	$http.get('/api/airports').success(function(data) {
 		$scope.airports = data;
 		masterSrvc.airports=data;
@@ -93,5 +95,16 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 	$scope.notNull = function (airport){
 		return airport.name != null;
 	}
+	$scope.validateForm =  function(){
+
+		if($scope.searchForm.$valid){
+			return true;
+		}
+		else{
+			$scope.clicked=true;
+			return false;
+		}
+
+	};
 
 });
