@@ -6,6 +6,7 @@ var path          = require('path');
 var moment        = require('moment');
 var jwt           = require('jsonwebtoken');
 var favicon = require('serve-favicon');
+var stripe = require('stripe')(sk_test_Jac7wnEea4OaV9T29UOPDyMd);
 
 //Export environment vars first thing
 require('dotenv').load();

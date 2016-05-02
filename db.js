@@ -154,7 +154,7 @@ function seedAFlight (reverseFlag, cb){
 function filteringClass(flights,i){
   if(i.class === "economy") {
     var filteredFlights = flights.filter(function(flight){
-      return flight.availableEconomy !== 0;
+      return flight.availableEconomy >= i.seats;
     });
     for(var x=0;x<filteredFlights.length;x++)
     {
@@ -163,7 +163,7 @@ function filteringClass(flights,i){
   }
   else {
     var filteredFlights = flights.filter(function(flight){
-      return flight.availableBussiness !== 0;
+      return flight.availableBussiness >= i.seats;
     });
     for(var x=0;x<filteredFlights.length;x++)
     {
@@ -185,6 +185,12 @@ function filteringClass(flights,i){
   {
     filteredFlights[x].currency="USD";
   }
+
+for(var x=0;x<filteredFlights.length;x++)
+  {
+    filteredFlights[x].flightId=filteredFlights[x]._id;
+  }
+
 
   var filteredFlights2 = filteredFlights.filter(function(flight){
     return moment(flight.departureDateTime).format('YYYY-MM-DD')==moment(parseInt(i.departureDate)).format('YYYY-MM-DD');
