@@ -10,16 +10,6 @@ module.exports = function(app) {
 	var jwtexp  =require('express-jwt')
 	var airlinesIP = require('../json/otherAirlines.json');
 
-	// app.use(jwtexp({
-	// 	secret: 'CSEN603ROCKSi<8SE!',
-	// 	getToken: function(req) {
-	// 		if (req.headers && req.headers['x-access-token']) {
-	// 			return req.headers['x-access-token'];
-	// 		}
-	// 		return null;
-	// 	}
-	// }));
-
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public', 'index.html'));
 	});
@@ -56,7 +46,6 @@ module.exports = function(app) {
 		// check header or url parameters or post parameters for token
 		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
 
-		console.log("{{{{ TOKEN }}}} => ", token);
 
 		var jwtSecret = 'CSEN603ROCKSi<8SE';
 
@@ -77,6 +66,10 @@ module.exports = function(app) {
 	app.get('/api/booking/:bookingRef', function(req,res){
 		var bookingRefNo = req.params['bookingRef'];
 		db.searchBooking(bookingRefNo,function(err,booking){
+			if(booking.length===0){
+				res.send(undefined);
+				return;
+			}
 
 			var outFlight=booking[0].outgoingFlight;
 
@@ -84,7 +77,6 @@ module.exports = function(app) {
 				booking[0].outgoingFlight=Outflight[0];
 				var resvID=booking[0].reservationID;
 				var seatMap=Outflight[0].seatmap;
-				console.log(seatMap);
 				var outSeat;
 				for (var i = 0; i < seatMap.length; i++) {
 					if(seatMap[i].reservationID===resvID){

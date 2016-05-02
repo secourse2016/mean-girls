@@ -47,7 +47,7 @@
     <fieldset class="class">
       <label>Class</label>
       <div class="select" id="select-type">
-        <select id="class"  ng-model="class">
+        <select id="class" required ng-model="class">
           <option value="economy">Economy</option>
           <option value="business">Business</option>
         </select>
@@ -62,7 +62,7 @@
     <h1><i class="fa fa-eye" aria-hidden="true"></i>  View booking</h1>
   </div>
   <div class="search-holder">
-    <input type="text" class="search-input" placeholder="Booking Ref." ng-model="bookingRef">
+    <input type="text" name="booking" class="search-input" placeholder="Booking Ref." ng-model="bookingRef">
     <button type="button" class="hvr-fade" ng-click="showBooking()"><i class="fa fa-search " aria-hidden="true"></i></button>
   </div>
 </div>
@@ -71,10 +71,24 @@
     <h1><i class="fa fa-info-circle" aria-hidden="true"></i>  check flight</h1>
   </div>
   <div class="search-holder">
-    <input type="text" class="search-input" placeholder="Flight No." ng-model="flightNo">
+    <input type="text" name="flight" class="search-input" placeholder="Flight No." ng-model="flightNo">
     <button type="button" class="hvr-fade" ng-click="checkFlight()"><i class="fa fa-search " aria-hidden="true"></i></button>
   </div>
 </div>
+<div>
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Sorry!</h3>
+    </div>
+    <div class="modal-body">
+      {{modalMessage}}
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+  </script>
+</div>
+
 <script src="js/jquery.easing.min.js"></script>
 <script src="js/scrolling-nav.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
