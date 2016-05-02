@@ -7,7 +7,4 @@ app.use('/*', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.post('/addbooking',function(req,res){
-
-});
 module.exports=app;

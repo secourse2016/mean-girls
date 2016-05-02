@@ -89,9 +89,9 @@
 			<div>
 				<p>Contact us!</p>
 				<form >
-					<p><input type="text" name="email" id="email" placeholder="Email:"></p>
-					<p><input type="text" name="message" id="message" placeholder="Message:"></p>
-					<p><input type="submit" name="send" id="send" value="Send"></p>
+					<p><input type="text" ng-model="email" name="email" id="email" placeholder="Email:"></p>
+					<p><input type="text" ng-model="message" name="message" id="message" placeholder="Message:"></p>
+					<p><input type="submit" name="send" id="send" value="Send" ng-click="contact()"></p>
 				</form>
 			</div>
 			<div>
