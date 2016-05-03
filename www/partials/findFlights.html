@@ -23,20 +23,10 @@
             </onezone-datepicker>
             <onezone-datepicker datepicker-object="onezoneDatepickerReturn" ng-hide="oneWay">
                 <button class="button button-block button-outline button-positive show-onezone-datepicker" name="start" >
-                    Depart: {{onezoneDatepickerReturn.date | date:'dd MMMM yyyy'}} 
+                    Return: {{onezoneDatepickerReturn.date | date:'dd MMMM yyyy'}} 
                 </button>
             </onezone-datepicker>
 
-
-            <label class="item item-input">
-                <span class="input-label">Depart Date</span>
-                <input type="date" placeholder="" id="start-date" name="start" ng-model="$parent.departingDate">
-            </label>
-
-            <label class="item item-input" ng-hide="oneWay">
-                <span class="input-label">Return Date</span>
-                <input type="date" placeholder="" id="end-date" name="end" ng-model="$parent.returningDate">
-            </label>
             
             <label class="item item-select">
                 <span class="input-label">Class</span>

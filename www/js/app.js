@@ -7,6 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter','onezone-datepicker'])
 
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,4 +21,6 @@ angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter','one
       StatusBar.styleDefault();
     }
   });
+
+
 })

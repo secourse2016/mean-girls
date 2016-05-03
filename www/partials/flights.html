@@ -9,7 +9,7 @@
 			<div class="item item-text-wrap">
 				<div class="row">
 					<div class="col col-50">
-						{{outgoingFlight.seatClass}}
+						Class: {{seatClass}}
 					</div>
 					<div class="col col-50">
 					 {{outgoingFlight.cost}} {{outgoingFlight.currency}}
@@ -24,7 +24,7 @@
 				Aircraft: {{outgoingFlight.aircraftType}} {{outgoingFlight.aircraftModel}}
 			</div>
 			<div class="item item-text-wrap" ng-show="otherAirlines===1">
-				{{outgoingFlight.Airline}}
+				Airline: {{outgoingFlight.Airline}} Airlines
 			</div>
 			<ion-radio class="col" name="selectedOutgoing" ng-model="$parent.selectedOutgoing.index" ng-value="{{$index}}" style="background: #2580C9">Add to Cart</ion-radio>
 		</div>
