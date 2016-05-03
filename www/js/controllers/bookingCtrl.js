@@ -10,4 +10,6 @@ angular.module('alaskaIonic')
 				return airports[i].name;
 		}
 	}
+
 });
+

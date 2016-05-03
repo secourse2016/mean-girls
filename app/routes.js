@@ -253,9 +253,7 @@ module.exports = function(app) {
 			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
 			"http://52.32.109.147",
 			"http://52.36.169.206",
-			"http://ec2-52-91-94-227.compute-1.amazonaws.com",
-			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
-			"http://ec2-52-90-41-197.compute-1.amazonaws.com"
+			"http://ec2-52-91-94-227.compute-1.amazonaws.com"
 		];
 
 		async.map(urls, httpGet, function (err, res){
@@ -319,9 +317,7 @@ module.exports = function(app) {
 			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
 			"http://52.32.109.147",
 			"http://52.36.169.206",
-			"http://ec2-52-91-94-227.compute-1.amazonaws.com",
-			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
-			"http://ec2-52-90-41-197.compute-1.amazonaws.com"
+			"http://ec2-52-91-94-227.compute-1.amazonaws.com"
 		];
 
 		async.map(urls, httpGet, function (err, res){
