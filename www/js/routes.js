@@ -1,4 +1,4 @@
-angular.module('alaskaIonic.routes', ['ionic','ionicUIRouter'])
+angular.module('alaskaIonic.routes', ['ionic','ionicUIRouter','onezone-datepicker'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 

@@ -1,61 +1,67 @@
 <ion-view view-title="Flights" >
   <ion-content>
+  	<h3>Outgoing Flights</h3>
   	<ion-list>
 		<div class="card" ng-repeat="outgoingFlight in outgoingFlights">
-			<div class="row">
-				<div class="item item-divider col col-75">
+			<div class="item item-divider col">
 					Flight Number: {{outgoingFlight.flightNumber}}
-				</div>
-				<ion-radio class="col" name="selectedOutgoing" ng-model="selectedOutgoing.index" ng-value="{{$index}}"></ion-radio>
 			</div>
-
-			<div class="row">
-				<div class="item item-text-wrap col col-50">
-					{{outgoingFlight.seatClass}}
-				</div>
-				<div class="item item-text-wrap col col-50">
-					{{outgoingFlight.cost}} {{outgoingFlight.currency}}
+			<div class="item item-text-wrap">
+				<div class="row">
+					<div class="col col-50">
+						{{outgoingFlight.seatClass}}
+					</div>
+					<div class="col col-50">
+					 {{outgoingFlight.cost}} {{outgoingFlight.currency}}
+					</div>
 				</div>
 			</div>
-
 			<div class="item item-text-wrap row">
-				{{outgoingFlight.departureTime}} - {{outgoingFlight.arrivalTime}}
+				{{outgoingFlight.departureDateTime | date :  "shortTime"}}   ->   {{outgoingFlight.arrivalDateTime | date :  "shortTime"}}
 			</div>
 
 			<div class="item item-text-wrap">
 				Aircraft: {{outgoingFlight.aircraftType}} {{outgoingFlight.aircraftModel}}
 			</div>
+			<div class="item item-text-wrap" ng-show="otherAirlines===1">
+				{{outgoingFlight.Airline}}
+			</div>
+			<ion-radio class="col" name="selectedOutgoing" ng-model="$parent.selectedOutgoing.index" ng-value="{{$index}}" style="background: #2580C9">Add to Cart</ion-radio>
 		</div>
 	</ion-list>
 
+	<h3 ng-hide="oneWay">Return Flights</h3>
 
 	<ion-list ng-hide="oneWay">
 		<div class="card" ng-repeat="returnFlight in returnFlights">
-			<div class="row">
-				<div class="item item-divider col col-75">
+			<div class="item item-divider col">
 					Flight Number: {{returnFlight.flightNumber}}
-				</div>
-				<ion-radio class="col" name="selectedReturn"ng-model="selectedReturn.index" ng-value="{{$index}}"></ion-radio>
 			</div>
-
-			<div class="row">
-				<div class="item item-text-wrap col col-50">
-					{{returnFlight.seatClass}}
-				</div>
-				<div class="item item-text-wrap col col-50">
-					{{returnFlight.cost}} {{returnFlight.currency}}
+			<div class="item item-text-wrap">
+				<div class="row">
+					<div class="col col-50">
+						{{returnFlight.seatClass}}
+					</div>
+					<div class="col col-50">
+					 {{returnFlight.cost}} {{returnFlight.currency}}
+					</div>
 				</div>
 			</div>
-
 			<div class="item item-text-wrap row">
-				{{returnFlight.departureTime}} - {{returnFlight.arrivalTime}}
+				{{returnFlight.departureDateTime | date :  "shortTime"}}   ->   {{returnFlight.arrivalDateTime | date :  "shortTime"}}
 			</div>
 
 			<div class="item item-text-wrap">
 				Aircraft: {{returnFlight.aircraftType}} {{returnFlight.aircraftModel}}
 			</div>
+			<div class="item item-text-wrap" ng-show="otherAirlines===1">
+				{{returnFlight.Airline}}
+			</div>
+			<ion-radio class="col " name="selectedReturn" ng-model="$parent.selectedReturn.index" ng-value="{{$index}}" style="background: #2580C9">Add to Cart</ion-radio>
 		</div>
 	</ion-list>
+
+	  <ion-item  style="border-radius:-1px -1px -1px -1px;" class="button button-calm  button-block" type="button" ng-click="Continue()">Find Flights</ion-item>
 
   </ion-content>
 </ion-view>

@@ -30,27 +30,25 @@ controller('flightsCtrl',function($scope, $http,$state ,flightsSrvc,masterSrvc){
 		}
 	}
 	
+	$scope.Continue = function (){
 
-	// $scope.Continue = function (){
+		masterSrvc.oneWay=flightsSrvc.oneWay;
+		masterSrvc.seatClass=flightsSrvc.seatClass;
 
-	// 	masterSrvc.oneWay=flightsSrvc.oneWay;
-	// 	masterSrvc.seatClass=flightsSrvc.seatClass;
+		masterSrvc.outgoingFlight=angular.copy($scope.outgoingFlights[$scope.selectedOutgoing.index]);
+		var oneWay=$scope.oneWay;
+		var total=Number($scope.outgoingFlights[$scope.selectedOutgoing.index].cost);
 
-	// 	var selectedOutgoing=$scope.outgoingFlights[$scope.selectedOutgoing.index];
-	// 	masterSrvc.outgoingFlight=selectedOutgoing;
+		if(oneWay!==1){
+			masterSrvc.returnFlight=angular.copy($scope.returnFlights[$scope.selectedReturn.index]);
+			total+=Number($scope.returnFlights[$scope.selectedReturn.index].cost);
+		}
 
-	// 	var oneWay=$scope.oneWay;
-	// 	var total=$scope.selectedOutgoing.cost;
+		masterSrvc.amount=total;
 
-	// 	if(oneWay!==1){
-	// 		var selectedOutgoing=$scope.returnFlights[$scope.selectedReturn.index];
-	// 		masterSrvc.returnFlight=selectedReturn;
-	// 		total+=$scope.selectedReturn.cost;
-	// 	}
+		$state.go('tabsController.findFlights.flights.passengerInfo');
+	}
 
-	// 	masterSrvc.payment.amount=total;
 
-	// 	$location.url('/passenger-info');
-	// }
 
 });
