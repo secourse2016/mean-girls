@@ -41,6 +41,27 @@ module.exports = function(app) {
 	});
 
 
+    app.get('/api/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req, res) {
+		var originValue = req.params['origin'];
+		var destinationValue = req.params['destination'];
+		var departingDateValue = req.params['departingDate'];
+		var classValue = req.params['class'];
+         var seatsValue = req.params['seats'];
+
+		var info={
+			"origin"        : originValue ,
+			"destination"   : destinationValue ,
+			"departureDate" : departingDateValue ,
+			"class"         : classValue,
+			"seats"         : seatsValue
+		};
+
+		db.searchFlightsOneWay(info, function (err, flights) {
+			if (err) return next(err);
+			res.send(flights);
+		});
+
+	});
 
 	app.use(function(req, res, next) {
 
@@ -126,27 +147,27 @@ module.exports = function(app) {
 		});
 
 	});
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req, res) {
-		var originValue = req.params['origin'];
-		var destinationValue = req.params['destination'];
-		var departingDateValue = req.params['departingDate'];
-		var classValue = req.params['class'];
-         var seatsValue = req1.paramas['seats'];
+	// app.get('/api/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req, res) {
+	// 	var originValue = req.params['origin'];
+	// 	var destinationValue = req.params['destination'];
+	// 	var departingDateValue = req.params['departingDate'];
+	// 	var classValue = req.params['class'];
+ //         var seatsValue = req1.paramas['seats'];
 
-		var info={
-			"origin"        : originValue ,
-			"destination"   : destinationValue ,
-			"departureDate" : departingDateValue ,
-			"class"         : classValue,
-			"seats"         : seatsValue
-		};
+	// 	var info={
+	// 		"origin"        : originValue ,
+	// 		"destination"   : destinationValue ,
+	// 		"departureDate" : departingDateValue ,
+	// 		"class"         : classValue,
+	// 		"seats"         : seatsValue
+	// 	};
 
-		db.searchFlightsOneWay(info, function (err, flights) {
-			if (err) return next(err);
-			res.send(flights);
-		});
+	// 	db.searchFlightsOneWay(info, function (err, flights) {
+	// 		if (err) return next(err);
+	// 		res.send(flights);
+	// 	});
 
-	});
+	// });
 
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req, res) {
 		var params = {};
