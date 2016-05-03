@@ -1,5 +1,5 @@
 angular.module('alaska')
-.controller('paymentCtrl',function($scope,$location,masterSrvc,modalSrvc,$uibModal){
+.controller('paymentCtrl',function($scope,$location,masterSrvc){
   $scope.clicked=false;
   $scope.validateForm =  function(){
 
@@ -29,38 +29,14 @@ angular.module('alaska')
     masterSrvc.payment.cvc=cvc;
 
     var expiryMonth = $scope.expiryMonth;
+    masterSrvc.payment.expiryMonth=expiryMonth;
+
     var expiryYear = $scope.expiryYear;
+    masterSrvc.payment.expiryYear=expiryYear;
 
-    Stripe.card.createToken({
-      number: cardNo,
-      cvc: cvc,
-      exp_month: expiryMonth,
-      exp_year: expiryYear
-    },
-    $scope.stripeHandler
-  );
-}
-
-$scope.stripeHandler = function(status,response){
-  if (response.error) { // Problem!
-
-    //TODO show modal error occured
-    $scope.openModal("Error occured during card verification.");
-
-  }
-  else { // Token was created!
-    // Get the token ID:
-    var token = response.id;
-    masterSrvc.paymentToken = token;
     masterSrvc.Confirm();
 
-  }
 }
-$scope.openModal= function(message){
-  modalSrvc.modalMessage = message;
-  var modalInstance = $uibModal.open({
-    templateUrl: 'myModalContent.html',
-    controller: 'ModalInstanceCtrl'
-  });
-}
+
+
 });

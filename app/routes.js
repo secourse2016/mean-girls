@@ -10,6 +10,12 @@ module.exports = function(app) {
 	var jwtexp  =require('express-jwt')
 	var airlinesIP = require('../json/otherAirlines.json');
 
+	app.use(function (req, res, next) {
+		res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST', 'OPTIONS', 'PUT', 'DELETE');
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		next();
+	});
+
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public', 'index.html'));
 	});
@@ -68,7 +74,7 @@ module.exports = function(app) {
 		var contact=req.body;
 		db.contact(contact,function(err){
 			if(err)
-				console.log(err);
+			console.log(err);
 		})
 	});
 
@@ -191,11 +197,6 @@ module.exports = function(app) {
 		});
 
 	});
-
-
-
-
-
 
 
 
