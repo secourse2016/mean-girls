@@ -1,4 +1,3 @@
-
 angular.module('alaska').
 controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrvc){
 	$scope.parseInt = parseInt;

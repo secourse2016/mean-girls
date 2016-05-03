@@ -1,5 +1,6 @@
 {
   "name": "mean-girls",
+<<<<<<< HEAD
   "app_id": "",
   "proxies": [
     {
@@ -7,4 +8,7 @@
       "proxyUrl": "http://localhost:80/api/"
     }
   ]
+=======
+  "app_id": ""
+>>>>>>> 2cae8a1775016b56dbb86f416b8dbd5a42f391d1
 }
