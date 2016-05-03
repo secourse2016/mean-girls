@@ -1,5 +1,5 @@
 angular.module('alaskaIonic')
-.controller("passengerCtrl", function($scope,$location,masterSrvc){
+.controller("passengerCtrl", function($scope,$state,masterSrvc){
   $scope.passenger={};
   masterSrvc.passenger={};
   masterSrvc.payment={};
@@ -38,7 +38,7 @@ angular.module('alaskaIonic')
     var expiryDate=expiryYear+'-'+expiryMonth+'-'+expiryDay;
     masterSrvc.passenger.expiryDate=expiryDate;
 
-    $location.url('/payment');
+    $state.go('tabsController.findFlights.flights.passengerInfo.payment');
 
   };
 });

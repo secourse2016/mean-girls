@@ -1,0 +1,96 @@
+<ion-view title = "viewBooking" id = "viewBooking">
+  <ion-content>
+  <link href='https://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>
+  <link href="css/booking.css" rel="stylesheet">
+
+  <div class="wrapper">
+
+    <div class="flight">
+
+      <div class="route">
+        <div class="diagram"><img src="http://s18.postimg.org/d8yqxdkjt/c_Gjlath.png"/></div>
+        <div class="half">
+          <div class="circle">
+            <span class="airport">{{booking.outgoingFlight.origin}}</span>
+            <span class="city">{{getAirportName(booking.outgoingFlight.origin)}}</span>
+          </div>
+        </div><!--
+        --><div class="half">
+        <div class="circle">
+          <span class="airport">{{booking.outgoingFlight.destination}}</span>
+          <span class="city">{{getAirportName(booking.outgoingFlight.destination)}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flight-details">
+      <div class="bookingRef">
+        <span class="title title-b">Booking Ref. </span>
+        <span class="title">{{booking.bookingRefNo}}</span>
+      </div>
+      <div class="flights">
+        <div class="depart">
+          <span class="title">Outbound</span>
+          <div class="half">
+            <span class="way">Departing</span>
+            {{booking.outgoingFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+          </div><!--
+          -->
+          <div class="half">
+            <span class="way">Arriving</span>
+            {{booking.outgoingFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+          </div>
+        </div>
+
+        <div class="return" ng-hide="booking.oneWay">
+          <span class="title">Return</span>
+          <div class="half">
+            <span class="way">Departing</span>
+            {{booking.returnFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+          </div><!--
+          -->
+          <div class="half">
+            <span class="way">Arriving</span>
+            {{booking.returnFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="booking">
+      <div class="tickets">
+        <div class="ticket">
+          <span class="name">{{booking.passenger.firstName}} {{booking.passenger.lastName}}</span>
+          <span class="direction">outgoing</span>
+          <span class="seat">{{booking.outgoingFlight.seatNumber}}</span>
+          <span class="cost">${{booking.outgoingFlight.cost}}</span>
+          <span class="class">{{booking.outgoingFlight.class}}</span>
+        </div>
+        <div ng-hide="booking.oneWay" class="ticket">
+          <span class="name">{{booking.passenger.firstName}} {{booking.passenger.lastName}}</span>
+          <span class="direction">return</span>
+          <span class="seat">{{booking.returnFlight.seatNumber}}</span>
+          <span class="cost">${{booking.returnFlight.cost}}</span>
+          <span class="class">{{booking.returnFlight.class}}</span>
+        </div>
+      </div>
+
+      <div class="payment">
+        <div id="card-container">
+          <div class="card" id="card">
+            <div class="front">
+              <img class="chip" src="https://www.bethpagefcu.com/~/media/Images/bethpage/Page-Content/CC_chip.ashx?la=en">
+              <span class="payment-title">Payment Details</span>
+              <div class="field" id="number">{{booking.payment.cardNo}}</div>
+              <div class="field" id="date">{{booking.payment.expiryDate}}</div>
+              <div class="field" id="total">${{booking.payment.amount}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </ion-content>
+  </ion-view>

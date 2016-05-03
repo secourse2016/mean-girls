@@ -1,5 +1,5 @@
 angular.module('alaskaIonic')
-.controller('paymentCtrl',function($scope,$location,masterSrvc){
+.controller('paymentCtrl',function($scope,$state,masterSrvc){
   $scope.SubmitPayment = function() {
     var cardType=$scope.cardType;
     masterSrvc.payment.cardType=cardType;

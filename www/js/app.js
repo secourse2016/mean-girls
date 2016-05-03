@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter'])
 
-=======
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -10,7 +7,6 @@ angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter'])
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter','onezone-datepicker'])
->>>>>>> 2cae8a1775016b56dbb86f416b8dbd5a42f391d1
 
 
 .run(function($ionicPlatform) {
@@ -26,9 +22,4 @@ angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter','one
       StatusBar.styleDefault();
     }
   });
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 2cae8a1775016b56dbb86f416b8dbd5a42f391d1
 })
