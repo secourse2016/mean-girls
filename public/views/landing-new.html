@@ -6,7 +6,7 @@
   <div class="info-header container-fluid">
     <h1><i class="fa fa-plane" aria-hidden="true"></i>  Fly me!</h1>
   </div>
-  <form class="form" autocomplete="off" novalidate>
+  <form class="form" name="searchForm" autocomplete="off" novalidate>
     <div class="form-item checks">
       <fieldset class="input-direction">
         <input type="checkbox" class="direction" id="direction" name="direction"ng-model="oneWay" ng-true-value="1" ng-false-value="0"/>
@@ -20,12 +20,12 @@
     <div id="route" class="input-group">
       <div class="form-item">
         <label>From</label>
-        <input type="text" id="origin" name="origin" placeholder="Select origin" ng-model="origin" uib-typeahead="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull | limitTo:5" class="input-sm form-control"/>
+        <input type="text" id="origin" required name="origin" placeholder="Select origin" ng-model="origin" uib-typeahead="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull | limitTo:5" class="input-sm form-control"/>
         <i class="fa fa-location-arrow" aria-hidden="true"></i>
       </div>
       <div class="form-item">
         <label>To</label>
-        <input type="text" id="destination" name="destination" placeholder="Select destination" class="input-sm form-control" ng-model="destination" uib-typeahead="airport.iata as airport.iata for airport in airports | filter:{'iata':$viewValue} | filter:notNull | limitTo:5"/>
+        <input type="text" id="destination" required name="destination" placeholder="Select destination" class="input-sm form-control" ng-model="destination" uib-typeahead="airport.iata as airport.iata for airport in airports | filter:{'iata':$viewValue} | filter:notNull | limitTo:5"/>
         <i class="fa fa-location-arrow" aria-hidden="true"></i>
       </div>
     </div>
@@ -33,13 +33,13 @@
     <div id="flight-datepicker" class="input-daterange input-group">
       <div class="form-item">
         <label>Depart on</label>
-        <input type="text" id="start-date" name="start" placeholder="Select depart date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="departingDate"/>
+        <input type="text" required id="start-date" name="start" placeholder="Select depart date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="departingDate"/>
         <i class="fa fa-calendar" aria-hidden="true"></i>
         <span class="date-text date-depart"></span>
       </div>
       <div ng-hide="oneWay" class="form-item class">
         <label>Return on</label>
-        <input type="text" id="end-date" name="end" placeholder="Select return date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="returningDate"/>
+        <input type="text" ng-required="!oneWay" id="end-date" name="end" placeholder="Select return date" data-date-format="DD, MM d" class="input-sm form-control" ng-model="returningDate"/>
         <i class="fa fa-calendar" aria-hidden="true"></i>
         <span class="date-text date-return"></span>
       </div>
@@ -47,13 +47,14 @@
     <fieldset class="class">
       <label>Class</label>
       <div class="select" id="select-type">
-        <select id="class" ng-model="class">
+        <select id="class" required ng-model="class">
           <option value="economy">Economy</option>
           <option value="business">Business</option>
         </select>
       </div>
     </fieldset>
-    <button id="search" class = "hvr-pulse" ng-click="findFlights()"><i class="fa fa-search" id="searchIcon" aria-hidden="true"></i>SEARCH</button>
+    <div ng-show="clicked" class="invalid">*Please fill in all fields.</div>
+    <button id="search" class = "hvr-pulse" ng-click="validateForm() && findFlights()"><i class="fa fa-search" id="searchIcon" aria-hidden="true"></i>SEARCH</button>
   </form>
 </div>
 <div id="viewBF" class="find">
@@ -61,7 +62,7 @@
     <h1><i class="fa fa-eye" aria-hidden="true"></i>  View booking</h1>
   </div>
   <div class="search-holder">
-    <input type="text" class="search-input" placeholder="Booking Ref." ng-model="bookingRef">
+    <input type="text" name="booking" class="search-input" placeholder="Booking Ref." ng-model="bookingRef">
     <button type="button" class="hvr-fade" ng-click="showBooking()"><i class="fa fa-search " aria-hidden="true"></i></button>
   </div>
 </div>
@@ -70,10 +71,24 @@
     <h1><i class="fa fa-info-circle" aria-hidden="true"></i>  check flight</h1>
   </div>
   <div class="search-holder">
-    <input type="text" class="search-input" placeholder="Flight No." ng-model="flightNo">
+    <input type="text" name="flight" class="search-input" placeholder="Flight No." ng-model="flightNo">
     <button type="button" class="hvr-fade" ng-click="checkFlight()"><i class="fa fa-search " aria-hidden="true"></i></button>
   </div>
 </div>
+<div>
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Sorry!</h3>
+    </div>
+    <div class="modal-body">
+      {{modalMessage}}
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+  </script>
+</div>
+
 <script src="js/jquery.easing.min.js"></script>
 <script src="js/scrolling-nav.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>

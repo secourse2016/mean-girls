@@ -3,6 +3,18 @@ angular.module('alaska')
   $scope.passenger={};
   masterSrvc.passenger={};
   masterSrvc.payment={};
+  $scope.clicked=false;
+  $scope.validateForm =  function(){
+
+    if($scope.passengerForm.$valid){
+      return true;
+    }
+    else{
+      $scope.clicked=true;
+      return false;
+    }
+
+  };
   $scope.SubmitInfo = function() {
 
     var firstName=$scope.passenger.firstName;
@@ -41,4 +53,5 @@ angular.module('alaska')
     $location.url('/payment');
 
   };
+
 });
