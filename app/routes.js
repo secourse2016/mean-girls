@@ -74,38 +74,41 @@ module.exports = function(app) {
 		}
 
 	});
+
+
 	app.get('/api/booking/:bookingRef', function(req,res){
 		var bookingRefNo = req.params['bookingRef'];
 		db.searchBooking(bookingRefNo,function(err,booking){
 
-			var outFlight=booking[0].outgoingFlight;
+			var outFlight=booking[0].outgoingFlightID;
 
 			db.searchFlight(outFlight,function(err,Outflight){
-				booking[0].outgoingFlight=Outflight[0];
+				booking[0].outgoingFlightID=Outflight[0];
 				var resvID=booking[0].reservationID;
 				var seatMap=Outflight[0].seatmap;
 				console.log(seatMap);
 				var outSeat;
+				//TODO adjust seatmap to handle several passengers!!
 				for (var i = 0; i < seatMap.length; i++) {
 					if(seatMap[i].reservationID===resvID){
 						outSeat=seatMap[i];
 						console.log("found it");
-						break;
+			-->			break;
 					}
 				}
 				var seatNumber = outSeat.seatNumber;
 				var cabinClass = outSeat.cabin;
 				var cost = outSeat.cost;
 
-				booking[0].outgoingFlight.seatNumber = seatNumber;
-				booking[0].outgoingFlight.class = cabinClass;
-				booking[0].outgoingFlight.cost = cost;
+				booking[0].outgoingFlightID.seatNumber = seatNumber;
+				booking[0].outgoingFlightID.class = cabinClass;
+				booking[0].outgoingFlightID.cost = cost;
 
-				var retFlight=booking[0].returnFlight;
+				var retFlight=booking[0].returnFlightID;
 
 				if(retFlight != null){
 					db.searchFlight(retFlight,function(err,Retflight){
-						booking[0].returnFlight=Retflight[0];
+						booking[0].returnFlightID=Retflight[0];
 						var returnseatMap=Retflight[0].seatmap;
 						var returnSeat;
 						for (var i = 0; i < returnseatMap.length; i++) {
@@ -118,9 +121,9 @@ module.exports = function(app) {
 						var returnCabinClass = returnSeat.cabin;
 						var returnCost = returnSeat.cost;
 
-						booking[0].returnFlight.seatNumber = returnSeatNumber;
-						booking[0].returnFlight.class = returnCabinClass;
-						booking[0].returnFlight.cost = returnCost;
+						booking[0].returnFlightID.seatNumber = returnSeatNumber;
+						booking[0].returnFlightID.class = returnCabinClass;
+						booking[0].returnFlightID.cost = returnCost;
 
 						res.send(booking[0]);
 					});
@@ -170,14 +173,36 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/api/addbooking',function(req,res){
-		var information = req.body;
-		console.log(information);
-		db.addBooking(information,function(err,booking){
-			if (err) return (err);
-			console.log(booking);
-			res.send(booking);
-		});
+	// app.post('/api/addbooking',function(req,res){
+	// 	var information = req.body;
+	// 	db.addBooking(information,function(err,booking){
+	// 		if (err) return (err);
+	// 		console.log("booking"+booking);
+	// 		res.send(booking);
+	// 	});
+	// });
+
+	app.post('/booking', function(req, res) {
+
+    // retrieve the token
+    var stripeToken = req.body.paymentToken;
+    var flightCost  = req.body.cost;
+
+    // attempt to create a charge using token
+    stripe.charges.create({
+      amount: flightCost,
+      currency: "usd",
+      source: stripeToken,
+      description: "test"
+    }, function(err, data) {
+	    if (err) res.send({ refNum: null, errorMessage: "Error occured while charging! "});
+	    else
+	       	var information = req.body;
+			db.addBooking(information,function(err,refNum){
+				if (err) res.send({ refNum: refNum, errorMessage: null});
+			});
+	    });
+
 	});
 
 	app.get('/api/airports', function(req,res){
@@ -252,7 +277,7 @@ module.exports = function(app) {
 			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
 			"http://52.32.109.147",
 			  "http://52.36.169.206",
-			  "http://ec2-52-91-94-227.compute-1.amazonaws.com"
+			  "http://ec2-52-91-94-227.compute-1.amazonaws.com",
 			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
 			"http://ec2-52-90-41-197.compute-1.amazonaws.com"
 		];
@@ -321,7 +346,7 @@ module.exports = function(app) {
 			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
 			"http://52.32.109.147",
 			"http://52.36.169.206",
-			"http://ec2-52-91-94-227.compute-1.amazonaws.com"
+			"http://ec2-52-91-94-227.compute-1.amazonaws.com",
 			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
 			"http://ec2-52-90-41-197.compute-1.amazonaws.com"
 		];
