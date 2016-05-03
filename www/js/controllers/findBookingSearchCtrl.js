@@ -1,5 +1,5 @@
 angular.module('alaskaIonic')
-.controller("findBookingSearchCtrl", function($scope,$routeParams,$state,$http,bookingSrvc,masterSrvc, $uibModal,modalSrvc){
+.controller("findBookingSearchCtrl", function($scope,$routeParams,$state,$http,bookingSrvc, $uibModal,modalSrvc){
 	
 	$scope.showBooking = function() {
 		var bookingRef=$scope.bookingRef;

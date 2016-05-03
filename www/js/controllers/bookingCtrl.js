@@ -1,5 +1,5 @@
 angular.module('alaskaIonic')
-.controller("bookingCtrl", function($scope,$routeParams,bookingSrvc,masterSrvc){
+.controller("bookingCtrl", function($scope,$routeParams,bookingSrvc){
 	bookingSrvc.getBooking(function(booking){
 		$scope.booking=booking;
 	});
