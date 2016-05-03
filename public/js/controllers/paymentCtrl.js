@@ -1,5 +1,18 @@
 angular.module('alaska')
 .controller('paymentCtrl',function($scope,$location,masterSrvc){
+  $scope.clicked=false;
+  $scope.validateForm =  function(){
+
+		if($scope.paymentForm.$valid){
+			return true;
+		}
+		else{
+			$scope.clicked=true;
+			return false;
+		}
+
+	};
+
   $scope.SubmitPayment = function() {
     var cardType=$scope.cardType;
     masterSrvc.payment.cardType=cardType;

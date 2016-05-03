@@ -19,8 +19,12 @@ exports.db = function() {
   if (DB === null) throw Error('DB Object has not yet been initialized');
   return DB;
 };
-
-
+exports.contact= function(contact,cb){
+  DB.collection('contactUs').insert(contact, function(err){
+    if(err)
+    cb(err);
+  });
+}
 function seedFlights(cb){
   DB.collection('flights').find().toArray(function (err, docs) {
     if (err) return cb(err);
@@ -39,7 +43,6 @@ function seedFlights(cb){
 function outGoingFlightsSeed(cb){
   seedAFlight(false,function(err){
     if (err) return err;
-    console.log("7alo ya 7alo")
     cb();
   });
 }
@@ -47,7 +50,6 @@ function outGoingFlightsSeed(cb){
 function returnFlightSeed(cb){
   seedAFlight(true,function(err){
     if (err) return err;
-    console.log("Done");
     cb();
   });
 }

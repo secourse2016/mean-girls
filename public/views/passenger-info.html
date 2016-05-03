@@ -1,31 +1,31 @@
 <div class="passenger">
   <div class="info-header container-fluid"><h2> Passenger Info</h2></div>
   <div class="info-wrapper">
-    <form class="form" autocomplete="off" novalidate>
+    <form class="form" name="passengerForm" autocomplete="off" novalidate>
       <div class=".form-inline">
         <fieldset class="input-first-name" >
           <label for="first-name">First Name</label>
-          <input type="text" id="first-name" ng-model="passenger.firstName"/>
+          <input type="text" required id="first-name" ng-model="passenger.firstName"/>
         </fieldset>
         <fieldset class="input-last-name" >
           <label for="last-name">Last Name</label>
-          <input type="text" id="last-name" ng-model="passenger.lastName"/>
+          <input type="text" required id="last-name" ng-model="passenger.lastName"/>
         </fieldset>
       </div>
       <div class=".form-inline">
         <fieldset class="input-gender">
-          <input type="radio" class="gender" id="male" name="gender" value="male" ng-model="passenger.gender"/>
+          <input type="radio" ng-required="!passenger.gender" class="gender" id="male" name="gender" value="male" ng-model="passenger.gender"/>
           <label for="male">Male</label>
         </fieldset>
         <fieldset class="input-gender">
-          <input type="radio" class="gender" id="female" name="gender" value="female" ng-model="passenger.gender"/>
+          <input type="radio" ng-required="!passenger.gender" class="gender" id="female" name="gender" value="female" ng-model="passenger.gender"/>
           <label for="female">Female</label>
         </fieldset>
       </div>
       <fieldset>
         <label for="country">Country</label>
         <div class="select">
-          <select name="country" ng-model="passenger.passportCountry">
+          <select name="country" required ng-model="passenger.passportCountry">
             <option ng-value="AF">Afghanistan</option>
             <option ng-value="AX">Åland Islands</option>
             <option ng-value="AL">Albania</option>
@@ -282,7 +282,7 @@
       <fieldset class="birth-date">
         <label for="birth-date-month">Birth date</label>
         <div class="select">
-          <select id="birth-date-day" ng-model="passenger.birthDay">
+          <select required id="birth-date-day" ng-model="passenger.birthDay">
             <option></option>
             <option ng-value="01">01</option>
             <option ng-value="02">02</option>
@@ -318,7 +318,7 @@
           </select>
         </div>
         <div class="select">
-          <select id="birth-date-month" ng-model="passenger.birthMonth">
+          <select required id="birth-date-month" ng-model="passenger.birthMonth">
             <option></option>
             <option ng-value="01">01</option>
             <option ng-value="02">02</option>
@@ -335,7 +335,7 @@
           </select>
         </div>
         <div class="select">
-          <select id="birth-date-year" ng-model="passenger.birthYear">
+          <select required id="birth-date-year" ng-model="passenger.birthYear">
             <option></option>
             <option ng-value="2016">2016</option>
             <option ng-value="2015">2015</option>
@@ -458,12 +458,12 @@
       </fieldset>
       <fieldset class="input-passport" >
         <label for="passport-number">Passport Number</label>
-        <input type="text" id="passport-number" ng-model="passenger.passportNo"/>
+        <input required type="text" id="passport-number" ng-model="passenger.passportNo"/>
       </fieldset>
       <fieldset class="passport-date">
         <label for="passport-issue-month">Issue date</label>
         <div class="select">
-          <select id="passport-issue-day" ng-model="passenger.issueDay">
+          <select required id="passport-issue-day" ng-model="passenger.issueDay">
             <option></option>
             <option ng-value="01">01</option>
             <option ng-value="02">02</option>
@@ -499,7 +499,7 @@
           </select>
         </div>
         <div class="select">
-          <select id="passport-issue-month" ng-model="passenger.issueMonth">
+          <select required id="passport-issue-month" ng-model="passenger.issueMonth">
             <option></option>
             <option ng-value="01">01</option>
             <option ng-value="02">02</option>
@@ -516,7 +516,7 @@
           </select>
         </div>
         <div class="select">
-          <select id="passport-issue-year" ng-model="passenger.issueYear">
+          <select required id="passport-issue-year" ng-model="passenger.issueYear">
             <option></option>
             <option ng-value="2016">2016</option>
             <option ng-value="2015">2015</option>
@@ -534,7 +534,7 @@
       <fieldset class="passport-date">
         <label for="passport-expiration-month">Expiry date</label>
         <div class="select">
-          <select id="passport-expiration-day" ng-model="passenger.expiryDay">
+          <select required id="passport-expiration-day" ng-model="passenger.expiryDay">
             <option></option>
             <option ng-value="01">01</option>
             <option ng-value="02">02</option>
@@ -570,7 +570,7 @@
           </select>
         </div>
         <div class="select">
-          <select id="passport-expiration-month" ng-model="passenger.expiryMonth">
+          <select required  id="passport-expiration-month" ng-model="passenger.expiryMonth">
             <option></option>
             <option ng-value="01">01</option>
             <option ng-value="02">02</option>
@@ -587,7 +587,7 @@
           </select>
         </div>
         <div class="select">
-          <select id="passport-expiration-year"ng-model="passenger.expiryYear">
+          <select required id="passport-expiration-year"ng-model="passenger.expiryYear">
             <option></option>
             <option ng-value="2016">2016</option>
             <option ng-value="2017">2017</option>
@@ -602,7 +602,8 @@
           </select>
         </div>
       </fieldset>
-      <button class="continue hvr-pulse" ng-click="SubmitInfo()">continue</button>
+      <div ng-show="clicked" class="invalid">*Please fill in all fields.</div>
+      <button class="continue hvr-pulse" ng-click="validateForm() && SubmitInfo()">continue</button>
     </form>
   </div>
 </div>

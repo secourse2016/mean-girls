@@ -28,29 +28,31 @@
       <span class="title title-b">Booking Ref. </span>
       <span class="title">{{booking.bookingRefNo}}</span>
     </div>
-    <div class="depart">
-      <span class="title">Outbound</span>
-      <div class="half">
-        <span class="way">Departing</span>
-        {{booking.outgoingFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
-      </div><!--
-      -->
-      <div class="half">
-        <span class="way">Arriving</span>
-        {{booking.outgoingFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+    <div class="flights">
+      <div class="depart">
+        <span class="title">Outbound</span>
+        <div class="half">
+          <span class="way">Departing</span>
+          {{booking.outgoingFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div><!--
+        -->
+        <div class="half">
+          <span class="way">Arriving</span>
+          {{booking.outgoingFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div>
       </div>
-    </div>
 
-    <div class="return" ng-hide="booking.oneWay">
-      <span class="title">Return</span>
-      <div class="half">
-        <span class="way">Departing</span>
-        {{booking.returnFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
-      </div><!--
-      -->
-      <div class="half">
-        <span class="way">Arriving</span>
-        {{booking.returnFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+      <div class="return" ng-hide="booking.oneWay">
+        <span class="title">Return</span>
+        <div class="half">
+          <span class="way">Departing</span>
+          {{booking.returnFlight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div><!--
+        -->
+        <div class="half">
+          <span class="way">Arriving</span>
+          {{booking.returnFlight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}
+        </div>
       </div>
     </div>
   </div>
@@ -81,9 +83,8 @@
             <img class="chip" src="https://www.bethpagefcu.com/~/media/Images/bethpage/Page-Content/CC_chip.ashx?la=en">
             <span class="payment-title">Payment Details</span>
             <div class="field" id="number">{{booking.payment.cardNo}}</div>
-            <div class="field" id="name"> {{booking.payment.cardHolder}}</div>
-            <div class="field" id="date"> {{booking.payment.expiryDate}}</div>
-            <div class="field" id="total"> {{booking.payment.amount}}</div>
+            <div class="field" id="date">{{booking.payment.expiryDate}}</div>
+            <div class="field" id="total">${{booking.payment.amount}}</div>
           </div>
         </div>
       </div>
