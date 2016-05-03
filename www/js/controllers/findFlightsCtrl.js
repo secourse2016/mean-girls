@@ -1,33 +1,13 @@
 angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$state,flightsSrvc,$http,masterSrvc){
     var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
 
-    $http.get('http://localhost:3000/api/airports/?wt='+token).success(function(data) {
-        $scope.airports = data;
-        masterSrvc.airports=data;
-    });
-	// $scope.airports=[
- //    {
- //        "iata": "HDF",
- //        "lon": "14.138242",
- //        "iso": "DE",
- //        "status": 1,
- //        "name": "Heringsdorf Airport",
- //        "continent": "EU",
- //        "type": "airport",
- //        "lat": "53.87825",
- //        "size": "medium"
- //    },
- //    {
- //        "iata": "BBH",
- //        "lon": "12.711667",
- //        "iso": "DE",
- //        "status": 1,
- //        "name": "Barth Airport",
- //        "continent": "EU",
- //        "type": "airport",
- //        "lat": "54.33972",
- //        "size": "small"
- //    }];
+    // $http.get('http://localhost:3000/api/airports/?wt='+token).success(function(data) {
+    //     $scope.airports = data;
+    //     masterSrvc.airports=data;
+    // });
+    $scope.airports=flightsSrvc.getAirports();
+    masterSrvc.airports=flightsSrvc.getAirports();
+    console.log($scope.airports);
 
 
 	$scope.findFlights = function() {
@@ -148,11 +128,10 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
     }
   };
 
-
-
-
-	$scope.notNull = function (airport){
+    $scope.notNull = function (airport){
 		return airport.name != null;
 	};
+
+
 
 });

@@ -7,16 +7,19 @@
 
             <ion-toggle toggle-class="toggle-calm" id="direction" name="direction" ng-model="$parent.oneWay"  ng-true-value="1" ng-false-value="0" >One Way</ion-toggle>
 
-            <label class="item item-input">
-                <span class="input-label">From</span>
-                <input type="text"  id="origin" name="origin" placeholder="Select origin" ng-model="$parent.origin" ionic-autocomplete="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull | limitTo:5">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                  From
+                </div>
+                <select type="text"  id="origin" name="origin" placeholder="Select origin" ng-model="$parent.origin" ng-options="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull">
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                  To
+                </div>
+                <select type="text"  id="destination" name="destination" placeholder="Select destination" ng-model="$parent.destination" ng-options="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull">
             </label>
 
-
-            <label class="item item-input">
-                <span class="input-label">To</span>
-                <input type="text" id="destination" name="destination" placeholder="Select destination"  ng-model="$parent.destination" ionic-autocomplete="airport.iata as airport.iata for airport in airports | filter:{'iata':$viewValue} | filter:notNull | limitTo:5">
-            </label>
             <onezone-datepicker datepicker-object="onezoneDatepickerOutgoing ">
                 <button class="button button-block button-outline button-positive show-onezone-datepicker" name="start" >
                     Depart: {{onezoneDatepickerOutgoing.date | date:'dd MMMM yyyy'}} 

@@ -80,21 +80,4 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
 
 $urlRouterProvider.otherwise('/tab/findFlights');
 
-  //Inject jwt token to all http requests
-  // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
-  // $httpProvider.interceptors.push(['$q', '$location', function ($q, $state) {
-  //   return {
-  //     'request': function (config) {
-  //       config.headers = config.headers || {};
-  //       config.headers['x-access-token'] = token;
-  //       return config;
-  //     },
-  //     'responseError': function (response) {
-  //       if (response.status === 401 || response.status === 403) {
-  //       }
-  //       return $q.reject(response);
-  //     }
-  //   };
-  // }]); 
-
 });
