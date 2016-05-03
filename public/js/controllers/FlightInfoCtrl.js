@@ -6,11 +6,11 @@ controller('flightInfoCtrl',function($scope, $http,flightInfoSrvc,masterSrvc){
   var departure=new Date(flightInfoSrvc.flight.departureDateTime);
   var arrival=new Date(flightInfoSrvc.flight.arrivalDateTime);
   var now=new Date();
-  if(departure<now){
+  if(departure>now){
     $scope.status="scheduled";
   }
   else{
-    if(arrival<now)
+    if(arrival>now)
     $scope.status="departed";
     else {
       $scope.status="landed";

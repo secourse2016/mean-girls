@@ -32,7 +32,9 @@
       <h2>{{flight.flightNumber}}</h2>
       <div class="airports">
         {{getAirportName(flight.origin)}}
-        <i class="material-icons">keyboard_arrow_right</i>
+        <br>
+        <i class="material-icons">keyboard_arrow_down</i>
+        <br>
         {{getAirportName(flight.destination)}}
       </div>
       <h3>  {{flight.departureDateTime | date:"MM/dd/yyyy 'at' h:mma"}} - {{flight.arrivalDateTime | date:"MM/dd/yyyy 'at' h:mma"}}</h3>

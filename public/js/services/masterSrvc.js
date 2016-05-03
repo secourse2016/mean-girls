@@ -15,10 +15,14 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
       else{
         data.returnFlight=null;
       }
-      $http.post('/api/addbooking',data).success(function(booking){
-        var bookingRefNo=booking.bookingRefNo;
-        bookingSrvc.bookingRefNo=bookingRefNo;
-        $location.url('/booking');
+      $http.post('/api/booking',data).success(function(booking){
+          var bookingRef = booking.bookingRefNo;
+          console.log("BookingRef: "+bookingRef);
+          $http.get('/api/booking/'+bookingRef).success(function(booking1){
+            console.log("Booking1: "+ booking1);
+      			bookingSrvc.booking=booking1;
+      			$location.url('/booking');
+      		});
       });
 
     }
