@@ -26,6 +26,10 @@ app.config(function($httpProvider,$routeProvider) {
 		templateUrl : 'views/booking.html',
 		controller: 'bookingCtrl'
 	})
+	.when('/confirm',{
+		templateUrl	: 'views/confirm.html',
+		controller	:'confirmCtrl'
+	})
 	.when('/', {
 		templateUrl : 'views/landing-new.html',
 		controller  : 'landingCtrl'

@@ -48,6 +48,8 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
           return;
         }
         confirmSrvc.bookingRefOut = resOut.refNum;
+        confirmSrvc.airlineOut  = outgoingFlight.Airline;
+        confirmSrvc.bookingRefRet = null;
         cb();
 
       });
@@ -106,6 +108,7 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
             return;
           }
           confirmSrvc.bookingRefOut = resOut.refNum;
+          confirmSrvc.airlineOut  = this.outgoingFlight.Airline;
 
           //modify for return
           var retReq = angular.copy(this.data);
@@ -121,6 +124,7 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
               return;
             }
             confirmSrvc.bookingRefRet = resRet.refNum;
+            confirmSrvc.airlineRet = this.returnFlight.Airline;
             //done
             location.url('/confirm');
           });
