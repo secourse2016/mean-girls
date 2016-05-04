@@ -46,7 +46,11 @@ module.exports = function(app) {
 		}
 
 		const urls=  [
-			"http://54.191.202.17"
+			"http://54.191.202.17",
+			"http://54.93.36.94",
+			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
+			"http://52.27.150.19",
+			"http://52.58.24.76"
 		];
 
 		async.map(urls, httpGet, function (err, res){
@@ -54,7 +58,9 @@ module.exports = function(app) {
 			console.log(res);
 
 			for(var i=0;i<res.length;i++)
-			{	var outgoingFlights = res[i].outgoingFlights;
+			{	if(!res[i])
+				continue;
+				var outgoingFlights = res[i].outgoingFlights;
 				for (var j = 0; j < outgoingFlights.length; j++) {
 					outgoingFlights[j].airlineIP = urls[i];
 				}
@@ -94,7 +100,11 @@ module.exports = function(app) {
 		}
 
 		const urls= [
-			"http://54.191.202.17"
+			"http://54.191.202.17",
+			"http://54.93.36.94",
+			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
+			"http://52.27.150.19",
+			"http://52.58.24.76"
 		];
 
 		async.map(urls, httpGet, function (err, res){
@@ -102,6 +112,8 @@ module.exports = function(app) {
 
 			for(var i=0;i<res.length;i++)
 			{
+				if(!res[i])
+				continue;
 				var outgoingFlights = res[i].outgoingFlights;
 				var returnFlights 	= res[i].returnFlights;
 
