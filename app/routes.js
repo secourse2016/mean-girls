@@ -10,22 +10,8 @@ module.exports = function(app) {
 	var jwtexp  =require('express-jwt')
 	var airlinesIP = require('../json/otherAirlines.json');
 
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req, res) {
-		var params = {};
-		var reqClass = req.params['class'];
-		params.origin = req.params['origin'];
-		params.destination = req.params['destination'];
-		params.departingDate = req.params['departingDate']
-		params.returningDate = req.params['returningDate']
-		params.class = req.params['class'];
-		params.seats = req.params['seats'];
-		db.searchRoundTripFlight(params,function(result){
-			db.formatData(result,reqClass,function(finalresult){
-				res.send(finalresult);
-			});
-		});
-	});
-	
+
+
 	app.use(function (req, res, next) {
 		res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST', 'OPTIONS', 'PUT', 'DELETE');
 		res.setHeader('Access-Control-Allow-Origin', '*');
@@ -185,31 +171,22 @@ module.exports = function(app) {
 
 	});
 
-	// app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req, res) {
-	// 	var params = {};
-	// 	var reqClass = req.params['class'];
-	// 	params.origin = req.params['origin'];
-	// 	params.destination = req.params['destination'];
-	// 	params.departingDate = req.params['departingDate']
-	// 	params.returningDate = req.params['returningDate']
-	// 	params.class = req.params['class'];
-	// 	params.seats = req.params['seats'];
-	// 	db.searchRoundTripFlight(params,function(result){
-	// 		db.formatData(result,reqClass,function(finalresult){
-	// 			res.send(finalresult);
-	// 		});
-	// 	});
-	// });
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req, res) {
+		var params = {};
+		var reqClass = req.params['class'];
+		params.origin = req.params['origin'];
+		params.destination = req.params['destination'];
+		params.departingDate = req.params['departingDate']
+		params.returningDate = req.params['returningDate']
+		params.class = req.params['class'];
+		params.seats = req.params['seats'];
+		db.searchRoundTripFlight(params,function(result){
+			db.formatData(result,reqClass,function(finalresult){
+				res.send(finalresult);
+			});
+		});
+	});
 
-
-	// app.post('/api/addbooking',function(req,res){
-	// 	var information = req.body;
-	// 	db.addBooking(information,function(err,booking){
-	// 		if (err) return (err);
-	// 		console.log("booking"+booking);
-	// 		res.send(booking);
-	// 	});
-	// });
 
 	app.post('/booking', function(req, res) {
 
