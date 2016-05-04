@@ -19,7 +19,110 @@ module.exports = function(app) {
 		next();
 	});
 
+	//new code other airlines
 
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req1,res1){
+		const async = require('async');
+		const request = require('request');
+		var result=[];
+		var originValue = req1.params['origin'];
+		var destinationValue = req1.params['destination'];
+		var departingDateValue = req1.params['departingDate'];
+		var classValue = req1.params['class'];
+		var seatsValue = req1.params['seats'];
+
+		function httpGet(url, callback) {
+			var secret = 'CSEN603ROCKSi<8SE!';
+			var token = jwt.sign({},secret);
+			token= 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI';
+			const options = {
+				json:	true,
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'/?wt='+token
+			};
+			console.log(options.url);
+			request(options, function(err, res, body) {
+				callback(err, body);
+			});
+		}
+
+		const urls=  [
+			"http://54.191.202.17"
+		];
+
+		async.map(urls, httpGet, function (err, res){
+
+			console.log(res);
+
+			for(var i=0;i<res.length;i++)
+			{	var outgoingFlights = res[i].outgoingFlights;
+				for (var j = 0; j < outgoingFlights.length; j++) {
+					outgoingFlights[j].airlineIP = urls[i];
+				}
+				result = result.concat(outgoingFlights);
+			}
+			res1.send({outgoingFlights : result});
+
+		});
+	});
+
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req1,res1){
+
+		const async = require('async');
+		const request = require('request');
+		var outgoing=[];
+		var returning=[];
+		var originValue = req1.params['origin'];
+		var destinationValue = req1.params['destination'];
+		var departingDateValue = req1.params['departingDate'];
+		var returningDateValue = req1.params['returningDate'];
+		var classValue = req1.params['class'];
+		var seatsValue = req1.params['seats'];
+
+		function httpGet(url, callback) {
+			var secret = 'CSEN603ROCKSi<8SE!';
+			var token = jwt.sign({},secret);
+			token= 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI';
+
+			const options = {
+				method:'GET',
+				json:true,
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'/'+seatsValue+'/?wt='+token
+			};
+			request(options, function(err, res, body) {
+				callback(err, body);
+			});
+		}
+
+		const urls= [
+			"http://54.191.202.17"
+		];
+
+		async.map(urls, httpGet, function (err, res){
+			console.log(res);
+
+			for(var i=0;i<res.length;i++)
+			{
+				var outgoingFlights = res[i].outgoingFlights;
+				var returnFlights 	= res[i].returnFlights;
+
+				for (var j = 0; j < returnFlights.length; j++) {
+					returnFlights[j].airlineIP = urls[i];
+				}
+				for (var j = 0; j < outgoingFlights.length; j++) {
+					outgoingFlights[j].airlineIP = urls[i];
+				}
+
+				outgoing = outgoing.concat(outgoingFlights);
+				returning =returning.concat(returnFlights);
+			}
+
+			var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
+			res1.send(Finalresult);
+
+
+		});
+
+	});
 
 	app.get('/', function (req, res) {
 		res.sendFile(path.join(__dirname, '../public', 'index.html'));
@@ -230,101 +333,114 @@ module.exports = function(app) {
 	});
 
 
-	//new code other airlines
+	// //new code other airlines
+	//
+	// app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req1,res1){
+	// 	const async = require('async');
+	// 	const request = require('request');
+	// 	var result=[];
+	// 	var originValue = req1.params['origin'];
+	// 	var destinationValue = req1.params['destination'];
+	// 	var departingDateValue = req1.params['departingDate'];
+	// 	var classValue = req1.params['class'];
+	// 	var seatsValue = req1.paramas['seats'];
+	//
+	// 	function httpGet(url, callback) {
+	// 		var secret = 'CSEN603ROCKSi<8SE!';
+	// 		var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
+	// 		var decoded = jwt.verify(token, 'CSEN603ROCKSi<8SE!');
+	//
+	// 		const options = {
+	// 			port:80,
+	// 			method:'GET',
+	// 			json:true,
+	// 			url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
+	// 		};
+	// 		request(options, function(err, res, body) {
+	// 			callback(err, body);
+	// 		});
+	// 	}
+	//
+	// 	const urls=  [
+	// 		"54.191.202.17",
+	// 		"ec2-52-90-41-197.compute-1.amazonaws.com"
+	// 	];
+	//
+	// 	async.map(urls, httpGet, function (err, res){
+	//
+	// 		console.log( res);
+	// 		console.log("res length"+res.length);
+	// 		for(var i=0;i<res.length;i++)
+	// 		{	var outgoingFlights = res[i].outgoingFlights;
+	// 			for (var i = 0; i < outgoingFlights.length; i++) {
+	// 				outgoingFlights[i].airlineIP = urls[i];
+	// 			}
+	// 			result.push(outgoingFlights);
+	// 		}
+	// 		var finalresult = {"outgoingFlights":result};
+	// 		res1.send(finalresult);
+	//
+	// 	});
+	// });
 
-	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req1,res1){
-		const async = require('async');
-		const request = require('request');
-		var result=[];
-		var originValue = req1.params['origin'];
-		var destinationValue = req1.params['destination'];
-		var departingDateValue = req1.params['departingDate'];
-		var classValue = req1.params['class'];
-		var seatsValue = req1.paramas['seats'];
-
-		function httpGet(url, callback) {
-			var secret = 'CSEN603ROCKSi<8SE!';
-			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
-			var decoded = jwt.verify(token, 'CSEN603ROCKSi<8SE!');
-
-			const options = {
-				port:80,
-				method:'GET',
-				json:true,
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
-			};
-			request(options, function(err, res, body) {
-				callback(err, body);
-			});
-		}
-
-		const urls=  [
-			"54.191.202.17",
-			"ec2-52-90-41-197.compute-1.amazonaws.com"
-		];
-
-		async.map(urls, httpGet, function (err, res){
-
-			console.log( res);
-			console.log("res length"+res.length);
-			for(var i=0;i<res.length;i++)
-			{
-				result.push(res[i].outgoingFlights);
-			}
-			var finalresult = {"outgoingFlights":result};
-			res1.send(finalresult);
-
-		});
-	});
-
-	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req1,res1){
-
-		const async = require('async');
-		const request = require('request');
-		var outgoing=[];
-		var returning=[];
-		var originValue = req1.params['origin'];
-		var destinationValue = req1.params['destination'];
-		var departingDateValue = req1.params['departingDate'];
-		var returningDateValue = req1.params['returningDate'];
-		var classValue = req1.params['class'];
-		var seatsValue = req1.paramas['seats'];
-
-		function httpGet(url, callback) {
-			var secret = 'CSEN603ROCKSi<8SE!';
-			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
-			var decoded = jwt.verify(token, 'CSEN603ROCKSi<8SE!');
-			const options = {
-				port:80,
-				method:'GET',
-				json:true,
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
-			};
-			request(options, function(err, res, body) {
-				callback(err, body);
-			});
-		}
-
-		const urls= [
-			"54.191.202.17",
-			"ec2-52-90-41-197.compute-1.amazonaws.com"
-		];
-
-		async.map(urls, httpGet, function (err, res){
-			console.log(res);
-
-			for(var i=0;i<res.length;i++)
-			{
-				outgoing.push(res[i].outgoingFlights);
-				returning.push(res[i].returnFlights);
-			}
-
-			var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
-			res1.send(Finalresult);
-
-
-		});
-
-	});
+	// app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req1,res1){
+	//
+	// 	const async = require('async');
+	// 	const request = require('request');
+	// 	var outgoing=[];
+	// 	var returning=[];
+	// 	var originValue = req1.params['origin'];
+	// 	var destinationValue = req1.params['destination'];
+	// 	var departingDateValue = req1.params['departingDate'];
+	// 	var returningDateValue = req1.params['returningDate'];
+	// 	var classValue = req1.params['class'];
+	// 	var seatsValue = req1.params['seats'];
+	//
+	// 	function httpGet(url, callback) {
+	// 		var secret = 'CSEN603ROCKSi<8SE!';
+	// 		var token = jwt.sign({},secret);
+	// 		console.log(token);
+	//
+	// 		const options = {
+	// 			port:80,
+	// 			method:'GET',
+	// 			json:true,
+	// 			url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
+	// 		};
+	// 		request(options, function(err, res, body) {
+	// 			callback(err, body);
+	// 		});
+	// 	}
+	//
+	// 	const urls= [
+	// 		"54.191.202.17"
+	// 	];
+	//
+	// 	async.map(urls, httpGet, function (err, res){
+	// 		console.log(res);
+	//
+	// 		for(var i=0;i<res.length;i++)
+	// 		{
+	// 			var outgoingFlights = res[i].outgoingFlights;
+	// 			var returnFlights 	= res[i].returnFlights;
+	//
+	// 			for (var j = 0; j < retunFlights.length; i++) {
+	// 				returnFlights[j].airlineIP = urls[i];
+	// 			}
+	// 			for (var j = 0; j < outgoingFlights.length; i++) {
+	// 				outgoingFlights[j].airlineIP = urls[i];
+	// 			}
+	//
+	// 			outgoing.push(outgoingFlights);
+	// 			returning.push(returnFlights);
+	// 		}
+	//
+	// 		var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
+	// 		res1.send(Finalresult);
+	//
+	//
+	// 	});
+	//
+	// });
 
 }
