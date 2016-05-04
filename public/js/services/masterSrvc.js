@@ -11,16 +11,18 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
       data.class            = this.seatClass;
       data.outgoingFlightId = angular.copy(this.outgoingFlight.flightId);
 
-      if(!returnFlight)
+      if(returnFlight)
       {
         data.returnFlightId   = angular.copy(this.returnFlight.flightId);
       }
 
       this.data=data;
+      console.log("data: "+this.data);
 
       if(!returnFlight) //oneWay flight
       {
-        outHandler(this.bookingOneWayHandler, function(){
+        console.log("not return flight");
+        this.outHandler(this.bookingOneWayHandler, function(){
           location.url('/confirm');
         });
       }
@@ -36,7 +38,9 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
     }
     ,
     bookingOneWayHandler  : function (outToken,cb) {
-      var outAirlineIP = this.outgoingFlight.airlineIP;
+      var outAirline   = this.outgoingFlight.Airline;
+      var outAirlineIP = outAirline === "Alaska" ? "" : this.outgoingFlight.airlineIP;
+
       var outReq = angular.copy(this.data);
       outReq.paymentToken = outToken;
       outReq.returnFlightId = null;
@@ -65,7 +69,8 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
       var returnFlight  = this.returnFlight;
       var outgoingFlight= this.outgoingFlight;
 
-      var retAirlineIP = returnFlight.airlineIP;
+      var retAirline   = this.returnFlight.Airline;
+      var retAirlineIP = retAirline === "Alaska" ? "" : this.returnFlight.airlineIP;
 
       $http.get(retAirlineIP + '/stripe/pubkey').success(function(pubkey){
         Stripe.setPublishableKey(pubkey);
@@ -93,8 +98,11 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
 
       bookingRoundHandler : function(outToken, retToken){
 
-        var outAirlineIP = this.outgoingFlight.airlineIP;
-        var retAirlineIP = this.returnFlight.airlineIP;
+        var outAirline   = this.outgoingFlight.Airline;
+        var outAirlineIP = outAirline === "Alaska" ? "" : this.outgoingFlight.airlineIP;
+
+        var retAirline   = this.returnFlight.Airline;
+        var retAirlineIP = retAirline === "Alaska" ? "" : this.returnFlight.airlineIP;
 
         var outReq = angular.copy(this.data);
         outReq.paymentToken = outToken;
@@ -140,8 +148,11 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
         var returnFlight  = this.returnFlight;
         var outgoingFlight= this.outgoingFlight;
 
-        var outAirlineIP = outgoingFlight.airlineIP;
+        var outAirline   = this.outgoingFlight.Airline;
+        var outAirlineIP = outAirline === "Alaska" ? "" : this.outgoingFlight.airlineIP;
+        console.log("outHandler called");
         $http.get(outAirlineIP + '/stripe/pubkey').success(function(pubkey){
+          console.log("pub key: "+ pubkey);
           Stripe.setPublishableKey(pubkey);
           Stripe.card.createToken({
             number: cardNo,
@@ -153,9 +164,12 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
             if(response.error){
               // Problem!
               this.openModal("Error occured during card verification: "+ response.error);
+              console.log(response.error);
               return;
             }
+            console.log("card created for one way");
             var outToken = response.id;
+            console.log(outToken);
             cb1(outToken,cb2); //handle the return flight
           });
         });
@@ -172,7 +186,8 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
         var returnFlight  = this.returnFlight;
         var outgoingFlight= this.outgoingFlight;
 
-        var airlineIP = returnFlight.airlineIP;
+        var airline   = returnFlight.Airline;
+        var airlineIP = airline==="Alaska"? "" :returnFlight.airlineIP;
 
         $http.get(airlineIP + '/stripe/pubkey').success(function(pubkey){
           Stripe.setPublishableKey(pubkey);
@@ -201,7 +216,9 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
       var req = angular.copy(this.data);
       req.paymentToken     = token;
       req.cost = this.outgoingFlight.cost + this.returnFlight.cost;
-      var airlineIP = returnFlight.airlineIP;
+
+      var airline   = returnFlight.Airline;
+      var airlineIP = airline==="Alaska"? "" :returnFlight.airlineIP;
 
       $http.post(airlineIP + '/booking',req).success(function(res){
         if(res.errorMessage){
