@@ -15,18 +15,18 @@
       </div>
       <div class="back">
         <div class="strip"></div>
-        <div class="ccv">
-          <label>CCV</label>
+        <div class="cvc">
+          <label>cvc</label>
           <div></div>
         </div>
       </div>
     </div>
   </div>
-  <form class="form" autocomplete="off" novalidate>
+  <form class="form" name="paymentForm" autocomplete="off" novalidate>
     <fieldset>
       <label for="card-type">Card Type</label>
       <div class="select" id="select-type">
-        <select id="card-type" ng-model="cardType">
+        <select required id="card-type" ng-model="cardType">
           <option></option>
           <option value="Visa">Visa</option>
           <option value="MasterCard">MasterCard</option>
@@ -35,19 +35,19 @@
     </fieldset>
     <fieldset>
       <label for="card-number">Card Number</label>
-      <input type="num" ng-model="cardNo1" id="card-number" class="input-cart-number" maxlength="4" />
-      <input type="num" ng-model="cardNo2" id="card-number-1" class="input-cart-number" maxlength="4" />
-      <input type="num" ng-model="cardNo3" id="card-number-2" class="input-cart-number" maxlength="4" />
-      <input type="num" ng-model="cardNo4" id="card-number-3" class="input-cart-number" maxlength="4" />
+      <input required type="num" ng-model="cardNo1" id="card-number" class="input-cart-number" maxlength="4" />
+      <input required type="num" ng-model="cardNo2" id="card-number-1" class="input-cart-number" maxlength="4" />
+      <input required type="num" ng-model="cardNo3" id="card-number-2" class="input-cart-number" maxlength="4" />
+      <input required type="num" ng-model="cardNo4" id="card-number-3" class="input-cart-number" maxlength="4" />
     </fieldset>
     <fieldset>
       <label for="card-holder">Card holder</label>
-      <input type="text" id="card-holder" ng-model="cardHolder" />
+      <input required type="text" id="card-holder" ng-model="cardHolder" />
     </fieldset>
     <fieldset class="fieldset-expiration">
       <label for="card-expiration-month">Expiration date</label>
       <div class="select">
-        <select id="card-expiration-month" ng-model="expiryMonth">
+        <select required id="card-expiration-month" ng-model="expiryMonth">
           <option></option>
           <option value="01">01</option>
           <option value="02">02</option>
@@ -64,7 +64,7 @@
         </select>
       </div>
       <div class="select">
-        <select id="card-expiration-year" ng-model="expiryYear">
+        <select required id="card-expiration-year" ng-model="expiryYear">
           <option></option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
@@ -79,11 +79,12 @@
         </select>
       </div>
     </fieldset>
-    <fieldset class="fieldset-ccv">
-      <label for="card-ccv">CCV</label>
-      <input type="text" id="card-ccv" maxlength="3" ng-model="ccv" />
+    <fieldset class="fieldset-cvc">
+      <label for="card-cvc">cvc</label>
+      <input required type="text" id="card-cvc" maxlength="3" ng-model="cvc" />
     </fieldset>
-    <button class="confirm hvr-pulse" ng-click="SubmitPayment()"><i class="fa fa-lock"></i> confirm</button>
+    <div ng-show="clicked" class="invalid">*Please fill in all fields.</div>
+    <button class="confirm hvr-pulse" ng-click="validateForm() && SubmitPayment()"><i class="fa fa-lock"></i> confirm</button>
   </form>
 </div>
 <link href="css/payment.css" rel="stylesheet">

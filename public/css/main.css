@@ -11,12 +11,6 @@ body {
   height:100%;
 }
 
-/*.jumbotron{
-  background-color: rgba(0, 0, 0, 0);
-  opacity: 0;
-
-
-}*/
 p {
   font-size: 0.7em;
 }
@@ -228,3 +222,4 @@ p.small {
 a{
   cursor: pointer;
 }
+button:focus {outline:0;}

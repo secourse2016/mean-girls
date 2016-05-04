@@ -3,6 +3,18 @@ angular.module('alaska')
   $scope.passenger={};
   masterSrvc.passenger={};
   masterSrvc.payment={};
+  $scope.clicked=false;
+  $scope.validateForm =  function(){
+
+    if($scope.passengerForm.$valid){
+      return true;
+    }
+    else{
+      $scope.clicked=true;
+      return false;
+    }
+
+  };
   $scope.SubmitInfo = function() {
 
     var firstName=$scope.passenger.firstName;
@@ -11,34 +23,36 @@ angular.module('alaska')
     var lastName=$scope.passenger.lastName;
     masterSrvc.passenger.lastName=lastName;
 
-    var birthDay=$scope.passenger.birthDay;
+    var birthDay  =$scope.passenger.birthDay;
     var birthMonth=$scope.passenger.birthMonth;
-    var birthYear=$scope.passenger.birthYear;
-    var birthDate=birthYear+'-'+birthMonth+'-'+birthDay;
-    masterSrvc.passenger.birthDate=birthDate;
+    var birthYear =$scope.passenger.birthYear;
+    var birthDate =birthYear+'-'+birthMonth+'-'+birthDay;
 
-    var gender=$scope.passenger.gender;
+    masterSrvc.passenger.dateOfBirth=new Date(birthDate).getTime();
+
+    var gender    =$scope.passenger.gender;
     masterSrvc.passenger.gender=gender;
 
     var passportCountry=$scope.passenger.passportCountry;
-    masterSrvc.passenger.passportCountry=passportCountry;
+    masterSrvc.passenger.nationality=passportCountry;
 
     var passportNo=$scope.passenger.passportNo;
-    masterSrvc.passenger.passportNo=passportNo;
+    masterSrvc.passenger.passportNum=passportNo;
 
     var issueDay=$scope.passenger.issueDay;
     var issueMonth=$scope.passenger.issueMonth;
     var issueYear=$scope.passenger.issueYear;
     var issueDate=issueYear+'-'+issueMonth+'-'+issueDay;
-    masterSrvc.passenger.issueDate=issueDate;
+    masterSrvc.passenger.passportIssueDate= new Date(issueDate).getTime();
 
     var expiryDay=$scope.passenger.expiryDay;
     var expiryMonth=$scope.passenger.expiryMonth;
     var expiryYear=$scope.passenger.expiryYear;
     var expiryDate=expiryYear+'-'+expiryMonth+'-'+expiryDay;
-    masterSrvc.passenger.expiryDate=expiryDate;
+    masterSrvc.passenger.passportExpiryDate=new Date(expiryDate).getTime();
 
     $location.url('/payment');
 
   };
+
 });

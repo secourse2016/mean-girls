@@ -1,8 +1,9 @@
 angular.module('alaska')
 .controller("bookingCtrl", function($scope,$routeParams,bookingSrvc,masterSrvc){
-	bookingSrvc.getBooking(function(booking){
-		$scope.booking=booking;
-	});
+
+		$scope.booking=bookingSrvc.booking;
+		console.log(JSON.stringify($scope.booking));
+
 	$scope.getAirportName=function(iata){
 		var airports=masterSrvc.airports;
 		for (var i = 0; i < airports.length; i++) {

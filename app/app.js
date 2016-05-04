@@ -7,11 +7,12 @@ var moment        = require('moment');
 var jwt           = require('jsonwebtoken');
 var favicon = require('serve-favicon');
 
+
 //Export environment vars first thing
 require('dotenv').load();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(express.static('public'));
 // Store all HTML files in view folder.
@@ -22,8 +23,8 @@ app.use(express.static(path.join(__dirname + '/../public')));
 require('./routes')(app);
 
 app.use('/*', function(req, res){
-       res.sendFile(path.join(__dirname+'/../public/404.html'));
-    });
+  res.sendFile(path.join(__dirname+'/../public/404.html'));
+});
 
 
 
