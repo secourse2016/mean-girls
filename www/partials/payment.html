@@ -5,7 +5,7 @@
         <fieldset>
           <label for="card-type">Card Type</label>
           <div class="select" id="select-type">
-            <select id="card-type" ng-model="cardType">
+            <select id="card-type" ng-model="$parent.cardType">
               <option></option>
               <option value="Visa">Visa</option>
               <option value="MasterCard">MasterCard</option>
@@ -14,19 +14,19 @@
         </fieldset>
         <fieldset>
           <label for="card-number">Card Number</label>
-          <input type="num" ng-model="cardNo1" id="card-number" class="input-cart-number" maxlength="4" />
-          <input type="num" ng-model="cardNo2" id="card-number-1" class="input-cart-number" maxlength="4" />
-          <input type="num" ng-model="cardNo3" id="card-number-2" class="input-cart-number" maxlength="4" />
-          <input type="num" ng-model="cardNo4" id="card-number-3" class="input-cart-number" maxlength="4" />
+          <input type="num" ng-model="$parent.cardNo1" id="card-number" class="input-cart-number" maxlength="4" />
+          <input type="num" ng-model="$parent.cardNo2" id="card-number-1" class="input-cart-number" maxlength="4" />
+          <input type="num" ng-model="$parent.cardNo3" id="card-number-2" class="input-cart-number" maxlength="4" />
+          <input type="num" ng-model="$parent.cardNo4" id="card-number-3" class="input-cart-number" maxlength="4" />
         </fieldset>
         <fieldset>
           <label for="card-holder">Card holder</label>
-          <input type="text" id="card-holder" ng-model="cardHolder" />
+          <input type="text" id="card-holder" ng-model="$parent.cardHolder" />
         </fieldset>
         <fieldset class="fieldset-expiration">
           <label for="card-expiration-month">Expiration date</label>
           <div class="select">
-            <select id="card-expiration-month" ng-model="expiryMonth">
+            <select id="card-expiration-month" ng-model="$parent.expiryMonth">
               <option></option>
               <option value="01">01</option>
               <option value="02">02</option>
@@ -43,7 +43,7 @@
             </select>
           </div>
           <div class="select">
-            <select id="card-expiration-year" ng-model="expiryYear">
+            <select id="card-expiration-year" ng-model="$parent.expiryYear">
               <option></option>
               <option value="2016">2016</option>
               <option value="2017">2017</option>
@@ -60,7 +60,7 @@
         </fieldset>
         <fieldset class="fieldset-ccv">
           <label for="card-ccv">CCV</label>
-          <input type="text" id="card-ccv" maxlength="3" ng-model="ccv" />
+          <input type="text" id="card-ccv" maxlength="3" ng-model="$parent.cvc" />
         </fieldset>
         <button class="confirm hvr-pulse" ng-click="SubmitPayment()"><i class="fa fa-lock"></i> confirm</button>
       </form>

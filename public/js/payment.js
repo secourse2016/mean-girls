@@ -33,16 +33,16 @@ $('#card-expiration-month, #card-expiration-year').change(function(){
   $('.card-expiration-date div').html(m + '/' + y);
 })
 
-$('#card-ccv').on('focus', function(){
+$('#card-cvc').on('focus', function(){
   $('.credit-card-box').addClass('hover');
 }).on('blur', function(){
   $('.credit-card-box').removeClass('hover');
 }).on('keyup change', function(){
-  $('.ccv div').html($(this).val());
+  $('.cvc div').html($(this).val());
 });
 
 setTimeout(function(){
-  $('#card-ccv').focus().delay(1000).queue(function(){
+  $('#card-cvc').focus().delay(1000).queue(function(){
     $(this).blur().dequeue();
   });
 }, 500);

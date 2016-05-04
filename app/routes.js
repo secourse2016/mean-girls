@@ -9,14 +9,43 @@ module.exports = function(app) {
 	var path    = require('path');
 	var jwtexp  =require('express-jwt')
 	var airlinesIP = require('../json/otherAirlines.json');
+	var stripe = require('stripe')('sk_test_Jac7wnEea4OaV9T29UOPDyMd');
 
 
 	app.use(function (req, res, next) {
 		res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST', 'OPTIONS', 'PUT', 'DELETE');
 		res.setHeader('Access-Control-Allow-Origin', '*');
+		res.setHeader('Content-Type','application/json');
 		next();
 	});
-	
+	app.get('/stripe/pubkey', function (req,res) {
+		res.json('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
+	});
+	app.post('/booking', function(req, res) {
+
+		// retrieve the token
+		console.log(req);
+		var stripeToken = req.body.paymentToken;
+		console.log(stripeToken);
+
+		var flightCost  = parseInt(req.body.cost) * 100;
+		// attempt to create a charge using token
+		stripe.charges.create({
+			amount: flightCost,
+			currency: "usd",
+			source: stripeToken,
+			description: "test"
+		}, function(err, data) {
+			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
+			else{
+				var information = req.body;
+				db.addBooking(information,function(err,refNum){
+					if (!err) res.send({ refNum: refNum, errorMessage: null});
+				});
+			}
+		});
+	});
+
 
 
 	app.get('/', function (req, res) {
@@ -47,6 +76,7 @@ module.exports = function(app) {
 
 
 
+
 	app.use(function(req, res, next) {
 
 		// check header or url parameters or post parameters for token
@@ -70,13 +100,15 @@ module.exports = function(app) {
 
 	});
 
+
 	app.post('/api/contact', function(req,res){
 		var contact=req.body;
 		db.contact(contact,function(err){
 			if(err)
-				console.log(err);
-		})
+			console.log(err);
+		});
 	});
+
 
 	app.get('/api/booking/:bookingRef', function(req,res){
 		var bookingRefNo = req.params['bookingRef'];
@@ -86,32 +118,35 @@ module.exports = function(app) {
 				return;
 			}
 
-			var outFlight=booking[0].outgoingFlight;
+			var outFlight=booking[0].outgoingFlightID;
 
 			db.searchFlight(outFlight,function(err,Outflight){
-				booking[0].outgoingFlight=Outflight[0];
+				booking[0].outgoingFlightID=Outflight[0];
 				var resvID=booking[0].reservationID;
 				var seatMap=Outflight[0].seatmap;
 				var outSeat;
+				//TODO adjust seatmap to handle several passengers!!
 				for (var i = 0; i < seatMap.length; i++) {
 					if(seatMap[i].reservationID===resvID){
 						outSeat=seatMap[i];
+						console.log("found it");
 						break;
+
 					}
 				}
 				var seatNumber = outSeat.seatNumber;
 				var cabinClass = outSeat.cabin;
 				var cost = outSeat.cost;
 
-				booking[0].outgoingFlight.seatNumber = seatNumber;
-				booking[0].outgoingFlight.class = cabinClass;
-				booking[0].outgoingFlight.cost = cost;
+				booking[0].outgoingFlightID.seatNumber = seatNumber;
+				booking[0].outgoingFlightID.class = cabinClass;
+				booking[0].outgoingFlightID.cost = cost;
 
-				var retFlight=booking[0].returnFlight;
+				var retFlight=booking[0].returnFlightID;
 
 				if(retFlight != null){
 					db.searchFlight(retFlight,function(err,Retflight){
-						booking[0].returnFlight=Retflight[0];
+						booking[0].returnFlightID=Retflight[0];
 						var returnseatMap=Retflight[0].seatmap;
 						var returnSeat;
 						for (var i = 0; i < returnseatMap.length; i++) {
@@ -124,9 +159,9 @@ module.exports = function(app) {
 						var returnCabinClass = returnSeat.cabin;
 						var returnCost = returnSeat.cost;
 
-						booking[0].returnFlight.seatNumber = returnSeatNumber;
-						booking[0].returnFlight.class = returnCabinClass;
-						booking[0].returnFlight.cost = returnCost;
+						booking[0].returnFlightID.seatNumber = returnSeatNumber;
+						booking[0].returnFlightID.class = returnCabinClass;
+						booking[0].returnFlightID.cost = returnCost;
 
 						res.send(booking[0]);
 					});
@@ -141,17 +176,19 @@ module.exports = function(app) {
 		});
 
 	});
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:class', function(req, res) {
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req, res) {
 		var originValue = req.params['origin'];
 		var destinationValue = req.params['destination'];
 		var departingDateValue = req.params['departingDate'];
 		var classValue = req.params['class'];
+		var seatsValue = req.params['seats'];
 
 		var info={
 			"origin"        : originValue ,
 			"destination"   : destinationValue ,
 			"departureDate" : departingDateValue ,
-			"class"         : classValue
+			"class"         : classValue,
+			"seats"         : seatsValue
 		};
 
 		db.searchFlightsOneWay(info, function (err, flights) {
@@ -161,7 +198,7 @@ module.exports = function(app) {
 
 	});
 
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req, res) {
 		var params = {};
 		var reqClass = req.params['class'];
 		params.origin = req.params['origin'];
@@ -169,6 +206,7 @@ module.exports = function(app) {
 		params.departingDate = req.params['departingDate']
 		params.returningDate = req.params['returningDate']
 		params.class = req.params['class'];
+		params.seats = req.params['seats'];
 		db.searchRoundTripFlight(params,function(result){
 			db.formatData(result,reqClass,function(finalresult){
 				res.send(finalresult);
@@ -176,26 +214,29 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/api/booking', function(req, res) {
-	       	var information = req.body;
-			db.addBooking(information,function(err,refNum){
-				if (err) return (err);
-				else{
-					res.send({refNum: refNum, errorMessage: null});
-				}
-			});
-	 });
 
-	// app.post('/api/booking',function(req,res){
-	// 	var information = req.body;
-	// 	console.log("hello from sherine");
-	// 	db.addBooking(information,function(err,booking){
-	// 		if (err) return (err);
-	// 		res.send(booking);
+	// app.post('/booking', function(req, res) {
+	//
+	// 	// retrieve the token
+	// 	var stripeToken = req.body.paymentToken;
+	// 	var flightCost  = req.body.cost * 100;
+	//
+	// 	// attempt to create a charge using token
+	// 	stripe.charges.create({
+	// 		amount: flightCost,
+	// 		currency: "usd",
+	// 		source: stripeToken,
+	// 		description: "test"
+	// 	}, function(err, data) {
+	// 		if (err) res.send({ refNum: null, errorMessage: "Error occured while charging!"});
+	// 		else{
+	// 			var information = req.body;
+	// 			db.addBooking(information,function(err,refNum){
+	// 				if (!err) res.send({ refNum: refNum, errorMessage: null});
+	// 			});
+	// 		}
 	// 	});
 	// });
-
-
 	app.get('/api/airports', function(req,res){
 		db.getAirports(function(err, airports){
 			res.send(airports);
@@ -211,23 +252,17 @@ module.exports = function(app) {
 	});
 
 
-
-
-
-
-
-
 	//new code other airlines
 
-	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class', function(req1,res1){
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req1,res1){
 		const async = require('async');
 		const request = require('request');
-		var result;
-		// var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NjEwOTcwMzgsImV4cCI6MTQ5MjYzMzAzOCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSJ9.aBQAGNps9e3XlMEKL_ngj6SwfnPSIqeJacBczEC16k4';
+		var result=[];
 		var originValue = req1.params['origin'];
 		var destinationValue = req1.params['destination'];
 		var departingDateValue = req1.params['departingDate'];
 		var classValue = req1.params['class'];
+		var seatsValue = req1.paramas['seats'];
 
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
@@ -237,8 +272,8 @@ module.exports = function(app) {
 			const options = {
 				port:80,
 				method:'GET',
-				// header: { 'x-access-token': token },
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'?wt='+token
+				json:true,
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
 			};
 			request(options, function(err, res, body) {
 				callback(err, body);
@@ -246,55 +281,37 @@ module.exports = function(app) {
 		}
 
 		const urls=  [
-			"http://ec2-54-152-123-100.compute-1.amazonaws.com",
-			"http://52.27.150.19",
-			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
-			"http://52.90.46.68",
-			"http://52.34.160.140",
-			"http://52.36.195.124",
-			"http://www.swiss-air.me",
-			"http://52.25.15.124",
-			"http://52.36.250.55",
-			"http://54.187.208.145",
-			"http://sebitsplease.com.s3-website-us-east-1.amazonaws.com",
-			"http://52.58.46.74",
-			"http://54.93.36.94",
-			"http://54.191.202.17",
-			"http://54.213.157.185",
-			"http://52.28.246.230",
-			"http://mynksh.com",
-			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
-			"http://52.32.109.147",
-			"http://52.36.169.206",
-			"http://ec2-52-91-94-227.compute-1.amazonaws.com"
+			"54.191.202.17",
+			"ec2-52-90-41-197.compute-1.amazonaws.com"
 		];
 
 		async.map(urls, httpGet, function (err, res){
 
-
-			// for(var i=0;i<res.length;i++)
-			// {
-			//   result.push(res[i].outgoingFlights);
-			// }
-
-
-			res1.send(res);
+			console.log( res);
+			console.log("res length"+res.length);
+			for(var i=0;i<res.length;i++)
+			{
+				result.push(res[i].outgoingFlights);
+			}
+			var finalresult = {"outgoingFlights":result};
+			res1.send(finalresult);
 
 		});
 	});
 
-	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req1,res1){
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req1,res1){
 
 		const async = require('async');
 		const request = require('request');
 		var outgoing=[];
 		var returning=[];
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
 		var originValue = req1.params['origin'];
 		var destinationValue = req1.params['destination'];
 		var departingDateValue = req1.params['departingDate'];
 		var returningDateValue = req1.params['returningDate'];
 		var classValue = req1.params['class'];
+		var seatsValue = req1.paramas['seats'];
+
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
 			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
@@ -302,7 +319,8 @@ module.exports = function(app) {
 			const options = {
 				port:80,
 				method:'GET',
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'?wt='+token
+				json:true,
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
 			};
 			request(options, function(err, res, body) {
 				callback(err, body);
@@ -310,40 +328,25 @@ module.exports = function(app) {
 		}
 
 		const urls= [
-			"http://ec2-54-152-123-100.compute-1.amazonaws.com",
-			"http://52.27.150.19",
-			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
-			"http://52.90.46.68",
-			"http://52.34.160.140",
-			"http://52.36.195.124",
-			"http://www.swiss-air.me",
-			"http://52.25.15.124",
-			"http://52.36.250.55",
-			"http://54.187.208.145",
-			"http://sebitsplease.com.s3-website-us-east-1.amazonaws.com",
-			"http://52.58.46.74",
-			"http://54.93.36.94",
-			"http://54.191.202.17",
-			"http://54.213.157.185",
-			"http://52.28.246.230",
-			"http://mynksh.com",
-			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
-			"http://52.32.109.147",
-			"http://52.36.169.206",
-			"http://ec2-52-91-94-227.compute-1.amazonaws.com"
+			"54.191.202.17",
+			"ec2-52-90-41-197.compute-1.amazonaws.com"
 		];
 
 		async.map(urls, httpGet, function (err, res){
-			// outgoing.push(res.outgoingFlights);
-			// returning.push(res.returnFlights);
-			// var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
-			// res1.send( Finalresult);
+			console.log(res);
 
-			res1.send(res);
+			for(var i=0;i<res.length;i++)
+			{
+				outgoing.push(res[i].outgoingFlights);
+				returning.push(res[i].returnFlights);
+			}
+
+			var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
+			res1.send(Finalresult);
+
 
 		});
 
 	});
 
-};
-
+}

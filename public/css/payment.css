@@ -62,7 +62,7 @@ Form
   margin-right: 12px;
   float: left;
 }
-.checkout .form fieldset.fieldset-ccv {
+.checkout .form fieldset.fieldset-cvc {
   clear: none;
   float: right;
   width: 86px;
@@ -273,7 +273,7 @@ Credit Card
   left: auto;
   right: 20px;
 }
-.credit-card-box .ccv {
+.credit-card-box .cvc {
   height: 36px;
   background: #fff;
   width: 91%;
@@ -287,7 +287,7 @@ Credit Card
   text-align: right;
   padding: 10px;
 }
-.credit-card-box .ccv label {
+.credit-card-box .cvc label {
   margin: -25px 0 14px;
   color: #fff;
 }

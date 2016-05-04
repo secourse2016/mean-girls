@@ -82,8 +82,8 @@ function seedAFlight (reverseFlag, cb){
       flightToBeInserted.economyCost = flight.economyCost;
       flightToBeInserted.businessCost = flight.businessCost;
       flightToBeInserted.availableSeats = flight.availableSeats;
-      flightToBeInserted.availableEconomySeats = 20;
-      flightToBeInserted.availableBusinessSeats = 40;
+      flightToBeInserted.availableEconomySeatsSeats = 40;
+      flightToBeInserted.availableBusinessSeatsSeats = 20;
       // flightToBeInserted.status = flight.status;
       flightToBeInserted.departureDateTime = moment('2016-04-13 12:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('YYYY-MM-DD hh:mm A');
       flightToBeInserted.arrivalDateTime = moment('2016-04-13 15:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('YYYY-MM-DD hh:mm A');
@@ -156,7 +156,7 @@ function seedAFlight (reverseFlag, cb){
 function filteringClass(flights,i){
   if(i.class === "economy") {
     var filteredFlights = flights.filter(function(flight){
-      return flight.availableEconomy !== 0;
+      return flight.availableEconomySeats >= i.seats;
     });
     for(var x=0;x<filteredFlights.length;x++)
     {
@@ -165,7 +165,7 @@ function filteringClass(flights,i){
   }
   else {
     var filteredFlights = flights.filter(function(flight){
-      return flight.availableBussiness !== 0;
+      return flight.availableBusinessSeats >= i.seats;
     });
     for(var x=0;x<filteredFlights.length;x++)
     {
@@ -188,6 +188,10 @@ function filteringClass(flights,i){
     filteredFlights[x].currency="USD";
   }
 
+  for(var x=0;x<filteredFlights.length;x++)
+  {
+    filteredFlights[x].flightId=filteredFlights[x]._id;
+  }
   var filteredFlights2 = filteredFlights.filter(function(flight){
     return moment(flight.departureDateTime).format('YYYY-MM-DD')==moment(parseInt(i.departureDate)).format('YYYY-MM-DD');
   });
@@ -233,9 +237,14 @@ function searchRoundTripFlight (requiredFlight, cb){
 
   var query = {
     origin:requiredFlight.origin,
-    destination:requiredFlight.destination
+    destination:requiredFlight.destination,
   };
-  query["available"+classString+"Seats"] = { $gt: 0 };
+  if(requiredFlight.class==="economy"){
+    query.availableEconomySeats={$gte: parseInt(requiredFlight.seats)};
+  }
+  else{
+    query.availableBusinessSeats={$gte: parseInt(requiredFlight.seats)};
+  }
   DB.collection('flights').find(query).toArray(function(err,flights) {
     if (err) return cb(err);
     for(var i =0;i<flights.length;i++){
@@ -258,7 +267,12 @@ function searchOtherWayAround(classString,chosenFlights, requiredFlight, cb) {
     origin:requiredFlight.destination,
     destination:requiredFlight.origin
   };
-  query["available"+classString+"Seats"] = { $gt: 0 };
+  if(requiredFlight.class==="economy"){
+    query.availableEconomySeats={$gte: parseInt(requiredFlight.seats)};
+  }
+  else{
+    query.availableBusinessSeats={$gte: parseInt(requiredFlight.seats)};
+  }
   DB.collection('flights').find(query).toArray(function(err,flights) {
     if (err) return err;
 
@@ -296,6 +310,7 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.origin=beforeFormattingData.outgoingFlights[i].origin
     temp.destination=beforeFormattingData.outgoingFlights[i].destination
     temp.cost=beforeFormattingData.outgoingFlights[i][costOfClass]
+    temp.flightId=beforeFormattingData.outgoingFlights[i]._id
     temp.currency="USD";
     temp.class=firstToLowerCase(reqClass);
     temp.Airline="Alaska";
@@ -312,6 +327,7 @@ function formatData(beforeFormattingData,reqClass,cb) {
     temp.origin=beforeFormattingData.returnFlights[i].origin
     temp.destination=beforeFormattingData.returnFlights[i].destination
     temp.cost=beforeFormattingData.returnFlights[i][costOfClass]
+    temp.flightId=beforeFormattingData.returnFlights[i]._id
     temp.currency="USD"
     temp.class=firstToLowerCase(reqClass)
     temp.Airline="Alaska"
@@ -340,7 +356,7 @@ exports.seed= function (cb) {
 
 //Find flight from DB when given flight number
 exports.searchFlight = function(flightNo,cb){
-  DB.collection('flights').find({"flightNumber":flightNo},function(err,cursor){
+  DB.collection('flights').find({"_id":flightNo},function(err,cursor){
     cursor.toArray(cb);
     // cb(err,flight);
   });
@@ -380,7 +396,7 @@ exports.addBooking=function(i,cb){
         DB.collection('bookings').find({ _id: doc[0]._id }).toArray(function (err,returnedBooking){
           refNum = returnedBooking[0].bookingRefNo;
           updateSeatmapRec(0,i,resIDToBe,numberOfSeats,function(){
-             cb(null,refNum);
+            cb(null,refNum);
           })
         });
       });
@@ -391,12 +407,12 @@ exports.addBooking=function(i,cb){
 function updateSeatmapRec(x,i,resIDToBe,numberOfSeats,cb){
   if(x<numberOfSeats){
     updateSeatmap(i,resIDToBe,function(){
-        if(x===numberOfSeats-1){
-           cb();
-        }
-        else{
-          updateSeatmapRec(x+1,i,resIDToBe,numberOfSeats,cb)
-        }
+      if(x===numberOfSeats-1){
+        cb();
+      }
+      else{
+        updateSeatmapRec(x+1,i,resIDToBe,numberOfSeats,cb)
+      }
     });
   }
 }
@@ -405,77 +421,77 @@ function updateSeatmapRec(x,i,resIDToBe,numberOfSeats,cb){
 function updateSeatmap (i,resIDToBe,cb){
   if(i.class === "economy"){
     DB.collection('flights').update(
-    {
-      _id:i.outgoingFlightID ,
-      seatmap:{
-        $elemMatch : {
-          cabin : "economy",
-          reservationID : null }
-        }
-    },
-    {
-      $set:{"seatmap.$.reservationID":resIDToBe},
-      $inc:{availableSeats:-1,availableEconomySeats:-1}
-    },function(err,results){
-        if(err) return err;
-        DB.collection('flights').update(
-          {
-          _id:i.returnFlightID ,
-          seatmap:{
-            $elemMatch : {
-              cabin : "economy",
-              reservationID : null }
-            }
-          },
-          {
-            $set:{"seatmap.$.reservationID":resIDToBe},
-            $inc:{availableSeats:-1,availableEconomySeats:-1}
-          },function(err,results){
-              if(err) return err;
-              cb();
-            }
-        );
-      }
-    );
-  }
-  else{
-    if(i.class=="business"){
-      DB.collection('flights').update(
-        {
-          _id:i.outgoingFlightID ,
-          seatmap:{
-            $elemMatch : {
-              cabin : "business",
-              reservationID : null }
-            }
+      {
+        _id:i.outgoingFlightID ,
+        seatmap:{
+          $elemMatch : {
+            cabin : "economy",
+            reservationID : null }
+          }
         },
         {
           $set:{"seatmap.$.reservationID":resIDToBe},
-          $inc:{availableSeats:-1,availableBusinessSeats:-1}
+          $inc:{availableSeats:-1,availableEconomySeatsSeats:-1}
         },function(err,results){
-            if(err) return err;
-            DB.collection('flights').update(
-                {
-                _id:i.returnFlightID ,
-                seatmap:{
-                  $elemMatch : {
-                    cabin : "business",
-                    reservationID : null }
-                  }
-                },
-                {
-                  $set:{"seatmap.$.reservationID":resIDToBe},
-                  $inc:{availableSeats:-1,availableBusinessSeats:-1}
-                },function(err,results){
-                    if(err) return err;
-                    cb();
-                  }
+          if(err) return err;
+          DB.collection('flights').update(
+            {
+              _id:i.returnFlightID ,
+              seatmap:{
+                $elemMatch : {
+                  cabin : "economy",
+                  reservationID : null }
+                }
+              },
+              {
+                $set:{"seatmap.$.reservationID":resIDToBe},
+                $inc:{availableSeats:-1,availableEconomySeatsSeats:-1}
+              },function(err,results){
+                if(err) return err;
+                cb();
+              }
             );
           }
-      );
-    }
-  }
-}
+        );
+      }
+      else{
+        if(i.class=="business"){
+          DB.collection('flights').update(
+            {
+              _id:i.outgoingFlightID ,
+              seatmap:{
+                $elemMatch : {
+                  cabin : "business",
+                  reservationID : null }
+                }
+              },
+              {
+                $set:{"seatmap.$.reservationID":resIDToBe},
+                $inc:{availableSeats:-1,availableBusinessSeatsSeats:-1}
+              },function(err,results){
+                if(err) return err;
+                DB.collection('flights').update(
+                  {
+                    _id:i.returnFlightID ,
+                    seatmap:{
+                      $elemMatch : {
+                        cabin : "business",
+                        reservationID : null }
+                      }
+                    },
+                    {
+                      $set:{"seatmap.$.reservationID":resIDToBe},
+                      $inc:{availableSeats:-1,availableBusinessSeatsSeats:-1}
+                    },function(err,results){
+                      if(err) return err;
+                      cb();
+                    }
+                  );
+                }
+              );
+            }
+          }
+        }
 
         exports.getAirports = function(cb){
           //fixed Db typo

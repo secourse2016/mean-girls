@@ -4,12 +4,12 @@ angular.module('alaskaIonic')
 	$scope.showBooking = function() {
 		var bookingRef=$scope.bookingRef;
 		if(!bookingRef){
-			$scope.openModal("Please fill in a booking reference.");
+			// $scope.openModal("Please fill in a booking reference.");
 			return;
 		}
 		$http.get('http://localhost:3000/api/booking/'+bookingRef+'?wt='+token).success(function(booking){
 			if(!booking){
-				$scope.openModal("We couldn't find that booking.");
+				// $scope.openModal("We couldn't find that booking.");
 				return;
 			}
 			bookingSrvc.booking=booking;
@@ -26,21 +26,21 @@ angular.module('alaskaIonic')
 	// }
 });
 
-angular.module('alaskaIonic').factory('modalSrvc',function(){
-	this.modalMessage="";
-	return{
+// angular.module('alaskaIonic').factory('modalSrvc',function(){
+// 	this.modalMessage="";
+// 	return{
 
-	}
-});
+// 	}
+// });
 
-angular.module('alaskaIonic').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance,modalSrvc) {
+// angular.module('alaskaIonic').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance,modalSrvc) {
 
-	$scope.modalMessage=modalSrvc.modalMessage;
-	$scope.ok = function () {
-		$uibModalInstance.close();
-	};
+// 	$scope.modalMessage=modalSrvc.modalMessage;
+// 	$scope.ok = function () {
+// 		$uibModalInstance.close();
+// 	};
 
-});
+// });
 
 
 

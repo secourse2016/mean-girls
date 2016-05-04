@@ -3,6 +3,11 @@ app=angular.module('alaskaIonic.routes', ['ionic','ionicUIRouter','onezone-datep
 app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
 
 
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
+
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -51,12 +56,12 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
     }
   })
 
-  .state('tabsController.findFlights.flights.passengerInfo.payment.viewBooking', {
+  .state('tabsController.findFlights.flights.passengerInfo.payment.confirmation', {
     url: '/viewBooking',
     views: {
       'findFlights@tabsController': {
-        templateUrl: 'partials/viewBooking.html',
-         controller: 'bookingCtrl'
+        templateUrl: 'partials/confirmation.html',
+         controller: 'confirmCtrl'
 
       }
     }
@@ -102,6 +107,8 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
   })
 
 $urlRouterProvider.otherwise('/tab/findFlights');
+
+
 
 
 });

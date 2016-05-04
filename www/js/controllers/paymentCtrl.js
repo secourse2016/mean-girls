@@ -9,13 +9,16 @@ angular.module('alaskaIonic')
 
     var expiryDate=""+$scope.expiryMonth+"-"+$scope.expiryYear; //mm-yy
     masterSrvc.payment.expiryDate=expiryDate;
+    masterSrvc.payment.expiryMonth= $scope.expiryMonth;
+    console.log("filpayment"+$scope.expiryMonth);
+    masterSrvc.payment.expiryYear= $scope.expiryYear;
 
     masterSrvc.payment.cardHolder=$scope.cardHolder;
 
-    var ccv=$scope.ccv;
-    masterSrvc.payment.ccv=ccv;
+    var cvc=$scope.cvc;
+    masterSrvc.payment.cvc=cvc;
 
     masterSrvc.Confirm();
-    $state.go('tabsController.findFlights.flights.passengerInfo.payment.viewBooking');
+    // $state.go('tabsController.findFlights.flights.passengerInfo.payment.viewBooking');
   }
 });

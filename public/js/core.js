@@ -26,6 +26,10 @@ app.config(function($httpProvider,$routeProvider) {
 		templateUrl : 'views/booking.html',
 		controller: 'bookingCtrl'
 	})
+	.when('/confirm',{
+		templateUrl	: 'views/confirm.html',
+		controller	:'confirmCtrl'
+	})
 	.when('/', {
 		templateUrl : 'views/landing-new.html',
 		controller  : 'landingCtrl'
@@ -47,4 +51,5 @@ app.config(function($httpProvider,$routeProvider) {
 			}
 		};
 	}]);
+	Stripe.setPublishableKey('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
 });

@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="css/confirm.css" >
+<div id="confirmContainer">
+  <div class="thanks">
+    Thank you!
+  </div>
+  <div class="info">
+    {{origin}} <i class="material-icons">fast_forward</i> {{destination}}
+  </div>
+  <div class= "booking">
+    <label for="airline">Airline</label>
+    <div id="airline" class="airline">
+      {{airlineOut}}
+    </div>
+    <label for="bookingRef">Booking Ref.</label>
+    <div class="bookingRef" id="bookingRef">
+      {{refNumOut}}
+    </div>
+  </div>
+  <div class="info" ng-hide="refNumRet===null">
+    {{destination}} <i class="material-icons">fast_forward</i> {{origin}}
+  </div>
+  <div class= "booking" ng-hide="refNumRet===null">
+    <label for="airline2">Airline</label>
+    <div id="airline2" class="airline">
+      {{airlineRet}}
+    </div>
+    <label for="bookingRef2">Booking Ref.</label>
+    <div class="bookingRef" id="bookingRef2">
+      {{refNumRet}}
+    </div>
+  </div>
+  <div class="bag">
+    <img src="./img/bag.png"/>
+  </div>
+</div>
