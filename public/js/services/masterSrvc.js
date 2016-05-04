@@ -1,4 +1,5 @@
 angular.module('alaska').service('masterSrvc', function ($http,$location,bookingSrvc,modalSrvc,$uibModal,confirmSrvc){
+  var jwt ='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBdXN0cmlhbiBBaXJsaW5lcyIsImlhdCI6MTQ2MDYzNTE1OCwiZXhwIjoxNDkyMTcxMTU4LCJhdWQiOiJ3d3cuYXVzdHJpYW4tYWlybGluZXMuY29tIiwic3ViIjoiYXVzdHJpYW5BaXJsaW5lcyJ9.Dilu6siLX3ouLk48rNASpYJcJSwKDTFYS2U4Na1M5k4';
   var srvc  = this;
   srvc.Confirm = function(){
     var returnFlight  = srvc.returnFlight;
@@ -8,7 +9,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
     var data={};
     emptyArr.push(srvc.passenger);
     data.passengerDetails =emptyArr;
-    console.log(emptyArr);
+    console.dir(emptyArr);
     data.class            = srvc.seatClass;
     data.outgoingFlightId = srvc.outgoingFlight.flightId;
 
@@ -18,13 +19,13 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
     }
 
     srvc.data=data;
-    console.log("data: "+srvc.data);
+    console.dir("data: "+srvc.data);
 
     if(!returnFlight) //oneWay flight
     {
-      console.log("not return flight");
+      console.dir("not return flight");
       srvc.outHandler(srvc.bookingOneWayHandler, function(){
-        console.log("geh hena");
+        console.dir("geh hena");
         $location.url('/confirm');
       });
     }
@@ -47,9 +48,10 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
     outReq.paymentToken = outToken;
     outReq.returnFlightId = null;
     outReq.cost = srvc.outgoingFlight.cost;
+    console.dir("request booking: "+ outReq);
 
-    $http.post(outAirlineIP + '/booking', outReq).success(function (resOut){
-      console.log("5allas tamam");
+    $http.post(outAirlineIP + '/booking/?wt='+jwt, outReq).success(function (resOut){
+      console.dir("5allas tamam");
       if(resOut.errorMessage){
         //couldn't charge the card
         srvc.openModal(resOut.errorMessage);
@@ -76,7 +78,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
     var retAirline   = srvc.returnFlight.Airline;
     var retAirlineIP = retAirline === "Alaska" ? "" : srvc.returnFlight.airlineIP;
 
-    $http.get(retAirlineIP + '/stripe/pubkey').success(function(pubkey){
+    $http.get(retAirlineIP + '/stripe/pubkey/?wt='+jwt).success(function(pubkey){
       Stripe.setPublishableKey(pubkey);
       Stripe.card.createToken(
         {
@@ -110,7 +112,9 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
       outReq.paymentToken = outToken;
       outReq.returnFlightId = null;
       outReq.cost = srvc.outgoingFlight.cost;
-      $http.post(outAirlineIP + '/booking', outReq).success(function (resOut){
+      console.dir("request booking: "+ outReq);
+
+      $http.post(outAirlineIP + '/booking/?wt='+jwt, outReq).success(function (resOut){
         if(resOut.errorMessage){
           //couldn't charge the card
           srvc.openModal(resOut.errorMessage);
@@ -125,8 +129,9 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
         retReq.outgoingFlightId = srvc.data.returnFlightId;
         retReq.returnFlightId   = null;
         retReq.cost = srvc.returnFlight.cost;
+        console.dir("request booking: "+ retReq);
 
-        $http.post(retAirlineIP + '/booking',retReq).success(function (resRet){
+        $http.post(retAirlineIP + '/booking/?wt='+jwt,retReq).success(function (resRet){
           if(resRet.errorMessage){
             //couldn't charge the card
             srvc.openModal(resRet.errorMessage);
@@ -151,11 +156,11 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
 
       var outAirline   = srvc.outgoingFlight.Airline;
       var outAirlineIP = outAirline === "Alaska" ? "" : srvc.outgoingFlight.airlineIP;
-      console.log("outHandler called");
+      console.dir("outHandler called");
       var master= srvc;
-      $http.get(outAirlineIP + '/stripe/pubkey').success(function(pubkey){
-        console.log("pub key: "+ pubkey);
-        console.log(cardNo);
+      $http.get(outAirlineIP + '/stripe/pubkey/?wt='+jwt).success(function(pubkey){
+        console.dir("pub key: "+ pubkey);
+        console.dir(cardNo);
         Stripe.setPublishableKey(pubkey);
         Stripe.card.createToken({
           number: cardNo,
@@ -167,12 +172,12 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
           if(response.error){
             // Problem!
             master.openModal("Error occured during card verification: "+ response.error);
-            console.log(response.error);
+            console.dir(response.error);
             return;
           }
-          console.log("card created for one way");
+          console.dir("card created for one way");
           var outToken = response.id;
-          console.log(outToken);
+          console.dir(outToken);
           cb1(outToken,cb2); //handle the return flight
         });
       });
@@ -192,7 +197,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
       var airline   = returnFlight.Airline;
       var airlineIP = airline==="Alaska"? "" :returnFlight.airlineIP;
 
-      $http.get(airlineIP + '/stripe/pubkey').success(function(pubkey){
+      $http.get(airlineIP + '/stripe/pubkey/?wt='+jwt).success(function(pubkey){
         Stripe.setPublishableKey(pubkey);
         Stripe.card.createToken({
           number: cardNo,
@@ -214,7 +219,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
     }
     // Token was created!
     // Get the token ID:
-    console.log("hallelujah");
+    console.dir("hallelujah");
     var token = response.id;
     var req = angular.copy(srvc.data);
     req.paymentToken     = token;
@@ -222,8 +227,9 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
 
     var airline   = srvc.returnFlight.Airline;
     var airlineIP = airline==="Alaska"? "" :srvc.returnFlight.airlineIP;
+    console.dir("request booking: "+ req);
 
-    $http.post(airlineIP + '/booking',req).success(function(res){
+    $http.post(airlineIP + '/booking/?wt='+jwt,req).success(function(res){
       if(res.errorMessage){
         //couldn't charge the card
         srvc.openModal(res.errorMessage);

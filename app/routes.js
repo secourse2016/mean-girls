@@ -11,13 +11,10 @@ module.exports = function(app) {
 	var airlinesIP = require('../json/otherAirlines.json');
 	var stripe = require('stripe')('sk_test_Jac7wnEea4OaV9T29UOPDyMd');
 
-	app.all('*', function(req, res, next) {
-		res.header('Access-Control-Allow-Origin', '*');
-		res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-		next();
-	});
+
 	app.use(function (req, res, next) {
-		res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST', 'OPTIONS', 'PUT', 'DELETE');
+		res.setHeader('Access-Control-Allow-Methods', '*');
+		res.setHeader('Access-Control-Allow-Headers', '*');
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.setHeader('Content-Type','application/json');
 		next();
