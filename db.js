@@ -274,7 +274,6 @@ function searchOtherWayAround(classString,chosenFlights, requiredFlight, cb) {
     query.availableBusinessSeats={$gte: parseInt(requiredFlight.seats)};
   }
   DB.collection('flights').find(query).toArray(function(err,flights) {
-    console.log(flights);
     if (err) return err;
 
     for(var i =0;i<flights.length;i++){
