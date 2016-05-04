@@ -48,7 +48,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
     outReq.paymentToken = outToken;
     outReq.returnFlightId = null;
     outReq.cost = srvc.outgoingFlight.cost;
-    console.dir("request booking: "+ outReq);
+    console.dir(JSON.stringify(outReq));
 
     $http.post(outAirlineIP + '/booking/?wt='+jwt, outReq).success(function (resOut){
       console.dir("5allas tamam");

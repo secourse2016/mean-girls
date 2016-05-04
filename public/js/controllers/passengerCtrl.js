@@ -43,13 +43,13 @@ angular.module('alaska')
     var issueMonth=$scope.passenger.issueMonth;
     var issueYear=$scope.passenger.issueYear;
     var issueDate=issueYear+'-'+issueMonth+'-'+issueDay;
-    masterSrvc.passenger.passportIssueDate=issueDate;
+    masterSrvc.passenger.passportIssueDate= new Date(issueDate).getTime();
 
     var expiryDay=$scope.passenger.expiryDay;
     var expiryMonth=$scope.passenger.expiryMonth;
     var expiryYear=$scope.passenger.expiryYear;
     var expiryDate=expiryYear+'-'+expiryMonth+'-'+expiryDay;
-    masterSrvc.passenger.passportExpiryDate=expiryDate;
+    masterSrvc.passenger.passportExpiryDate=new Date(expiryDate).getTime();
 
     $location.url('/payment');
 
