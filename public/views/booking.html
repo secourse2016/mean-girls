@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="return" ng-hide="booking.oneWay">
+        <div class="return" ng-hide="booking.returnFlightId===null">
           <span class="title">Return</span>
           <div class="half">
             <span class="way">Departing</span>
@@ -67,7 +67,7 @@
           <span class="cost">${{booking.outgoingFlight.cost}}</span>
           <span class="class">{{booking.outgoingFlight.class}}</span>
         </div>
-        <div ng-hide="booking.oneWay" class="ticket">
+        <div ng-hide="booking.returnFlightId===null" class="ticket">
           <span class="name">{{booking.passenger.firstName}} {{booking.passenger.lastName}}</span>
           <span class="direction">return</span>
           <span class="seat">{{booking.returnFlight.seatNumber}}</span>
