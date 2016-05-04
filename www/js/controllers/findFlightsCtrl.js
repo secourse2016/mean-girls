@@ -165,15 +165,10 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
   };
 
     $scope.notNull = function (airport){
-<<<<<<< HEAD
+
 		return airport.name != null;
 	};
 
 
+});
 
-});
-=======
-        return airport.name != null;
-    };
-});
->>>>>>> 86630f0bb38f0164aa6409ac18cff1b0509b5de4
