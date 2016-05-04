@@ -12,7 +12,6 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
     console.dir(emptyArr);
     data.class            = srvc.seatClass;
     data.outgoingFlightId = srvc.outgoingFlight.flightId;
-
     if(returnFlight)
     {
       data.returnFlightId   = srvc.returnFlight.flightId;
@@ -34,7 +33,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
         srvc.roundHandler();
       }
       else {     // by diff. airlines
-        srvc.outHandler(srvc.retHandler,srvc.bookingOneWayHandler);
+        srvc.outHandler(srvc.retHandler,srvc.bookingRoundHandler);
       }
 
     }
@@ -139,6 +138,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
           }
           confirmSrvc.bookingRefRet = resRet.refNum;
           confirmSrvc.airlineOut = srvc.outgoingFlight.Airline;
+          confirmSrvc.airlineRet = srvc.returnFlight.Airline;
           //done
           $location.url('/confirm');
         });

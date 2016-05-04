@@ -382,8 +382,8 @@ exports.addBooking=function(i,cb){
     "paymentToken":i.paymentToken,
     "bookingRefNo":null,
     "reservationID":null,
-    "outgoingFlightID":i.outgoingFlightID,
-    "returnFlightID":i.returnFlightID
+    "outgoingFlightId":i.outgoingFlightId,
+    "returnFlightId":i.returnFlightId
 
   },function (err){
     if (err) return err;
@@ -422,7 +422,7 @@ function updateSeatmap (i,resIDToBe,cb){
   if(i.class === "economy"){
     DB.collection('flights').update(
       {
-        _id:i.outgoingFlightID ,
+        _id:i.outgoingFlightId ,
         seatmap:{
           $elemMatch : {
             cabin : "economy",
@@ -436,7 +436,7 @@ function updateSeatmap (i,resIDToBe,cb){
           if(err) return err;
           DB.collection('flights').update(
             {
-              _id:i.returnFlightID ,
+              _id:i.returnFlightId ,
               seatmap:{
                 $elemMatch : {
                   cabin : "economy",
@@ -458,7 +458,7 @@ function updateSeatmap (i,resIDToBe,cb){
         if(i.class=="business"){
           DB.collection('flights').update(
             {
-              _id:i.outgoingFlightID ,
+              _id:i.outgoingFlightId ,
               seatmap:{
                 $elemMatch : {
                   cabin : "business",
@@ -472,7 +472,7 @@ function updateSeatmap (i,resIDToBe,cb){
                 if(err) return err;
                 DB.collection('flights').update(
                   {
-                    _id:i.returnFlightID ,
+                    _id:i.returnFlightId ,
                     seatmap:{
                       $elemMatch : {
                         cabin : "business",

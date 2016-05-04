@@ -118,10 +118,10 @@ module.exports = function(app) {
 				return;
 			}
 
-			var outFlight=booking[0].outgoingFlightID;
-
+			var outFlight=booking[0].outgoingFlightId;
+			console.log(booking[0]);
 			db.searchFlight(outFlight,function(err,Outflight){
-				booking[0].outgoingFlightID=Outflight[0];
+				booking[0].outgoingFlight=Outflight[0];
 				var resvID=booking[0].reservationID;
 				var seatMap=Outflight[0].seatmap;
 				var outSeat;
@@ -138,15 +138,15 @@ module.exports = function(app) {
 				var cabinClass = outSeat.cabin;
 				var cost = outSeat.cost;
 
-				booking[0].outgoingFlightID.seatNumber = seatNumber;
-				booking[0].outgoingFlightID.class = cabinClass;
-				booking[0].outgoingFlightID.cost = cost;
+				booking[0].outgoingFlight.seatNumber = seatNumber;
+				booking[0].outgoingFlight.class = cabinClass;
+				booking[0].outgoingFlight.cost = cost;
 
-				var retFlight=booking[0].returnFlightID;
+				var retFlight=booking[0].returnFlightId;
 
 				if(retFlight != null){
 					db.searchFlight(retFlight,function(err,Retflight){
-						booking[0].returnFlightID=Retflight[0];
+						booking[0].returnFlightId=Retflight[0];
 						var returnseatMap=Retflight[0].seatmap;
 						var returnSeat;
 						for (var i = 0; i < returnseatMap.length; i++) {
@@ -159,9 +159,9 @@ module.exports = function(app) {
 						var returnCabinClass = returnSeat.cabin;
 						var returnCost = returnSeat.cost;
 
-						booking[0].returnFlightID.seatNumber = returnSeatNumber;
-						booking[0].returnFlightID.class = returnCabinClass;
-						booking[0].returnFlightID.cost = returnCost;
+						booking[0].returnFlightId.seatNumber = returnSeatNumber;
+						booking[0].returnFlightId.class = returnCabinClass;
+						booking[0].returnFlightId.cost = returnCost;
 
 						res.send(booking[0]);
 					});
