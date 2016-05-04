@@ -237,9 +237,14 @@ function searchRoundTripFlight (requiredFlight, cb){
 
   var query = {
     origin:requiredFlight.origin,
-    destination:requiredFlight.destination
+    destination:requiredFlight.destination,
   };
-  query["available"+classString+"Seats"] = { $gt: requiredFlight.seats };
+  if(requiredFlight.class==="economy"){
+    query.availableEconomySeats={$gte: parseInt(requiredFlight.seats)};
+  }
+  else{
+    query.availableBusinessSeats={$gte: parseInt(requiredFlight.seats)};
+  }
   DB.collection('flights').find(query).toArray(function(err,flights) {
     if (err) return cb(err);
     for(var i =0;i<flights.length;i++){
@@ -262,8 +267,14 @@ function searchOtherWayAround(classString,chosenFlights, requiredFlight, cb) {
     origin:requiredFlight.destination,
     destination:requiredFlight.origin
   };
-  query["available"+classString+"Seats"] = { $gt: requiredFlight.seats };
+  if(requiredFlight.class==="economy"){
+    query.availableEconomySeats={$gte: parseInt(requiredFlight.seats)};
+  }
+  else{
+    query.availableBusinessSeats={$gte: parseInt(requiredFlight.seats)};
+  }
   DB.collection('flights').find(query).toArray(function(err,flights) {
+    console.log(flights);
     if (err) return err;
 
     for(var i =0;i<flights.length;i++){
