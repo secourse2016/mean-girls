@@ -1,7 +1,7 @@
 <ion-view title = "viewBooking" id = "viewBooking">
   <ion-content>
   <link href='https://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>
-  <link href="css/booking.css" rel="stylesheet">
+  <!-- <link href="css/booking.css" rel="stylesheet"> -->
 
   <div class="wrapper">
 
@@ -9,18 +9,6 @@
 
       <div class="route">
         <div class="diagram"><img src="http://s18.postimg.org/d8yqxdkjt/c_Gjlath.png"/></div>
-        <div class="half">
-          <div class="circle">
-            <span class="airport">{{booking.outgoingFlight.origin}}</span>
-            <span class="city">{{getAirportName(booking.outgoingFlight.origin)}}</span>
-          </div>
-        </div><!--
-        --><div class="half">
-        <div class="circle">
-          <span class="airport">{{booking.outgoingFlight.destination}}</span>
-          <span class="city">{{getAirportName(booking.outgoingFlight.destination)}}</span>
-        </div>
-      </div>
     </div>
 
     <div class="flight-details">

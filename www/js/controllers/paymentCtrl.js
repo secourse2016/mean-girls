@@ -15,7 +15,7 @@ angular.module('alaskaIonic')
     var ccv=$scope.ccv;
     masterSrvc.payment.ccv=ccv;
 
-
     masterSrvc.Confirm();
+    $state.go('tabsController.findFlights.flights.passengerInfo.payment.viewBooking');
   }
 });

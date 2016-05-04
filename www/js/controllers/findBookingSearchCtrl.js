@@ -1,5 +1,5 @@
 angular.module('alaskaIonic')
-.controller("findBookingSearchCtrl", function($scope,$routeParams,$state,$http,bookingSrvc, $uibModal,modalSrvc){
+.controller("findBookingSearchCtrl", function($scope,$state,$http,bookingSrvc,modalSrvc){
 	
 	$scope.showBooking = function() {
 		var bookingRef=$scope.bookingRef;
@@ -7,7 +7,7 @@ angular.module('alaskaIonic')
 			$scope.openModal("Please fill in a booking reference.");
 			return;
 		}
-		$http.get('/api/booking/'+bookingRef).success(function(booking){
+		$http.get('http://localhost:3000/api/booking/'+bookingRef+'?wt='+token).success(function(booking){
 			if(!booking){
 				$scope.openModal("We couldn't find that booking.");
 				return;
@@ -17,13 +17,13 @@ angular.module('alaskaIonic')
 		});
 	};
 
-	$scope.openModal= function(message){
-		modalSrvc.modalMessage = message;
-		var modalInstance = $uibModal.open({
-			templateUrl: 'myModalContent.html',
-			controller: 'ModalInstanceCtrl'
-		});
-	}
+	// $scope.openModal= function(message){
+	// 	modalSrvc.modalMessage = message;
+	// 	var modalInstance = $uibModal.open({
+	// 		templateUrl: 'myModalContent.html',
+	// 		controller: 'ModalInstanceCtrl'
+	// 	});
+	// }
 });
 
 angular.module('alaskaIonic').factory('modalSrvc',function(){
