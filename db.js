@@ -165,7 +165,7 @@ function filteringClass(flights,i){
   }
   else {
     var filteredFlights = flights.filter(function(flight){
-      return flight.availableBussiness >= i.seats;
+      return flight.availableBusinessSeats >= i.seats;
     });
     for(var x=0;x<filteredFlights.length;x++)
     {
