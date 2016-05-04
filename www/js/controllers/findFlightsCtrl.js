@@ -1,10 +1,14 @@
 angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$state,flightsSrvc,$http,masterSrvc){
-    var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
+    
+    // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
+    // $http.get('http://localhost:3000/api/airports/?wt='+token).success(function(data) {
+    //     $scope.airports = data;
+    //     masterSrvc.airports=data;
+    // });
+    $scope.airports=flightsSrvc.getAirports();
+    masterSrvc.airports=flightsSrvc.getAirports();
+    console.log($scope.airports);
 
-    $http.get('http://localhost:3000/api/airports/?wt='+token).success(function(data) {
-        $scope.airports = data;
-        masterSrvc.airports=data;
-    });
     $scope.findFlights = function() {
         var origin= $scope.origin;
         var destination= $scope.destination;
@@ -161,6 +165,10 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
   };
 
     $scope.notNull = function (airport){
-        return airport.name != null;
-    };
+
+		return airport.name != null;
+	};
+
+
 });
+
