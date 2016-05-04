@@ -24,10 +24,8 @@ module.exports = function(app) {
 	app.post('/booking', function(req, res) {
 
 		// retrieve the token
-		console.log(req);
 		var stripeToken = req.body.paymentToken;
 		console.log(stripeToken);
-
 		var flightCost  = parseInt(req.body.cost) * 100;
 		// attempt to create a charge using token
 		stripe.charges.create({
@@ -39,8 +37,9 @@ module.exports = function(app) {
 			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
 			else{
 				var information = req.body;
-				db.addBooking(information,function(err,refNum){
-					if (!err) res.send({ refNum: refNum, errorMessage: null});
+				db.addBooking(information,function(error,refNum){
+					if (!error) res.send({ refNum: refNum, errorMessage: null});
+					else console.log(error);
 				});
 			}
 		});

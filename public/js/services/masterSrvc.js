@@ -1,54 +1,56 @@
-angular.module('alaska').factory('masterSrvc', function ($http,$location,bookingSrvc,modalSrvc,$uibModal,confirmSrvc){
-  return {
-
-    Confirm : function(){
-      var returnFlight  = this.returnFlight;
-      var outgoingFlight= this.outgoingFlight;
+angular.module('alaska').service('masterSrvc', function ($http,$location,bookingSrvc,modalSrvc,$uibModal,confirmSrvc){
+    var srvc  = this;
+    srvc.Confirm = function(){
+      var returnFlight  = srvc.returnFlight;
+      var outgoingFlight= srvc.outgoingFlight;
 
       var emptyArr  = [];
       var data={};
-      data.passengerDetails = emptyArr.push(angular.copy(this.passenger));
-      data.class            = this.seatClass;
-      data.outgoingFlightId = angular.copy(this.outgoingFlight.flightId);
+      data.passengerDetails = emptyArr.push(angular.copy(srvc.passenger));
+      data.class            = srvc.seatClass;
+      data.outgoingFlightId = srvc.outgoingFlight.flightId;
 
       if(returnFlight)
       {
-        data.returnFlightId   = angular.copy(this.returnFlight.flightId);
+        data.returnFlightId   = srvc.returnFlight.flightId;
       }
 
-      this.data=data;
-      console.log("data: "+this.data);
+      srvc.data=data;
+      console.log("data: "+srvc.data);
 
       if(!returnFlight) //oneWay flight
       {
         console.log("not return flight");
-        this.outHandler(this.bookingOneWayHandler, function(){
-          location.url('/confirm');
+        srvc.outHandler(srvc.bookingOneWayHandler, function(){
+          console.log("geh hena");
+          $location.url('/confirm');
         });
       }
       else{ //roundTripe
         if(returnFlight.Airline === outgoingFlight.Airline){ //by same airline
-          this.roundHandler();
+          srvc.roundHandler();
         }
         else {     // by diff. airlines
-          this.outHandler(this.retHandler,this.bookingOneWayHandler);
+          srvc.outHandler(srvc.retHandler,srvc.bookingOneWayHandler);
         }
 
       }
     }
-    ,
-    bookingOneWayHandler  : function (outToken,cb) {
-      var outAirline   = this.outgoingFlight.Airline;
-      var outAirlineIP = outAirline === "Alaska" ? "" : this.outgoingFlight.airlineIP;
 
-      var outReq = angular.copy(this.data);
+    srvc.bookingOneWayHandler = function (outToken,cb) {
+      var outAirline   = srvc.outgoingFlight.Airline;
+      var outAirlineIP = outAirline === "Alaska" ? "" : srvc.outgoingFlight.airlineIP;
+
+      var outReq = angular.copy(srvc.data);
       outReq.paymentToken = outToken;
       outReq.returnFlightId = null;
+      outReq.cost = srvc.outgoingFlight.cost;
 
       $http.post(outAirlineIP + '/booking', outReq).success(function (resOut){
+        console.log("5allas tamam");
         if(resOut.errorMessage){
           //couldn't charge the card
-          this.openModal(resOut.errorMessage);
+          srvc.openModal(resOut.errorMessage);
           return;
         }
         confirmSrvc.bookingRefOut = resOut.refNum;
@@ -58,19 +60,19 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
 
       });
     }
-    ,
-    retHandler          : function(outToken,cb){
 
-      var cardType      = this.payment.cardType;
-      var cardNo        = this.payment.cardNo;
-      var cvc           = this.payment.cvc;
-      var expiryMonth   = this.payment.expiryMonth;
-      var expiryYear    = this.payment.expiryYear;
-      var returnFlight  = this.returnFlight;
-      var outgoingFlight= this.outgoingFlight;
+    srvc.retHandler         = function(outToken,cb){
 
-      var retAirline   = this.returnFlight.Airline;
-      var retAirlineIP = retAirline === "Alaska" ? "" : this.returnFlight.airlineIP;
+      var cardType      = srvc.payment.cardType;
+      var cardNo        = srvc.payment.cardNo;
+      var cvc           = srvc.payment.cvc;
+      var expiryMonth   = srvc.payment.expiryMonth;
+      var expiryYear    = srvc.payment.expiryYear;
+      var returnFlight  = srvc.returnFlight;
+      var outgoingFlight= srvc.outgoingFlight;
+
+      var retAirline   = srvc.returnFlight.Airline;
+      var retAirlineIP = retAirline === "Alaska" ? "" : srvc.returnFlight.airlineIP;
 
       $http.get(retAirlineIP + '/stripe/pubkey').success(function(pubkey){
         Stripe.setPublishableKey(pubkey);
@@ -84,75 +86,74 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
             Stripe.setPublishableKey('pk_test_I5BoepTFhbNEZbcMq5eUeSRg'); //return to MY pubkey
             if(response1.error){
               // Problem!
-              this.openModal("Error occured during card verification: "+ response1.error);
+              srvc.openModal("Error occured during card verification: "+ response1.error);
               return;
             }
             var retToken = response1.id;
-
             //now ready to issue 2 post requests
             cb(outToken,retToken);
           });
         });
       }
-      ,
 
-      bookingRoundHandler : function(outToken, retToken){
+      srvc.bookingRoundHandler = function(outToken, retToken){
 
-        var outAirline   = this.outgoingFlight.Airline;
-        var outAirlineIP = outAirline === "Alaska" ? "" : this.outgoingFlight.airlineIP;
+        var outAirline   = srvc.outgoingFlight.Airline;
+        var outAirlineIP = outAirline === "Alaska" ? "" : srvc.outgoingFlight.airlineIP;
 
-        var retAirline   = this.returnFlight.Airline;
-        var retAirlineIP = retAirline === "Alaska" ? "" : this.returnFlight.airlineIP;
+        var retAirline   = srvc.returnFlight.Airline;
+        var retAirlineIP = retAirline === "Alaska" ? "" : srvc.returnFlight.airlineIP;
 
-        var outReq = angular.copy(this.data);
+        var outReq = angular.copy(srvc.data);
         outReq.paymentToken = outToken;
         outReq.returnFlightId = null;
-        outReq.cost = this.outgoingFlight.cost;
-
+        outReq.cost = srvc.outgoingFlight.cost;
         $http.post(outAirlineIP + '/booking', outReq).success(function (resOut){
           if(resOut.errorMessage){
             //couldn't charge the card
-            this.openModal(resOut.errorMessage);
+            srvc.openModal(resOut.errorMessage);
             return;
           }
           confirmSrvc.bookingRefOut = resOut.refNum;
-          confirmSrvc.airlineOut  = this.outgoingFlight.Airline;
+          confirmSrvc.airlineOut  = srvc.outgoingFlight.Airline;
 
           //modify for return
-          var retReq = angular.copy(this.data);
+          var retReq = angular.copy(srvc.data);
           retReq.paymentToken     = retToken;
-          retReq.outgoingFlightId = this.data.returnFlightId;
+          retReq.outgoingFlightId = srvc.data.returnFlightId;
           retReq.returnFlightId   = null;
-          retReq.cost = this.returnFlight.cost;
+          retReq.cost = srvc.returnFlight.cost;
 
           $http.post(retAirlineIP + '/booking',retReq).success(function (resRet){
             if(resRet.errorMessage){
               //couldn't charge the card
-              this.openModal(resRet.errorMessage);
+              srvc.openModal(resRet.errorMessage);
               return;
             }
             confirmSrvc.bookingRefRet = resRet.refNum;
-            confirmSrvc.airlineRet = this.returnFlight.Airline;
+            confirmSrvc.airlineRet = srvc.returnFlight.Airline;
             //done
-            location.url('/confirm');
+            $location.url('/confirm');
           });
         });
       }
-      ,
-      outHandler       : function(cb1,cb2){
-        var cardType      = this.payment.cardType;
-        var cardNo        = this.payment.cardNo;
-        var cvc           = this.payment.cvc;
-        var expiryMonth   = this.payment.expiryMonth;
-        var expiryYear    = this.payment.expiryYear;
-        var returnFlight  = this.returnFlight;
-        var outgoingFlight= this.outgoingFlight;
 
-        var outAirline   = this.outgoingFlight.Airline;
-        var outAirlineIP = outAirline === "Alaska" ? "" : this.outgoingFlight.airlineIP;
+      srvc.outHandler       = function(cb1,cb2){
+        var cardType      = srvc.payment.cardType;
+        var cardNo        = srvc.payment.cardNo;
+        var cvc           = srvc.payment.cvc;
+        var expiryMonth   = srvc.payment.expiryMonth;
+        var expiryYear    = srvc.payment.expiryYear;
+        var returnFlight  = srvc.returnFlight;
+        var outgoingFlight= srvc.outgoingFlight;
+
+        var outAirline   = srvc.outgoingFlight.Airline;
+        var outAirlineIP = outAirline === "Alaska" ? "" : srvc.outgoingFlight.airlineIP;
         console.log("outHandler called");
+        var master= srvc;
         $http.get(outAirlineIP + '/stripe/pubkey').success(function(pubkey){
           console.log("pub key: "+ pubkey);
+          console.log(cardNo);
           Stripe.setPublishableKey(pubkey);
           Stripe.card.createToken({
             number: cardNo,
@@ -163,7 +164,7 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
           function(status,response){
             if(response.error){
               // Problem!
-              this.openModal("Error occured during card verification: "+ response.error);
+              master.openModal("Error occured during card verification: "+ response.error);
               console.log(response.error);
               return;
             }
@@ -174,17 +175,17 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
           });
         });
       }
-      ,
-      roundHandler     : function(){
 
-        var cardType      = this.payment.cardType;
-        var cardNo        = this.payment.cardNo;
-        var cvc           = this.payment.cvc;
-        var expiryMonth   = this.payment.expiryMonth;
-        var expiryYear    = this.payment.expiryYear;
+      srvc.roundHandler     = function(){
 
-        var returnFlight  = this.returnFlight;
-        var outgoingFlight= this.outgoingFlight;
+        var cardType      = srvc.payment.cardType;
+        var cardNo        = srvc.payment.cardNo;
+        var cvc           = srvc.payment.cvc;
+        var expiryMonth   = srvc.payment.expiryMonth;
+        var expiryYear    = srvc.payment.expiryYear;
+
+        var returnFlight  = srvc.returnFlight;
+        var outgoingFlight= srvc.outgoingFlight;
 
         var airline   = returnFlight.Airline;
         var airlineIP = airline==="Alaska"? "" :returnFlight.airlineIP;
@@ -197,46 +198,46 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
             exp_month: expiryMonth,
             exp_year: expiryYear
           },
-          this.roundSameAirline
+          srvc.roundSameAirline
         );
       });
     }
-    ,
-    roundSameAirline : function (status, response){
+
+    srvc.roundSameAirline = function (status, response){
       Stripe.setPublishableKey('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
       if (response.error) {
         // Problem!
-        this.openModal("Error occured during card verification: "+ response.error);
+        srvc.openModal("Error occured during card verification: "+ response.error);
         return;
       }
       // Token was created!
       // Get the token ID:
       console.log("hallelujah");
       var token = response.id;
-      var req = angular.copy(this.data);
+      var req = angular.copy(srvc.data);
       req.paymentToken     = token;
-      req.cost = this.outgoingFlight.cost + this.returnFlight.cost;
+      req.cost = srvc.outgoingFlight.cost + srvc.returnFlight.cost;
 
-      var airline   = returnFlight.Airline;
-      var airlineIP = airline==="Alaska"? "" :returnFlight.airlineIP;
+      var airline   = srvc.returnFlight.Airline;
+      var airlineIP = airline==="Alaska"? "" :srvc.returnFlight.airlineIP;
 
       $http.post(airlineIP + '/booking',req).success(function(res){
         if(res.errorMessage){
           //couldn't charge the card
-          this.openModal(res.errorMessage);
+          srvc.openModal(res.errorMessage);
           return;
         }
         var bookingRef = res.refNum;
         confirmSrvc.bookingRefOut = res.refNum;
         confirmSrvc.bookingRefRet = null;
-        location.url('/confirm');
+        $location.url('/confirm');
       });
 
     }
 
-    ,
 
-    openModal :  function(message){
+
+    srvc.openModal =  function(message){
       modalSrvc.modalMessage = message;
       var modalInstance = $uibModal.open({
         templateUrl: 'myModalContent.html',
@@ -244,5 +245,5 @@ angular.module('alaska').factory('masterSrvc', function ($http,$location,booking
       });
     }
 
-  }
+
 });
