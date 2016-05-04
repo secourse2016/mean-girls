@@ -18,33 +18,6 @@ module.exports = function(app) {
 		res.setHeader('Content-Type','application/json');
 		next();
 	});
-	app.get('/stripe/pubkey', function (req,res) {
-		res.json('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
-	});
-	app.post('/booking', function(req, res) {
-
-		// retrieve the token
-		var stripeToken = req.body.paymentToken;
-		console.log(stripeToken);
-		var flightCost  = parseInt(req.body.cost) * 100;
-		// attempt to create a charge using token
-		stripe.charges.create({
-			amount: flightCost,
-			currency: "usd",
-			source: stripeToken,
-			description: "test"
-		}, function(err, data) {
-			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
-			else{
-				var information = req.body;
-				console.log(information);
-				db.addBooking(information,function(error,refNum){
-					if (!error) res.send({ refNum: refNum, errorMessage: null});
-					else console.log(error);
-				});
-			}
-		});
-	});
 
 
 
@@ -100,6 +73,33 @@ module.exports = function(app) {
 
 	});
 
+	app.get('/stripe/pubkey', function (req,res) {
+		res.json('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
+	});
+	app.post('/booking', function(req, res) {
+
+		// retrieve the token
+		var stripeToken = req.body.paymentToken;
+		console.log(stripeToken);
+		var flightCost  = parseInt(req.body.cost) * 100;
+		// attempt to create a charge using token
+		stripe.charges.create({
+			amount: flightCost,
+			currency: "usd",
+			source: stripeToken,
+			description: "test"
+		}, function(err, data) {
+			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
+			else{
+				var information = req.body;
+				console.log(information);
+				db.addBooking(information,function(error,refNum){
+					if (!error) res.send({ refNum: refNum, errorMessage: null});
+					else console.log(error);
+				});
+			}
+		});
+	});
 
 	app.post('/api/contact', function(req,res){
 		var contact=req.body;
@@ -215,28 +215,6 @@ module.exports = function(app) {
 	});
 
 
-	// app.post('/booking', function(req, res) {
-	//
-	// 	// retrieve the token
-	// 	var stripeToken = req.body.paymentToken;
-	// 	var flightCost  = req.body.cost * 100;
-	//
-	// 	// attempt to create a charge using token
-	// 	stripe.charges.create({
-	// 		amount: flightCost,
-	// 		currency: "usd",
-	// 		source: stripeToken,
-	// 		description: "test"
-	// 	}, function(err, data) {
-	// 		if (err) res.send({ refNum: null, errorMessage: "Error occured while charging!"});
-	// 		else{
-	// 			var information = req.body;
-	// 			db.addBooking(information,function(err,refNum){
-	// 				if (!err) res.send({ refNum: refNum, errorMessage: null});
-	// 			});
-	// 		}
-	// 	});
-	// });
 	app.get('/api/airports', function(req,res){
 		db.getAirports(function(err, airports){
 			res.send(airports);
