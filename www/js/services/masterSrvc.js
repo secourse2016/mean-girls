@@ -1,6 +1,7 @@
 
 // angular.module('alaskaIonic').factory('masterSrvc', function ($http,$location,bookingSrvc) {
 angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,bookingSrvc,confirmSrvc) {
+  var jwt ='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBdXN0cmlhbiBBaXJsaW5lcyIsImlhdCI6MTQ2MDYzNTE1OCwiZXhwIjoxNDkyMTcxMTU4LCJhdWQiOiJ3d3cuYXVzdHJpYW4tYWlybGluZXMuY29tIiwic3ViIjoiYXVzdHJpYW5BaXJsaW5lcyJ9.Dilu6siLX3ouLk48rNASpYJcJSwKDTFYS2U4Na1M5k4';
   var service = this;
   // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
   // return {
@@ -46,13 +47,15 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
       var returnFlight  = service.returnFlight;
       var outgoingFlight= service.outgoingFlight;
 
-      var emptyArr  = [];
-      data.passengerDetails = emptyArr.push(angular.copy(service.passenger));
-      data.outgoingFlightId = angular.copy(service.outgoingFlight.flightId);
+      var emptyArr  = [];      
+      emptyArr.push(service.passenger);
+      data.passengerDetails =emptyArr;
+      data.class = service.seatClass;
+      data.outgoingFlightId = service.outgoingFlight.flightId;
 
       if(returnFlight)
       {
-        data.returnFlightId   = angular.copy(service.returnFlight.flightId);
+        data.returnFlightId   = service.returnFlight.flightId;
       }
 
       service.data=data;
@@ -83,8 +86,9 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
       var outReq = angular.copy(service.data);
       outReq.paymentToken = outToken;
       outReq.returnFlightId = null;
+      outReq.cost = service.outgoingFlight.cost;
 
-      $http.post('http://localhost:3000'+outAirlineIP + '/booking', outReq).success(function (resOut){
+      $http.post('http://localhost:3000'+outAirlineIP + '/booking/?wt='+jwt, outReq).success(function (resOut){
         if(resOut.errorMessage){
           //couldn't charge the card
           // service.openModal(resOut.errorMessage);
@@ -92,7 +96,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
           return;
         }
         confirmSrvc.bookingRefOut = resOut.refNum;
-        confirmSrvc.airlineOut  = outgoingFlight.Airline;
+        confirmSrvc.airlineOut  = service.outgoingFlight.Airline;
         confirmSrvc.bookingRefRet = null;
         cb();
 
@@ -112,7 +116,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
       var retAirline   = service.returnFlight.Airline;
       var retAirlineIP = retAirline === "Alaska" ? "" : service.returnFlight.airlineIP;
 
-      $http.get('http://localhost:3000'+retAirlineIP + '/stripe/pubkey').success(function(pubkey){
+      $http.get('http://localhost:3000'+retAirlineIP + '/stripe/pubkey/?wt='+jwt).success(function(pubkey){
         Stripe.setPublishableKey(pubkey);
         Stripe.card.createToken(
           {
@@ -149,7 +153,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
         outReq.returnFlightId = null;
         outReq.cost = service.outgoingFlight.cost;
 
-        $http.post('http://localhost:3000'+outAirlineIP + '/booking', outReq).success(function (resOut){
+        $http.post('http://localhost:3000'+outAirlineIP + '/booking/?wt='+jwt, outReq).success(function (resOut){
           if(resOut.errorMessage){
             //couldn't charge the card
             // service.openModal(resOut.errorMessage);
@@ -165,7 +169,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
           retReq.returnFlightId   = null;
           retReq.cost = service.returnFlight.cost;
 
-          $http.post('http://localhost:3000'+retAirlineIP + '/booking',retReq).success(function (resRet){
+          $http.post('http://localhost:3000'+retAirlineIP + '/booking/?wt='+jwt,retReq).success(function (resRet){
             if(resRet.errorMessage){
               //couldn't charge the card
               // service.openModal(resRet.errorMessage);
@@ -174,7 +178,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
             confirmSrvc.bookingRefRet = resRet.refNum;
             confirmSrvc.airlineRet = service.returnFlight.Airline;
             //done
-            location.url('/confirm');
+            $state.go('tabsController.findFlights.flights.passengerInfo.payment.confirmation');
           });
         });
       }
@@ -191,7 +195,8 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
         var outAirline   = service.outgoingFlight.Airline;
         var outAirlineIP = outAirline === "Alaska" ? "" : service.outgoingFlight.airlineIP;
         console.log("outHandler called");
-        $http.get('http://localhost:3000'+outAirlineIP + '/stripe/pubkey').success(function(pubkey){
+        var master = service;
+        $http.get('http://localhost:3000'+outAirlineIP + '/stripe/pubkey/?wt='+jwt).success(function(pubkey){
           console.log("pub key: "+ pubkey);
           Stripe.setPublishableKey(pubkey);
           Stripe.card.createToken({
@@ -221,7 +226,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
         var cardNo        = service.payment.cardNo;
         var cvc           = service.payment.cvc;
         var expiryMonth   = service.payment.expiryMonth;
-        console.log("ba7awel"+expiryMonth);
+        // console.log("ba7awel"+expiryMonth);
         var expiryYear    = service.payment.expiryYear;
 
         var returnFlight  = service.returnFlight;
@@ -230,7 +235,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
         var airline   = returnFlight.Airline;
         var airlineIP = airline==="Alaska"? "" :returnFlight.airlineIP;
         // console.log("roundhandler abl http");
-        $http.get('http://localhost:3000'+airlineIP + '/stripe/pubkey').success(function(pubkey){
+        $http.get('http://localhost:3000'+airlineIP + '/stripe/pubkey/?wt='+jwt).success(function(pubkey){
           Stripe.setPublishableKey(pubkey);
           Stripe.card.createToken({
             number: cardNo,
@@ -259,12 +264,13 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
       var token = response.id;
       var req = angular.copy(service.data);
       req.paymentToken     = token;
-      req.cost = service.outgoingFlight.cost + service.returnFlight.cost;
+      req.cost = parseInt(service.outgoingFlight.cost) + parseInt(service.returnFlight.cost);
+      console.log("Payment:"+req.paymentToken);
 
       var airline   = service.returnFlight.Airline;
       var airlineIP = airline==="Alaska"? "" :returnFlight.airlineIP;
 
-      $http.post('http://localhost:3000'+airlineIP + '/booking',req).success(function(res){
+      $http.post('http://localhost:3000'+airlineIP + '/booking/?wt='+jwt,req).success(function(res){
         if(res.errorMessage){
           //couldn't charge the card
           // service.openModal(res.errorMessage);
