@@ -133,7 +133,7 @@ angular.module('alaska').service('masterSrvc', function ($http,$location,booking
             return;
           }
           confirmSrvc.bookingRefRet = resRet.refNum;
-          confirmSrvc.airlineRet = srvc.returnFlight.Airline;
+          confirmSrvc.airlineOut = srvc.outgoingFlight.Airline;
           //done
           $location.url('/confirm');
         });
