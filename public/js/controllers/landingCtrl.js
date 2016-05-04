@@ -30,10 +30,10 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 		/*one way trip*/
 		if(oneWay===1){
 			//TODO add 1 for seat parameter to API calls
-			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(flights){
+			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass+'/'+1).success(function(flights){
 				flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
 				if(otherAirlines===1){
-					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass).success(function(othersFlights){
+					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass+'/'+1).success(function(othersFlights){
 						flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
 						if(flightsSrvc.outgoingFlights.length===0){
 							$scope.openModal("We couldn't find the desired flight(s).");
@@ -56,13 +56,12 @@ angular.module('alaska').controller('landingCtrl',function ($scope,$location,$ht
 		/*round trip*/
 		else{
 			var returningDate=new Date($scope.returningDate).getTime();
-			console.log('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass);
-			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(flights){
+			$http.get('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass+'/'+1).success(function(flights){
 				flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
 				flightsSrvc.returnFlights=flightsSrvc.returnFlights.concat(flights.returnFlights);
 				console.log(flightsSrvc.outgoingFlights);
 				if(otherAirlines===1){
-					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass).success(function(othersFlights){
+					$http.get('/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass+'/'+1).success(function(othersFlights){
 						flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
 						flightsSrvc.returnFlights=flightsSrvc.returnFlights.concat(othersFlights.returnFlights);
 						if(flightsSrvc.outgoingFlights.length===0 || flightsSrvc.returnFlights.length===0){
