@@ -1,20 +1,25 @@
 app=angular.module('alaskaIonic.routes', ['ionic','ionicUIRouter','onezone-datepicker']);
 
-
-
-
-
 app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
 
-  
   $stateProvider
+  .state('tabsController.findBookingSearch', {
+    url: '/findBookingSearch',
+    views: {
+      'findBookingSearch': {
+        templateUrl: 'partials/findBookingSearch.html',
+        controller: 'findBookingSearchCtrl'
 
-  .state('tabsController.findFlights', {
+      }
+    }
+  })
+    .state('tabsController.findFlights', {
     url: '/findFlights',
     views: {
       'findFlights': {
@@ -28,18 +33,31 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
     url: '/flightStatusSearch',
     views: {
       'flightStatusSearch': {
-        templateUrl: 'partials/flightStatusSearch.html',
+        templateUrl: 'partials/flightStatusSearch.html'
         // controller: 'flightStatusSearchCtrl'
       }
     }
   })
 
-  .state('tabsController.findBookingSearch', {
-    url: '/findBookingSearch',
+
+  .state('tabsController.findBookingSearch.viewBooking', {
+    url: '/viewBooking',
     views: {
-      'findBookingSearch': {
-        templateUrl: 'partials/findBookingSearch.html',
-        // controller: 'findBookingSearchCtrl'
+      'findBookingSearch@tabsController': {
+        templateUrl: 'partials/viewBooking.html',
+         controller: 'bookingCtrl'
+
+      }
+    }
+  })
+
+  .state('tabsController.findFlights.flights.passengerInfo.payment.viewBooking', {
+    url: '/viewBooking',
+    views: {
+      'findFlights@tabsController': {
+        templateUrl: 'partials/viewBooking.html',
+         controller: 'bookingCtrl'
+
       }
     }
   })
@@ -64,7 +82,9 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
     url: '/passengerInfo',
     views: {
       'findFlights@tabsController': {
-        templateUrl: 'partials/passengerInfo.html'
+        templateUrl: 'partials/passengerInfo.html',
+        controller: 'passengerCtrl'
+
       }
     }
   })
@@ -73,11 +93,15 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
     url: '/payment',
     views: {
       'findFlights@tabsController': {
-        templateUrl: 'partials/payment.html'
+
+        templateUrl: 'partials/payment.html',
+        controller: 'paymentCtrl'
+
       }
     }
   })
 
 $urlRouterProvider.otherwise('/tab/findFlights');
+
 
 });

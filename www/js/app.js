@@ -1,3 +1,4 @@
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -21,6 +22,4 @@ angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter','one
       StatusBar.styleDefault();
     }
   });
-
-
 })

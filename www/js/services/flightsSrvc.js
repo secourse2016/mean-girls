@@ -223,4 +223,5 @@ angular.module('alaskaIonic').factory('flightsSrvc', function ($http) {
     }
     
    };
+
 });

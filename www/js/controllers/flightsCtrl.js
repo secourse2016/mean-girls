@@ -33,3 +33,4 @@ controller('flightsCtrl',function($scope, $http,$state ,flightsSrvc,masterSrvc){
 
 
 });
+
