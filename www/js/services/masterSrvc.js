@@ -25,10 +25,13 @@ angular.module('alaskaIonic').factory('masterSrvc', function ($http,$state,booki
       //   $state.go('tabsController.findFlights.flights.passengerInfo.payment.viewBooking');
       // });
 
-       $http.post('http://localhost:3000/api/addbooking/'+'?wt='+token,data).success(function(booking){
+       $http.post('http://localhost:3000/api/booking'+'?wt='+token,data,{headers : {
+                'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+            }}).success(function(booking){
           var bookingRef = booking.bookingRefNo;
+          console.log('Booking:'+booking);
           console.log("BookingRef: "+bookingRef);
-          $http.get('http://localhost:3000/booking/'+bookingRef+'?wt='+token).success(function(booking1){
+          $http.get('http://localhost:3000/api/booking/'+bookingRef+'?wt='+token).success(function(booking1){
             console.log("Booking1: "+ booking1);
             bookingSrvc.booking=booking1;
             $state.go('tabsController.findFlights.flights.passengerInfo.payment.viewBooking');

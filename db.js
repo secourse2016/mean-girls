@@ -357,129 +357,125 @@ exports.searchBooking = function(bookingRef,cb){
 
 exports.addBooking=function(i,cb){
   var resIDToBe;
-  var booking = {};
+  var refNum ;
+  var numberOfSeats = i.passengerDetails.length;
 
   DB.collection('bookings').insert({
 
-    "passenger": {
-      "firstName":i.passenger.firstName,
-      "lastname":i.passenger.lastname,
-      "birthDate":i.passenger.birthDate,
-      "gender":i.passenger.gender,
-      "passportCountry":i.passenger.passportCountry,
-      "passportNo":i.passenger.passportNo,
-      "issueDate":i.passenger.issueDate,
-      "expiryDate":i.passenger.expiryDate
-    },
-    "payment": {
-      "cardType":i.payment.cardType,
-      "cardNo":i.payment.cardNo,
-      "expiryDate":i.payment.expiryDate,
-      "amount":i.payment.amount,
-      "ccv":i.payment.ccv,
-      "cardHolder":i.cardHolder
-    },
-
-    "bookingRefNo":i.bookingRefNo,
-    "reservationID":i.reservationID,
-    "receiptNo":i.receiptNo,
-    "outgoingFlight":i.outgoingFlight,
-    "returnFlight":i.returnFlight,
-    "oneWay":i.oneWay
+    "passengerDetails":i.passengerDetails ,
+    "paymentToken":i.paymentToken,
+    "bookingRefNo":null,
+    "reservationID":null,
+    "outgoingFlightID":i.outgoingFlightID,
+    "returnFlightID":i.returnFlightID
 
   },function (err){
     if (err) return err;
     DB.collection('bookings').find().sort({_id:-1}).toArray(function (err,doc){
-      //console.log("test"+ doc[0]._id);
-
       if (err) return err;
       resIDToBe = ""+doc[0]._id;
       var bookRef = resIDToBe.substr(0, 7);
       DB.collection('bookings').update({ _id: doc[0]._id }, {$set: { reservationID: resIDToBe , bookingRefNo: bookRef }}, function (err) {
         if (err) return err;
         DB.collection('bookings').find({ _id: doc[0]._id }).toArray(function (err,returnedBooking){
-          booking = returnedBooking[0];
-          // DB.collection('bookings').find({"passenger.passportNo":i.passenger.passportNo}).toArray(function (err,doc){
-          // if (err) return err;
-          if(i.class === "economy"){
+          refNum = returnedBooking[0].bookingRefNo;
+          updateSeatmapRec(0,i,resIDToBe,numberOfSeats,function(){
+             cb(null,refNum);
+          })
+        });
+      });
+    });
+  });
+}
+
+function updateSeatmapRec(x,i,resIDToBe,numberOfSeats,cb){
+  if(x<numberOfSeats){
+    updateSeatmap(i,resIDToBe,function(){
+        if(x===numberOfSeats-1){
+           cb();
+        }
+        else{
+          updateSeatmapRec(x+1,i,resIDToBe,numberOfSeats,cb)
+        }
+    });
+  }
+}
+
+
+function updateSeatmap (i,resIDToBe,cb){
+  if(i.class === "economy"){
+    DB.collection('flights').update(
+    {
+      _id:i.outgoingFlightID ,
+      seatmap:{
+        $elemMatch : {
+          cabin : "economy",
+          reservationID : null }
+        }
+    },
+    {
+      $set:{"seatmap.$.reservationID":resIDToBe},
+      $inc:{availableSeats:-1,availableEconomySeats:-1}
+    },function(err,results){
+        if(err) return err;
+        DB.collection('flights').update(
+          {
+          _id:i.returnFlightID ,
+          seatmap:{
+            $elemMatch : {
+              cabin : "economy",
+              reservationID : null }
+            }
+          },
+          {
+            $set:{"seatmap.$.reservationID":resIDToBe},
+            $inc:{availableSeats:-1,availableEconomySeats:-1}
+          },function(err,results){
+              if(err) return err;
+              cb();
+            }
+        );
+      }
+    );
+  }
+  else{
+    if(i.class=="business"){
+      DB.collection('flights').update(
+        {
+          _id:i.outgoingFlightID ,
+          seatmap:{
+            $elemMatch : {
+              cabin : "business",
+              reservationID : null }
+            }
+        },
+        {
+          $set:{"seatmap.$.reservationID":resIDToBe},
+          $inc:{availableSeats:-1,availableBusinessSeats:-1}
+        },function(err,results){
+            if(err) return err;
             DB.collection('flights').update(
-              {
-                flightNumber:i.outgoingFlight ,
+                {
+                _id:i.returnFlightID ,
                 seatmap:{
                   $elemMatch : {
-                    cabin : "economy",
+                    cabin : "business",
                     reservationID : null }
                   }
                 },
                 {
                   $set:{"seatmap.$.reservationID":resIDToBe},
-                  $inc:{availableSeats:-1,availableEconomySeats:-1}
+                  $inc:{availableSeats:-1,availableBusinessSeats:-1}
                 },function(err,results){
-                  if(err) return err;
-                  DB.collection('flights').update(
-                    {
-                      flightNumber:i.returnFlight ,
-                      seatmap:{
-                        $elemMatch : {
-                          cabin : "economy",
-                          reservationID : null }
-                        }
-                      },
-                      {
-                        $set:{"seatmap.$.reservationID":resIDToBe},
-                        $inc:{availableSeats:-1,availableEconomySeats:-1}
-                      },function(err,results){
-                        if(err) return err;
-                        cb(null,booking);
-                      }
-                    );
+                    if(err) return err;
+                    cb();
                   }
-                );
-              }
-              else{
-                if(i.class=="business"){
-                  DB.collection('flights').update(
-                    {
-                      flightNumber:i.outgoingFlight ,
-                      seatmap:{
-                        $elemMatch : {
-                          cabin : "business",
-                          reservationID : null }
-                        }
-                      },
-                      {
-                        $set:{"seatmap.$.reservationID":resIDToBe},
-                        $inc:{availableSeats:-1,availableBusinessSeats:-1}
-                      },function(err,results){
-                        if(err) return err;
-                        DB.collection('flights').update(
-                          {
-                            flightNumber:i.returnFlight ,
-                            seatmap:{
-                              $elemMatch : {
-                                cabin : "business",
-                                reservationID : null }
-                              }
-                            },
-                            {
-                              $set:{"seatmap.$.reservationID":resIDToBe},
-                              $inc:{availableSeats:-1,availableBusinessSeats:-1}
-                            },function(err,results){
-                              if(err) return err;
-                              cb(null,booking);
-                            }
-                          );
-                        }
-                      );
-
-                    }
-                  }
-
-                })
-              })
-            })
-          })
-        }
+            );
+          }
+      );
+    }
+  }
+}
 
         exports.getAirports = function(cb){
           //fixed Db typo

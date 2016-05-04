@@ -22,4 +22,6 @@ angular.module('alaskaIonic', ['ionic','alaskaIonic.routes','ionicUIRouter','one
       StatusBar.styleDefault();
     }
   });
+
+  
 })

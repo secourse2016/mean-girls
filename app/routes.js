@@ -16,6 +16,7 @@ module.exports = function(app) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		next();
 	});
+	
 
 
 	app.get('/', function (req, res) {
@@ -175,13 +176,25 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/api/booking',function(req,res){
-		var information = req.body;
-		db.addBooking(information,function(err,booking){
-			if (err) return (err);
-			res.send(booking);
-		});
-	});
+	app.post('/api/booking', function(req, res) {
+	       	var information = req.body;
+			db.addBooking(information,function(err,refNum){
+				if (err) return (err);
+				else{
+					res.send({refNum: refNum, errorMessage: null});
+				}
+			});
+	 });
+
+	// app.post('/api/booking',function(req,res){
+	// 	var information = req.body;
+	// 	console.log("hello from sherine");
+	// 	db.addBooking(information,function(err,booking){
+	// 		if (err) return (err);
+	// 		res.send(booking);
+	// 	});
+	// });
+
 
 	app.get('/api/airports', function(req,res){
 		db.getAirports(function(err, airports){
