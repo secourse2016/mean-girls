@@ -82,8 +82,8 @@ function seedAFlight (reverseFlag, cb){
       flightToBeInserted.economyCost = flight.economyCost;
       flightToBeInserted.businessCost = flight.businessCost;
       flightToBeInserted.availableSeats = flight.availableSeats;
-      flightToBeInserted.availableEconomySeats = 40;
-      flightToBeInserted.availableBusinessSeats = 20;
+      flightToBeInserted.availableEconomySeatsSeats = 40;
+      flightToBeInserted.availableBusinessSeatsSeats = 20;
       // flightToBeInserted.status = flight.status;
       flightToBeInserted.departureDateTime = moment('2016-04-13 12:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('YYYY-MM-DD hh:mm A');
       flightToBeInserted.arrivalDateTime = moment('2016-04-13 15:25 AM', 'YYYY-MM-DD hh:mm A').add(k, 'days').format('YYYY-MM-DD hh:mm A');
@@ -156,7 +156,7 @@ function seedAFlight (reverseFlag, cb){
 function filteringClass(flights,i){
   if(i.class === "economy") {
     var filteredFlights = flights.filter(function(flight){
-      return flight.availableEconomy >= i.seats;
+      return flight.availableEconomySeats >= i.seats;
     });
     for(var x=0;x<filteredFlights.length;x++)
     {
@@ -188,12 +188,10 @@ function filteringClass(flights,i){
     filteredFlights[x].currency="USD";
   }
 
-for(var x=0;x<filteredFlights.length;x++)
+  for(var x=0;x<filteredFlights.length;x++)
   {
     filteredFlights[x].flightId=filteredFlights[x]._id;
   }
-
-
   var filteredFlights2 = filteredFlights.filter(function(flight){
     return moment(flight.departureDateTime).format('YYYY-MM-DD')==moment(parseInt(i.departureDate)).format('YYYY-MM-DD');
   });
@@ -388,7 +386,7 @@ exports.addBooking=function(i,cb){
         DB.collection('bookings').find({ _id: doc[0]._id }).toArray(function (err,returnedBooking){
           refNum = returnedBooking[0].bookingRefNo;
           updateSeatmapRec(0,i,resIDToBe,numberOfSeats,function(){
-             cb(null,refNum);
+            cb(null,refNum);
           })
         });
       });
@@ -399,12 +397,12 @@ exports.addBooking=function(i,cb){
 function updateSeatmapRec(x,i,resIDToBe,numberOfSeats,cb){
   if(x<numberOfSeats){
     updateSeatmap(i,resIDToBe,function(){
-        if(x===numberOfSeats-1){
-           cb();
-        }
-        else{
-          updateSeatmapRec(x+1,i,resIDToBe,numberOfSeats,cb)
-        }
+      if(x===numberOfSeats-1){
+        cb();
+      }
+      else{
+        updateSeatmapRec(x+1,i,resIDToBe,numberOfSeats,cb)
+      }
     });
   }
 }
@@ -413,102 +411,102 @@ function updateSeatmapRec(x,i,resIDToBe,numberOfSeats,cb){
 function updateSeatmap (i,resIDToBe,cb){
   if(i.class === "economy"){
     DB.collection('flights').update(
-    {
-      _id:i.outgoingFlightID ,
-      seatmap:{
-        $elemMatch : {
-          cabin : "economy",
-          reservationID : null }
-        }
-    },
-    {
-      $set:{"seatmap.$.reservationID":resIDToBe},
-      $inc:{availableSeats:-1,availableEconomySeats:-1}
-    },function(err,results){
-        if(err) return err;
-        DB.collection('flights').update(
-          {
-          _id:i.returnFlightID ,
-          seatmap:{
-            $elemMatch : {
-              cabin : "economy",
-              reservationID : null }
-            }
-          },
-          {
-            $set:{"seatmap.$.reservationID":resIDToBe},
-            $inc:{availableSeats:-1,availableEconomySeats:-1}
-          },function(err,results){
-              if(err) return err;
-              cb();
-            }
-        );
-      }
-    );
-  }
-  else{
-    if(i.class=="business"){
-      DB.collection('flights').update(
-        {
-          _id:i.outgoingFlightID ,
-          seatmap:{
-            $elemMatch : {
-              cabin : "business",
-              reservationID : null }
-            }
+      {
+        _id:i.outgoingFlightID ,
+        seatmap:{
+          $elemMatch : {
+            cabin : "economy",
+            reservationID : null }
+          }
         },
         {
           $set:{"seatmap.$.reservationID":resIDToBe},
-          $inc:{availableSeats:-1,availableBusinessSeats:-1}
+          $inc:{availableSeats:-1,availableEconomySeatsSeats:-1}
         },function(err,results){
-            if(err) return err;
-            DB.collection('flights').update(
-                {
-                _id:i.returnFlightID ,
-                seatmap:{
-                  $elemMatch : {
-                    cabin : "business",
-                    reservationID : null }
-                  }
-                },
-                {
-                  $set:{"seatmap.$.reservationID":resIDToBe},
-                  $inc:{availableSeats:-1,availableBusinessSeats:-1}
-                },function(err,results){
-                    if(err) return err;
-                    cb();
-                  }
+          if(err) return err;
+          DB.collection('flights').update(
+            {
+              _id:i.returnFlightID ,
+              seatmap:{
+                $elemMatch : {
+                  cabin : "economy",
+                  reservationID : null }
+                }
+              },
+              {
+                $set:{"seatmap.$.reservationID":resIDToBe},
+                $inc:{availableSeats:-1,availableEconomySeatsSeats:-1}
+              },function(err,results){
+                if(err) return err;
+                cb();
+              }
             );
           }
-      );
-    }
-  }
-}
+        );
+      }
+      else{
+        if(i.class=="business"){
+          DB.collection('flights').update(
+            {
+              _id:i.outgoingFlightID ,
+              seatmap:{
+                $elemMatch : {
+                  cabin : "business",
+                  reservationID : null }
+                }
+              },
+              {
+                $set:{"seatmap.$.reservationID":resIDToBe},
+                $inc:{availableSeats:-1,availableBusinessSeatsSeats:-1}
+              },function(err,results){
+                if(err) return err;
+                DB.collection('flights').update(
+                  {
+                    _id:i.returnFlightID ,
+                    seatmap:{
+                      $elemMatch : {
+                        cabin : "business",
+                        reservationID : null }
+                      }
+                    },
+                    {
+                      $set:{"seatmap.$.reservationID":resIDToBe},
+                      $inc:{availableSeats:-1,availableBusinessSeatsSeats:-1}
+                    },function(err,results){
+                      if(err) return err;
+                      cb();
+                    }
+                  );
+                }
+              );
+            }
+          }
+        }
 
-exports.getAirports = function(cb){
-  //fixed Db typo
-  DB.collection('airports').find().toArray(function(err,airports){
-    cb(err,airports);
-  });
-};
+        exports.getAirports = function(cb){
+          //fixed Db typo
+          DB.collection('airports').find().toArray(function(err,airports){
+            cb(err,airports);
+          });
+        };
 
 
 
-exports.clearDB=function (done) {
-  DB.listCollections().toArray().then(function (collections) {
-    collections.forEach(function (c) {
-      DB.collection(c.name).removeMany();
-    });
-    done();
-  }).catch(done);
-};
+        exports.clearDB=function (done) {
+          DB.listCollections().toArray().then(function (collections) {
+            collections.forEach(function (c) {
+              DB.collection(c.name).removeMany();
+            });
+            done();
+          }).catch(done);
+        };
 
-function firstToUpperCase(string) {
-  return string.substr(0, 1).toUpperCase() + string.substr(1);
-}
-exports.seedAirports = seedAirports;
-exports.seedFlights = seedFlights;
-exports.searchRoundTripFlight = searchRoundTripFlight;
-exports.formatData = formatData;
-exports.searchFlightsOneWay=searchFlightsOneWay;
-exports.filteringClass=filteringClass;
+        function firstToUpperCase(string) {
+          return string.substr(0, 1).toUpperCase() + string.substr(1);
+        }
+        exports.seedAirports = seedAirports;
+        exports.seedFlights = seedFlights;
+        exports.searchRoundTripFlight = searchRoundTripFlight;
+        exports.formatData = formatData;
+        exports.searchFlightsOneWay=searchFlightsOneWay;
+        exports.filteringClass=filteringClass;
