@@ -43,6 +43,27 @@ module.exports = function(app) {
 	});
 
 
+    app.get('/api/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req, res) {
+		var originValue = req.params['origin'];
+		var destinationValue = req.params['destination'];
+		var departingDateValue = req.params['departingDate'];
+		var classValue = req.params['class'];
+         var seatsValue = req.params['seats'];
+
+		var info={
+			"origin"        : originValue ,
+			"destination"   : destinationValue ,
+			"departureDate" : departingDateValue ,
+			"class"         : classValue,
+			"seats"         : seatsValue
+		};
+
+		db.searchFlightsOneWay(info, function (err, flights) {
+			if (err) return next(err);
+			res.send(flights);
+		});
+
+	});
 
 	app.use(function(req, res, next) {
 
@@ -145,27 +166,29 @@ module.exports = function(app) {
 		});
 
 	});
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:class', function(req, res) {
-		var originValue = req.params['origin'];
-		var destinationValue = req.params['destination'];
-		var departingDateValue = req.params['departingDate'];
-		var classValue = req.params['class'];
+	// app.get('/api/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req, res) {
+	// 	var originValue = req.params['origin'];
+	// 	var destinationValue = req.params['destination'];
+	// 	var departingDateValue = req.params['departingDate'];
+	// 	var classValue = req.params['class'];
+ //         var seatsValue = req1.paramas['seats'];
 
-		var info={
-			"origin"        : originValue ,
-			"destination"   : destinationValue ,
-			"departureDate" : departingDateValue ,
-			"class"         : classValue
-		};
+	// 	var info={
+	// 		"origin"        : originValue ,
+	// 		"destination"   : destinationValue ,
+	// 		"departureDate" : departingDateValue ,
+	// 		"class"         : classValue,
+	// 		"seats"         : seatsValue
+	// 	};
 
-		db.searchFlightsOneWay(info, function (err, flights) {
-			if (err) return next(err);
-			res.send(flights);
-		});
+	// 	db.searchFlightsOneWay(info, function (err, flights) {
+	// 		if (err) return next(err);
+	// 		res.send(flights);
+	// 	});
 
-	});
+	// });
 
-	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req, res) {
+	app.get('/api/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req, res) {
 		var params = {};
 		var reqClass = req.params['class'];
 		params.origin = req.params['origin'];
@@ -173,6 +196,7 @@ module.exports = function(app) {
 		params.departingDate = req.params['departingDate']
 		params.returningDate = req.params['returningDate']
 		params.class = req.params['class'];
+		params.seats = req.params['seats'];
 		db.searchRoundTripFlight(params,function(result){
 			db.formatData(result,reqClass,function(finalresult){
 				res.send(finalresult);
@@ -236,18 +260,17 @@ module.exports = function(app) {
 	});
 
 
-
 	//new code other airlines
 
-	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class', function(req1,res1){
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req1,res1){
 		const async = require('async');
 		const request = require('request');
-		var result;
-		// var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE0NjEwOTcwMzgsImV4cCI6MTQ5MjYzMzAzOCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSJ9.aBQAGNps9e3XlMEKL_ngj6SwfnPSIqeJacBczEC16k4';
+		var result=[];
 		var originValue = req1.params['origin'];
 		var destinationValue = req1.params['destination'];
 		var departingDateValue = req1.params['departingDate'];
 		var classValue = req1.params['class'];
+        var seatsValue = req1.paramas['seats'];
 
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
@@ -257,8 +280,8 @@ module.exports = function(app) {
 			const options = {
 				port:80,
 				method:'GET',
-				// header: { 'x-access-token': token },
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'?wt='+token
+				json:true,
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
 			};
 			request(options, function(err, res, body) {
 				callback(err, body);
@@ -293,30 +316,31 @@ module.exports = function(app) {
 
 		async.map(urls, httpGet, function (err, res){
 
-
-			// for(var i=0;i<res.length;i++)
-			// {
-			//   result.push(res[i].outgoingFlights);
-			// }
-
-
-			res1.send(res);
+			console.log( res);
+			console.log("res length"+res.length);
+			for(var i=0;i<res.length;i++)
+			{
+			  result.push(res[i].outgoingFlights);
+			}
+            var finalresult = {"outgoingFlights":result};
+			res1.send(finalresult);
 
 		});
 	});
 
-	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class', function(req1,res1){
+	app.get('/api/other/flights/search/:origin/:destination/:departingDate/:returningDate/:class/:seats', function(req1,res1){
 
 		const async = require('async');
 		const request = require('request');
 		var outgoing=[];
 		var returning=[];
-		var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
 		var originValue = req1.params['origin'];
 		var destinationValue = req1.params['destination'];
 		var departingDateValue = req1.params['departingDate'];
 		var returningDateValue = req1.params['returningDate'];
 		var classValue = req1.params['class'];
+		var seatsValue = req1.paramas['seats'];
+
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
 			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
@@ -324,7 +348,8 @@ module.exports = function(app) {
 			const options = {
 				port:80,
 				method:'GET',
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'?wt='+token
+				json:true,
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
 			};
 			request(options, function(err, res, body) {
 				callback(err, body);
@@ -334,7 +359,6 @@ module.exports = function(app) {
 		const urls= [
 			"http://ec2-54-152-123-100.compute-1.amazonaws.com",
 			"http://52.27.150.19",
-			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
 			"http://52.90.46.68",
 			"http://52.34.160.140",
 			"http://52.36.195.124",
@@ -353,20 +377,24 @@ module.exports = function(app) {
 			"http://52.32.109.147",
 			"http://52.36.169.206",
 			"http://ec2-52-91-94-227.compute-1.amazonaws.com",
-			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com",
-			"http://ec2-52-90-41-197.compute-1.amazonaws.com"
+			"http://ec2-52-26-166-80.us-west-2.compute.amazonaws.com"
 		];
 
 		async.map(urls, httpGet, function (err, res){
-			// outgoing.push(res.outgoingFlights);
-			// returning.push(res.returnFlights);
-			// var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
-			// res1.send( Finalresult);
+			console.log(res);
 
-			res1.send(res);
+			for(var i=0;i<res.length;i++)
+			{
+			  outgoing.push(res[i].outgoingFlights);
+			  returning.push(res[i].returnFlights);
+			}
+
+			var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
+			res1.send( Finalresult);
+
 
 		});
 
 	});
 
-};
+}
