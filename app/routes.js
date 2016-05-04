@@ -37,6 +37,7 @@ module.exports = function(app) {
 			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
 			else{
 				var information = req.body;
+				console.log(information);
 				db.addBooking(information,function(error,refNum){
 					if (!error) res.send({ refNum: refNum, errorMessage: null});
 					else console.log(error);
