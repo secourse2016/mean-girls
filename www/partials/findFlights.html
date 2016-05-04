@@ -7,17 +7,17 @@
 
             <ion-toggle toggle-class="toggle-calm" id="direction" name="direction" ng-model="$parent.oneWay"  ng-true-value="1" ng-false-value="0" >One Way</ion-toggle>
 
-            <label class="item item-input item-select">
+            <label  class="item item-input item-select">
                 <div class="input-label">
                   From
                 </div>
-                <select type="text"  id="origin" name="origin" placeholder="Select origin" ng-model="$parent.origin" ng-options="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull">
+                <select type="text"  id="origin" name="origin" placeholder="Select origin" ng-model="$parent.origin" ng-options="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull"></select>
             </label>
-            <label class="item item-input item-select">
+            <label  class="item item-input item-select">
                 <div class="input-label">
                   To
                 </div>
-                <select type="text"  id="destination" name="destination" placeholder="Select destination" ng-model="$parent.destination" ng-options="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull">
+                <select type="text"  id="destination" name="destination" placeholder="Select destination" ng-model="$parent.destination" ng-options="airport.iata as airport.iata for airport in airports| filter:{'iata':$viewValue} | filter:notNull"></select>
             </label>
 
             <onezone-datepicker datepicker-object="onezoneDatepickerOutgoing ">
