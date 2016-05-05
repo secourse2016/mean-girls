@@ -52,4 +52,5 @@ app.config(function($httpProvider,$routeProvider) {
 			}
 		};
 	}]);
+	Stripe.setPublishableKey('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
 });
