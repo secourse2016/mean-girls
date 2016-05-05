@@ -1,4 +1,6 @@
+
 angular.module('alaska').controller('confirmCtrl',function($scope,confirmSrvc,flightsSrvc){
+
   $scope.refNumOut = confirmSrvc.bookingRefOut;
   $scope.refNumRet = confirmSrvc.bookingRefRet;
   $scope.airlineOut = confirmSrvc.airlineOut;

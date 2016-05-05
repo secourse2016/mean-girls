@@ -1,0 +1,76 @@
+<ion-view view-title="Flights">
+  <ion-content>
+  	<h3>Outgoing Flights</h3>
+  	<ion-list>
+		<div class="card" ng-repeat="outgoingFlight in outgoingFlights">
+			<div class="item item-divider col">
+					Flight Number: {{outgoingFlight.flightNumber}}
+			</div>
+			<div class="item item-text-wrap">
+				<div class="row">
+					<div class="col col-50">
+						Class: {{seatClass}}
+					</div>
+					<div class="col col-50">
+					 {{outgoingFlight.cost}} {{outgoingFlight.currency}}
+					</div>
+				</div>
+				<div class="row">
+					<label >
+				{{outgoingFlight.departureDateTime | date :  "shortTime"}}   ->   {{outgoingFlight.arrivalDateTime | date :  "shortTime"}}
+					</label>
+				</div>
+				<div class="row">
+					<label>
+						Aircraft: {{outgoingFlight.aircraftType}} {{outgoingFlight.aircraftModel}}
+					</label>
+					<label ng-show="otherAirlines===1">
+						Airline: {{outgoingFlight.Airline}} Airlines
+					</label>
+				</div>
+			</div>
+
+
+
+			<ion-radio class="col" name="selectedOutgoing" ng-model="$parent.selectedOutgoing.index" ng-value="{{$index}}" style="background: #2580C9">Add to Cart</ion-radio>
+		</div>
+	</ion-list>
+
+	<h3 ng-hide="oneWay">Return Flights</h3>
+
+	<ion-list ng-hide="oneWay">
+		<div class="card" ng-repeat="returnFlight in returnFlights">
+		<div class="item item-divider col">
+					Flight Number: {{returnFlight.flightNumber}}
+			</div>
+			<div class="item item-text-wrap">
+				<div class="row">
+					<div class="col col-50">
+						Class: {{seatClass}}
+					</div>
+					<div class="col col-50">
+					 {{returnFlight.cost}} {{returnFlight.currency}}
+					</div>
+				</div>
+				<div class="row">
+					<label >
+				{{returnFlight.departureDateTime | date :  "shortTime"}}   ->   {{returnFlight.arrivalDateTime | date :  "shortTime"}}
+					</label>
+				</div>
+				<div class="row">
+					<label>
+						Aircraft: {{returnFlight.aircraftType}} {{returnFlight.aircraftModel}}
+					</label>
+					<label ng-show="otherAirlines===1">
+						Airline: {{returnFlight.Airline}} Airlines
+					</label>
+				</div>
+			</div>
+			<ion-radio class="col " name="selectedReturn" ng-model="$parent.selectedReturn.index" ng-value="{{$index}}" style="background: #2580C9">Add to Cart</ion-radio>
+		</div>
+	</ion-list>
+
+	  <ion-item  style="border-radius:-1px -1px -1px -1px;" class="button button-calm  button-block" type="button" ng-click="Continue()">Continue</ion-item>
+
+  </ion-content>
+</ion-view>
