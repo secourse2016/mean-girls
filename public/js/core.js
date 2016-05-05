@@ -34,19 +34,20 @@ app.config(function($httpProvider,$routeProvider) {
 		templateUrl : 'views/landing-new.html',
 		controller  : 'landingCtrl'
 	})
+	//set stripe's public key
+	Stripe.setPublishableKey('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
 
-	// Inject jwt token to all http requests
-	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
-	$httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
+
+
+	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBdXN0cmlhbiBBaXJsaW5lcyIsImlhdCI6MTQ2MDYzNTE1OCwiZXhwIjoxNDkyMTcxMTU4LCJhdWQiOiJ3d3cuYXVzdHJpYW4tYWlybGluZXMuY29tIiwic3ViIjoiYXVzdHJpYW5BaXJsaW5lcyJ9.Dilu6siLX3ouLk48rNASpYJcJSwKDTFYS2U4Na1M5k4';
+	$httpProvider.interceptors.push(['$q', function ($q) {
 		return {
 			'request': function (config) {
-				config.headers = config.headers || {};
+				config.body = config.headers || {};
 				config.headers['x-access-token'] = token;
 				return config;
 			},
 			'responseError': function (response) {
-				if (response.status === 401 || response.status === 403) {
-				}
 				return $q.reject(response);
 			}
 		};

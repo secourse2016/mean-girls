@@ -30,13 +30,13 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
         
 
                 /*one way trip*/
-        var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
-
+        // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
+    var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBdXN0cmlhbiBBaXJsaW5lcyIsImlhdCI6MTQ2MDYzNTE1OCwiZXhwIjoxNDkyMTcxMTU4LCJhdWQiOiJ3d3cuYXVzdHJpYW4tYWlybGluZXMuY29tIiwic3ViIjoiYXVzdHJpYW5BaXJsaW5lcyJ9.Dilu6siLX3ouLk48rNASpYJcJSwKDTFYS2U4Na1M5k4';
         if(oneWay===1){
-            $http.get('http://localhost:3000/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass+'/1'+'?wt='+token).success(function(flights){
+            $http.get('http://localhost:3000/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass+'/1/'+'?wt='+token).success(function(flights){
                 flightsSrvc.outgoingFlights.concat(flights);
                 if(otherAirlines===1){
-                    $http.get('http://localhost:3000/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass+'/1'+'?wt='+token).success(function(othersFlights){
+                    $http.get('http://localhost:3000/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+seatClass+'/1/'+'?wt='+token).success(function(othersFlights){
                         flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
                         if(flightsSrvc.outgoingFlights.length===0){
                             flightsSrvc.foundFlights=0;
@@ -56,12 +56,13 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
         else{
             var returningDate=new Date($scope.onezoneDatepickerReturn.date).getTime();
             // console.log('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass);
-            $http.get('http://localhost:3000/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass+'/1'+'?wt='+token).success(function(flights){
+            $http.get('http://localhost:3000/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass+'/1/'+'?wt='+token).success(function(flights){
                 flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
                 flightsSrvc.returnFlights=flightsSrvc.returnFlights.concat(flights.returnFlights);
+                console.log()
 
                 if(otherAirlines===1){
-                    $http.get('http://localhost:3000/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass+'/1'+'?wt='+token).success(function(othersFlights){
+                    $http.get('http://localhost:3000/api/other/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass+'/1/'+'?wt='+token).success(function(othersFlights){
                         flightsSrvc.outgoingFlights.concat(othersFlights.outgoingFlights);
                         flightsSrvc.returnFlights.concat(othersFlights.returnFlights);
                         $state.go('tabsController.findFlights.flights');

@@ -13,37 +13,11 @@ module.exports = function(app) {
 
 
 	app.use(function (req, res, next) {
-		res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST', 'OPTIONS', 'PUT', 'DELETE');
+		res.setHeader('Access-Control-Allow-Methods', '*');
+		res.setHeader('Access-Control-Allow-Headers', '*');
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.setHeader('Content-Type','application/json');
 		next();
-	});
-	app.get('/stripe/pubkey', function (req,res) {
-		res.json('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
-	});
-	app.post('/booking', function(req, res) {
-
-		// retrieve the token
-		console.log(req);
-		var stripeToken = req.body.paymentToken;
-		console.log(stripeToken);
-
-		var flightCost  = parseInt(req.body.cost) * 100;
-		// attempt to create a charge using token
-		stripe.charges.create({
-			amount: flightCost,
-			currency: "usd",
-			source: stripeToken,
-			description: "test"
-		}, function(err, data) {
-			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
-			else{
-				var information = req.body;
-				db.addBooking(information,function(err,refNum){
-					if (!err) res.send({ refNum: refNum, errorMessage: null});
-				});
-			}
-		});
 	});
 
 
@@ -83,7 +57,7 @@ module.exports = function(app) {
 		var token = req.body.wt || req.query.wt || req.headers['x-access-token'];
 
 
-		var jwtSecret = 'CSEN603ROCKSi<8SE';
+		var jwtSecret = 'CSEN603ROCKSi<8SE!';
 
 		// Get JWT contents:
 		try
@@ -98,6 +72,36 @@ module.exports = function(app) {
 			res.status(403).sendFile(path.join(__dirname, '../public', '403.html'));
 		}
 
+	});
+
+
+	app.get('/stripe/pubkey', function (req,res) {
+		res.json('pk_test_I5BoepTFhbNEZbcMq5eUeSRg');
+	});
+	app.post('/booking', function(req, res) {
+
+		// retrieve the token
+		var stripeToken = req.body.paymentToken;
+		console.log(stripeToken);
+		console.log("ana wfi l boooking api");
+		var flightCost  = parseInt(req.body.cost) * 100;
+		// attempt to create a charge using token
+		stripe.charges.create({
+			amount: flightCost,
+			currency: "usd",
+			source: stripeToken,
+			description: "test"
+		}, function(err, data) {
+			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
+			else{
+				var information = req.body;
+				console.log(information);
+				db.addBooking(information,function(error,refNum){
+					if (!error) res.send({ refNum: refNum, errorMessage: null});
+					else console.log(error);
+				});
+			}
+		});
 	});
 
 
@@ -262,39 +266,49 @@ module.exports = function(app) {
 		var destinationValue = req1.params['destination'];
 		var departingDateValue = req1.params['departingDate'];
 		var classValue = req1.params['class'];
-		var seatsValue = req1.paramas['seats'];
+		var seatsValue = req1.params['seats'];
+
 
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
-			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
-			var decoded = jwt.verify(token, 'CSEN603ROCKSi<8SE!');
-
+			var token = jwt.sign({},secret);
+			token= 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI';
 			const options = {
-				port:80,
-				method:'GET',
-				json:true,
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
+
+				json:	true,
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'/?wt='+token
+
 			};
+			console.log(options.url);
 			request(options, function(err, res, body) {
 				callback(err, body);
 			});
 		}
 
 		const urls=  [
-			"54.191.202.17",
-			"ec2-52-90-41-197.compute-1.amazonaws.com"
-		];
+
+			"http://54.191.202.17",
+			"http://54.93.36.94",
+			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
+			"http://52.27.150.19",
+			"http://52.58.24.76"
+		]
 
 		async.map(urls, httpGet, function (err, res){
 
-			console.log( res);
-			console.log("res length"+res.length);
+			console.log(res);
+
 			for(var i=0;i<res.length;i++)
-			{
-				result.push(res[i].outgoingFlights);
+			{	if(!res[i])
+				continue;
+				var outgoingFlights = res[i].outgoingFlights;
+				for (var j = 0; j < outgoingFlights.length; j++) {
+					outgoingFlights[j].airlineIP = urls[i];
+				}
+				result = result.concat(outgoingFlights);
 			}
-			var finalresult = {"outgoingFlights":result};
-			res1.send(finalresult);
+			res1.send({outgoingFlights : result});
+
 
 		});
 	});
@@ -310,17 +324,19 @@ module.exports = function(app) {
 		var departingDateValue = req1.params['departingDate'];
 		var returningDateValue = req1.params['returningDate'];
 		var classValue = req1.params['class'];
-		var seatsValue = req1.paramas['seats'];
+		var seatsValue = req1.params['seats'];
+
 
 		function httpGet(url, callback) {
 			var secret = 'CSEN603ROCKSi<8SE!';
-			var token = jwt.sign({},'CSEN603ROCKSi<8SE!');
-			var decoded = jwt.verify(token, 'CSEN603ROCKSi<8SE!');
+			var token = jwt.sign({},secret);
+			token= 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBaXIgTWFkYWdhc2NhciIsImlhdCI6MTQ2MDk1MDc2NywiZXhwIjoxNDkyNDg2NzcyLCJhdWQiOiI1NC4xOTEuMjAyLjE3Iiwic3ViIjoiQWlyLU1hZGFnYXNjYXIifQ.E_tVFheiXJwRLLyAIsp1yoKcdvb8_xCfhjODqG2QkBI';
+
 			const options = {
-				port:80,
 				method:'GET',
 				json:true,
-				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'/'+seatsValue+'?wt='+token
+				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+returningDateValue+'/'+classValue+'/'+seatsValue+'/?wt='+token
+
 			};
 			request(options, function(err, res, body) {
 				callback(err, body);
@@ -328,8 +344,13 @@ module.exports = function(app) {
 		}
 
 		const urls= [
-			"54.191.202.17",
-			"ec2-52-90-41-197.compute-1.amazonaws.com"
+
+			"http://54.191.202.17",
+			"http://54.93.36.94",
+			"http://ec2-52-90-41-197.compute-1.amazonaws.com",
+			"http://52.27.150.19",
+			"http://52.58.24.76"
+
 		];
 
 		async.map(urls, httpGet, function (err, res){
@@ -337,8 +358,22 @@ module.exports = function(app) {
 
 			for(var i=0;i<res.length;i++)
 			{
-				outgoing.push(res[i].outgoingFlights);
-				returning.push(res[i].returnFlights);
+
+				if(!res[i])
+				continue;
+				var outgoingFlights = res[i].outgoingFlights;
+				var returnFlights 	= res[i].returnFlights;
+
+				for (var j = 0; j < returnFlights.length; j++) {
+					returnFlights[j].airlineIP = urls[i];
+				}
+				for (var j = 0; j < outgoingFlights.length; j++) {
+					outgoingFlights[j].airlineIP = urls[i];
+				}
+
+				outgoing = outgoing.concat(outgoingFlights);
+				returning =returning.concat(returnFlights);
+
 			}
 
 			var Finalresult={ "outgoingFlights" : outgoing,"returnFlights":returning};
