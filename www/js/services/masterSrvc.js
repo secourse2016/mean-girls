@@ -232,6 +232,7 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
 
     console.dir("ana hena booking: "+ JSON.stringify(req));
     console.log("el airline ip"+airlineIP);
+    
     $http.post(airlineIP + '/booking/?wt='+jwt,req).success(function(res){
       if(res.errorMessage){
         console.log("error hena"+res.errorMessage);
