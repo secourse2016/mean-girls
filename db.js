@@ -5,6 +5,7 @@ var routes  = require('./json/routes.json');
 var moment = require('moment');
 var DB = null;
 var dbURL = 'mongodb://localhost:27017/alaska';
+var ObjectId = require('mongodb').ObjectId;
 
 exports.connect = function(cb) {
   return mongo.connect(dbURL, function(err, db) {
@@ -355,10 +356,12 @@ exports.seed= function (cb) {
 
 
 //Find flight from DB when given flight number
-exports.searchFlight = function(flightNo,cb){
-  DB.collection('flights').find({"_id":flightNo},function(err,cursor){
+exports.searchFlight = function(flightId,cb){
+  console.log(flightId);
+  var o_id = new ObjectId(flightId);
+
+  DB.collection('flights').find({ _id : o_id},function(err,cursor){
     cursor.toArray(cb);
-    // cb(err,flight);
   });
 };
 
@@ -382,8 +385,8 @@ exports.addBooking=function(i,cb){
     "paymentToken":i.paymentToken,
     "bookingRefNo":null,
     "reservationID":null,
-    "outgoingFlightID":i.outgoingFlightID,
-    "returnFlightID":i.returnFlightID
+    "outgoingFlightId":i.outgoingFlightId,
+    "returnFlightId":i.returnFlightId
 
   },function (err){
     if (err) return err;
@@ -420,9 +423,13 @@ function updateSeatmapRec(x,i,resIDToBe,numberOfSeats,cb){
 
 function updateSeatmap (i,resIDToBe,cb){
   if(i.class === "economy"){
+
+    var out_id = new ObjectId(i.outgoingFlightId);
+
+
     DB.collection('flights').update(
       {
-        _id:i.outgoingFlightID ,
+        _id:out_id ,
         seatmap:{
           $elemMatch : {
             cabin : "economy",
@@ -434,9 +441,10 @@ function updateSeatmap (i,resIDToBe,cb){
           $inc:{availableSeats:-1,availableEconomySeatsSeats:-1}
         },function(err,results){
           if(err) return err;
+          var ret_id = new ObjectId(i.returnFlightId);
           DB.collection('flights').update(
             {
-              _id:i.returnFlightID ,
+              _id:ret_id ,
               seatmap:{
                 $elemMatch : {
                   cabin : "economy",
@@ -456,9 +464,11 @@ function updateSeatmap (i,resIDToBe,cb){
       }
       else{
         if(i.class=="business"){
+          var out_id = new ObjectId(i.outgoingFlightId);
+
           DB.collection('flights').update(
             {
-              _id:i.outgoingFlightID ,
+              _id:out_id ,
               seatmap:{
                 $elemMatch : {
                   cabin : "business",
@@ -470,9 +480,10 @@ function updateSeatmap (i,resIDToBe,cb){
                 $inc:{availableSeats:-1,availableBusinessSeatsSeats:-1}
               },function(err,results){
                 if(err) return err;
+                var ret_id = new ObjectId(i.returnFlightId);
                 DB.collection('flights').update(
                   {
-                    _id:i.returnFlightID ,
+                    _id:ret_id ,
                     seatmap:{
                       $elemMatch : {
                         cabin : "business",
