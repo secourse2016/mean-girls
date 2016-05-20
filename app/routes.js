@@ -252,7 +252,7 @@ module.exports = function(app) {
 
 	app.get('/api/flight/:flightNo', function(req,res){
 		var flightNumber = req.params['flightNo'];
-		db.searchFlight(flightNumber,function(err,flight){
+		db.searchFlightNumber(flightNumber,function(err,flight){
 			res.send(flight[0]);
 		});
 

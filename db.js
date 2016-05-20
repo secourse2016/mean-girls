@@ -357,14 +357,18 @@ exports.seed= function (cb) {
 
 //Find flight from DB when given flight number
 exports.searchFlight = function(flightId,cb){
-  console.log(flightId);
   var o_id = new ObjectId(flightId);
-
   DB.collection('flights').find({ _id : o_id},function(err,cursor){
     cursor.toArray(cb);
   });
 };
 
+exports.searchFlightNumber = function(flightNo,cb){
+
+  DB.collection('flights').find({ flightNumber : flightNo},function(err,cursor){
+    cursor.toArray(cb);
+  });
+};
 
 //Find booking from DB when given booking reference number
 exports.searchBooking = function(bookingRef,cb){
