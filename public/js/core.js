@@ -1,8 +1,13 @@
+var app = angular.module('alaska',['ngRoute','ui.bootstrap']);
+
+// disable debug added info for optimization
+app.config(['$compileProvider', function ($compileProvider) {
+  $compileProvider.debugInfoEnabled(false);
+}]);
+
 /**
 * Angular Routes
 */
-
-var app = angular.module('alaska',['ngRoute','ui.bootstrap']);
 
 app.config(function($httpProvider,$routeProvider) {
 	$routeProvider

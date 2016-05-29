@@ -9,9 +9,26 @@ controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrv
 	$scope.origin=flightsSrvc.origin;
 	$scope.destination=flightsSrvc.destination;
 	$scope.seatClass=flightsSrvc.seatClass;
-	// $scope.selectedOutgoing=$scope.outgoingFlights[$scope.selectedOutgoing.index-1];
-	// if(oneWay!==1)
-	// $scope.selectedReturn=$scope.returnFlights[$scope.selectedReturn.index-1];
+	$scope.price = 0;
+
+	function cost (arr, index){
+		if(index !== undefined){
+			return parseInt(arr[index].cost);
+		}
+		else {
+			return 0;
+		}
+	}
+	$scope.selectFlight = function(){
+		if(oneWay)
+		{
+			$scope.price = cost($scope.outgoingFlights,$scope.selectedOutgoing);
+		}
+		else {
+			$scope.price = cost($scope.outgoingFlights,$scope.selectedOutgoing) + cost($scope.returnFlights,$scope.selectedReturn);
+		}
+	}
+
 	$scope.openModal= function(message){
 		modalSrvc.modalMessage = message;
 		var modalInstance = $uibModal.open({

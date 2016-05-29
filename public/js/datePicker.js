@@ -8,8 +8,7 @@ var spanDateFormat = 'ddd, MMMM D yyyy';
 dateSelect.datepicker({
   autoclose: true,
   format: "yyyy-mm-dd",
-  maxViewMode: 0,
-  startDate: "now"
+  maxViewMode: 0
 }).on('change', function() {
   var start = $.format.date(dateDepart.datepicker('getDate'), spanDateFormat);
   var end = $.format.date(dateReturn.datepicker('getDate'), spanDateFormat);
