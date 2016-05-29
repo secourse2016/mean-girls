@@ -95,7 +95,7 @@
     </h3>
     <table class="table table-hover">
       <tbody>
-        <tr>
+        <tr ng-show="selectedOutgoing!==undefined">
           <td>
             <div class="row flight-number">
               {{outgoingFlights[selectedOutgoing].flightNumber}}
@@ -109,7 +109,7 @@
           </td>
           <td>{{outgoingFlights[selectedOutgoing].cost | currency}}</td>
         </tr>
-        <tr ng-hide="oneWay">
+        <tr ng-show="!oneWay && selectedReturn!==undefined">
           <td>
             <div class="row flight-number">
               {{returnFlights[selectedReturn].flightNumber}}
