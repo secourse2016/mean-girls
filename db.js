@@ -294,7 +294,6 @@ function firstToLowerCase(string) {
 }
 
 function formatData(beforeFormattingData,reqClass,cb) {
-  // console.log("BEFORE FORMATING: ", beforeFormattingData);
   var formattedData = {};
   var formattedOutgoing = [];
   var formattedReturn = [];
@@ -336,7 +335,6 @@ function formatData(beforeFormattingData,reqClass,cb) {
   }
   formattedData.outgoingFlights = formattedOutgoing;
   formattedData.returnFlights = formattedReturn;
-  // console.log("FORMATTED DATA: ",formattedData);
   cb(formattedData);
 }
 

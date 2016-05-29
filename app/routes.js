@@ -82,8 +82,6 @@ module.exports = function(app) {
 
 		// retrieve the token
 		var stripeToken = req.body.paymentToken;
-		console.log(stripeToken);
-		console.log("ana wfi l boooking api");
 		var flightCost  = parseInt(req.body.cost) * 100;
 		// attempt to create a charge using token
 		stripe.charges.create({
@@ -95,7 +93,6 @@ module.exports = function(app) {
 			if (err) res.send({ refNum: null, errorMessage: "Error occured while charging: "+ err});
 			else{
 				var information = req.body;
-				console.log(information);
 				db.addBooking(information,function(error,refNum){
 					if (!error) res.send({ refNum: refNum, errorMessage: null});
 					else console.log(error);
@@ -124,9 +121,7 @@ module.exports = function(app) {
 			}
 			bookingResult = booking[0];
 			var outFlight=booking[0].outgoingFlightId;
-			console.log(outFlight);
 			db.searchFlight(outFlight,function(err,Outflight){
-				console.log(Outflight);
 				booking[0].outgoingFlight = Outflight[0];
 				var resvID=bookingResult.reservationID;
 				var seatMap=Outflight[0].seatmap;
@@ -135,12 +130,10 @@ module.exports = function(app) {
 				for (var i = 0; i < seatMap.length; i++) {
 					if(seatMap[i].reservationID===resvID){
 						outSeat=seatMap[i];
-						console.log("found it");
 						break;
 
 					}
 				}
-				console.log(outSeat);
 				var seatNumber = outSeat.seatNumber;
 				var cabinClass = outSeat.cabin;
 				var cost = outSeat.cost;
@@ -282,7 +275,6 @@ module.exports = function(app) {
 				url :  url + '/api/flights/search/'+originValue+'/'+destinationValue+'/'+departingDateValue+'/'+classValue+'/'+seatsValue+'/?wt='+token
 
 			};
-			console.log(options.url);
 			request(options, function(err, res, body) {
 				callback(err, body);
 			});
@@ -298,9 +290,6 @@ module.exports = function(app) {
 		]
 
 		async.map(urls, httpGet, function (err, res){
-
-			console.log(res);
-
 			for(var i=0;i<res.length;i++)
 			{	if(!res[i])
 				continue;
@@ -357,8 +346,6 @@ module.exports = function(app) {
 		];
 
 		async.map(urls, httpGet, function (err, res){
-			console.log(res);
-
 			for(var i=0;i<res.length;i++)
 			{
 

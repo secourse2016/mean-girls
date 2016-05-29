@@ -120,7 +120,6 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
           // srvc.openModal(resOut.errorMessage);
           return;
         }
-        console.log("postt succ.");
         confirmSrvc.bookingRefOut = resOut.refNum;
         confirmSrvc.airlineOut  = srvc.outgoingFlight.Airline;
 
@@ -230,17 +229,14 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
     var airline   = srvc.returnFlight.Airline;
     var airlineIP = airline==="Alaska"? "http://52.207.211.179" :srvc.returnFlight.airlineIP;
 
-    console.dir("ana hena booking: "+ JSON.stringify(req));
-    console.log("el airline ip"+airlineIP);
-    
+
     $http.post(airlineIP + '/booking/?wt='+jwt,req).success(function(res){
       if(res.errorMessage){
-        console.log("error hena"+res.errorMessage);
+        console.log(res.errorMessage);
         //couldn't charge the card
         // srvc.openModal(res.errorMessage);
         return;
       }
-      console.log("booking suc");
       var bookingRef = res.refNum;
       confirmSrvc.bookingRefOut = res.refNum;
       confirmSrvc.bookingRefRet = null;
@@ -249,15 +245,6 @@ angular.module('alaskaIonic').service('masterSrvc', function ($http,$state,booki
 
   }
 
-
-
-  // srvc.openModal =  function(message){
-  //   modalSrvc.modalMessage = message;
-  //   var modalInstance = $uibModal.open({
-  //     templateUrl: 'myModalContent.html',
-  //     controller: 'ModalInstanceCtrl'
-  //   });
-  // }
 
 
 });

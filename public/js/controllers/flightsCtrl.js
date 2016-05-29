@@ -47,7 +47,6 @@ controller('flightsCtrl',function($scope, $http,$location ,flightsSrvc,masterSrv
 		masterSrvc.seatClass=flightsSrvc.seatClass;
 
 		masterSrvc.outgoingFlight=angular.copy($scope.outgoingFlights[$scope.selectedOutgoing]);
-		console.log(masterSrvc.outgoingFlight.flightId);
 		var oneWay=$scope.oneWay;
 		var total=$scope.outgoingFlights[$scope.selectedOutgoing].cost;
 
