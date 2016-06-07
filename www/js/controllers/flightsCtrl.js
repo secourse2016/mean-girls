@@ -22,7 +22,6 @@ controller('flightsCtrl',function($scope, $http,$state ,flightsSrvc,masterSrvc){
 
 		if(oneWay!==1){
 			masterSrvc.returnFlight=angular.copy($scope.returnFlights[$scope.selectedReturn.index]);
-			// console.log(masterSrvc.returnFlight);
 			total+=Number($scope.returnFlights[$scope.selectedReturn.index].cost);
 		}
 
@@ -34,4 +33,3 @@ controller('flightsCtrl',function($scope, $http,$state ,flightsSrvc,masterSrvc){
 
 
 });
-

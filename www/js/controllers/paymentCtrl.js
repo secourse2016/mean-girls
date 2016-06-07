@@ -10,7 +10,6 @@ angular.module('alaskaIonic')
     var expiryDate=""+$scope.expiryMonth+"-"+$scope.expiryYear; //mm-yy
     masterSrvc.payment.expiryDate=expiryDate;
     masterSrvc.payment.expiryMonth= $scope.expiryMonth;
-    console.log("filpayment"+$scope.expiryMonth);
     masterSrvc.payment.expiryYear= $scope.expiryYear;
 
     masterSrvc.payment.cardHolder=$scope.cardHolder;
