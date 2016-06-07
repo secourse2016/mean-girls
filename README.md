@@ -1,4 +1,8 @@
 # Alaska-Airlines
-app-id :51870346
 
-note: view ionic app from mobile not using browser, as github deletes plugin folders when merging with dev.
+DISCLAIMER: This project is solely for **academic purposes** for a university software engineering course.
+NO real companies or payments are involved.
+All copyrights of any graphics goes to their respective owners.
+Credits for most illustrations go to freepik.com.
+
+Mobile Ionic app ID : **51870346**.
