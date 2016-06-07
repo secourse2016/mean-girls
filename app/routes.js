@@ -177,6 +177,7 @@ module.exports = function(app) {
 
 	});
 	app.get('/api/flights/search/:origin/:destination/:departingDate/:class/:seats', function(req, res) {
+
 		var originValue = req.params['origin'];
 		var destinationValue = req.params['destination'];
 		var departingDateValue = req.params['departingDate'];
@@ -190,6 +191,8 @@ module.exports = function(app) {
 			"class"         : classValue,
 			"seats"         : seatsValue
 		};
+
+		console.log(info);
 
 		db.searchFlightsOneWay(info, function (err, flights) {
 			if (err) return next(err);
