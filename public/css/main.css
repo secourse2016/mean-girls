@@ -5,6 +5,7 @@
 
 body {
   background-image: url("../img/alaska-new.png");
+  background-size: cover;
   position: relative;
   margin:0;
   padding:0;

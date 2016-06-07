@@ -1,5 +1,5 @@
 angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$state,flightsSrvc,$http,masterSrvc){
-    
+
     // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
     // $http.get('http://localhost:3000/api/airports/?wt='+token).success(function(data) {
     //     $scope.airports = data;
@@ -7,7 +7,6 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
     // });
     $scope.airports=flightsSrvc.getAirports();
     masterSrvc.airports=flightsSrvc.getAirports();
-    console.log($scope.airports);
 
     $scope.findFlights = function() {
         var origin= $scope.origin;
@@ -27,7 +26,7 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
 
         flightsSrvc.outgoingFlights=[];
         flightsSrvc.returnFlights=[];
-        
+
 
                 /*one way trip*/
         // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBbGFza2EiLCJpYXQiOjE0NjEwNDY5NjcsImV4cCI6MTQ5MjU4Mjk3NCwiYXVkIjoiIiwic3ViIjoiIn0.dxB2Mx4-1W-cqfSeE9LC6QfMGvtLSLXduLrm0j7xzWM';
@@ -55,7 +54,6 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
         /*round trip*/
         else{
             var returningDate=new Date($scope.onezoneDatepickerReturn.date).getTime();
-            // console.log('/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass);
             $http.get('http://52.207.211.179/api/flights/search/'+origin+'/'+destination+'/'+departingDate+'/'+returningDate+'/'+seatClass+'/1/'+'?wt='+token).success(function(flights){
                 flightsSrvc.outgoingFlights=flightsSrvc.outgoingFlights.concat(flights.outgoingFlights);
                 flightsSrvc.returnFlights=flightsSrvc.returnFlights.concat(flights.returnFlights);
@@ -83,8 +81,8 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
     };
 
   $scope.onezoneDatepickerOutgoing = {
-    date: Date.now(), // MANDATORY                     
-    mondayFirst: false,                                                     
+    date: Date.now(), // MANDATORY
+    mondayFirst: false,
     disablePastDays: true,
     disableSwipe: false,
     disableWeekend: false,
@@ -100,8 +98,8 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
     }
   };
   $scope.onezoneDatepickerReturn = {
-    date: Date.now(), // MANDATORY                     
-    mondayFirst: false,                                                     
+    date: Date.now(), // MANDATORY
+    mondayFirst: false,
     disablePastDays: true,
     disableSwipe: false,
     disableWeekend: false,
@@ -124,4 +122,3 @@ angular.module('alaskaIonic').controller('findFlightsCtrl',function ($scope,$sta
 
 
 });
-

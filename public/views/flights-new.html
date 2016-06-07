@@ -33,7 +33,7 @@
           </td>
           <td>
             <fieldset >
-              <input type="radio" class="class" id="outgoing{{$index}}" name="outgoingCost" ng-model="$parent.selectedOutgoing" ng-value="{{$index}}"/>
+              <input type="radio" ng-click="selectFlight()" class="class" id="outgoing{{$index}}" name="outgoingCost" ng-model="$parent.selectedOutgoing" ng-value="{{$index}}"/>
               <label for="outgoing{{$index}}">{{outgoingFlight.cost}} {{outgoingFlight.currency}}</label>
             </fieldset>
           </td>
@@ -75,7 +75,7 @@
           </td>
           <td>
             <fieldset >
-              <input type="radio" class="class"  id="return{{$index}}" name="returnCost" ng-model="$parent.selectedReturn" ng-value="{{$index}}"/>
+              <input type="radio" class="class" ng-click="selectFlight()" id="return{{$index}}" name="returnCost" ng-model="$parent.selectedReturn" ng-value="{{$index}}"/>
               <label for="return{{$index}}">{{returnFlight.cost}} {{returnFlight.currency}}</label>
             </fieldset>
           </td>
@@ -91,12 +91,11 @@
 
   <div class="plan">
     <h3>Shopping Cart
-      <span ng-hide="oneWay">${{parseInt(outgoingFlights[selectedOutgoing].cost) + parseInt(returnFlights[selectedReturn].cost)}}</span>
-      <span ng-hide="!oneWay">${{outgoingFlights[selectedOutgoing].cost}}</span>
+      <span>${{price}}</span>
     </h3>
     <table class="table table-hover">
       <tbody>
-        <tr>
+        <tr ng-show="selectedOutgoing!==undefined">
           <td>
             <div class="row flight-number">
               {{outgoingFlights[selectedOutgoing].flightNumber}}
@@ -110,7 +109,7 @@
           </td>
           <td>{{outgoingFlights[selectedOutgoing].cost | currency}}</td>
         </tr>
-        <tr ng-hide="oneWay">
+        <tr ng-show="!oneWay && selectedReturn!==undefined">
           <td>
             <div class="row flight-number">
               {{returnFlights[selectedReturn].flightNumber}}
