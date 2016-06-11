@@ -12,7 +12,7 @@ All copyrights of any graphics go to their respective owners.
 Credits for most illustrations go to freepik.com.
 
 # Trying it out
-1. Choose any of the following routes (both ways):
+1. Choose any of the following routes (both ways):  
 "origin": "BOM", "destination": "DEL",  
 "origin": "CAI", "destination": "JED",  
 "origin": "HKG", "destination": "TPE",  
