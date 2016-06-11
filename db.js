@@ -4,7 +4,8 @@ var airports = require('./json/airports.json');
 var routes  = require('./json/routes.json');
 var moment = require('moment');
 var DB = null;
-var dbURL = 'mongodb://localhost:27017/alaska';
+var dbURL = process.env.MONGODB_URI  ||
+            'mongodb://localhost:27017/alaska';
 var ObjectId = require('mongodb').ObjectId;
 
 exports.connect = function(cb) {
