@@ -12,7 +12,7 @@ All copyrights of any graphics go to their respective owners.
 Credits for most illustrations go to freepik.com.
 
 ## About it
-An airline reservation system implemented in MEAN stack with Stripe API for payment.
+An airline reservation system implemented in **MEAN** stack with **Stripe API** for handling payment.
 
 ## Trying it out
 1. Choose any of the following routes (both ways):  
