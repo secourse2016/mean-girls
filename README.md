@@ -11,6 +11,9 @@ NO real companies or payments are involved.
 All copyrights of any graphics go to their respective owners.
 Credits for most illustrations go to freepik.com.
 
+## About it
+An airline reservation system implemented in MEAN stack with Stripe API for payment.
+
 ## Trying it out
 1. Choose any of the following routes (both ways):  
 "origin": "BOM", "destination": "DEL",  
@@ -24,5 +27,6 @@ Credits for most illustrations go to freepik.com.
 "origin": "FRA", "destination": "TXL",  
 "origin": "FCO", "destination": "LIN",  
 
-2. Choose a date between 2016-04-13 & 2016-05-30.
+2. Choose a date between 2016-04-13 & 2016-05-30 for any flight.
 
+3. At payment, use the valid Visa card 4242-4242-4242-4242.
